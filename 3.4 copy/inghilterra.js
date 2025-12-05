@@ -48,8 +48,8 @@ let colonizerDescriptions = {
 
 
 function preload() {
-  table = loadTable("../assets/COLDAT_dyads - Foglio6.csv", "csv", "header");
-  table3 = loadTable("../assets/COLDAT_dyads - Foglio3.csv", "csv", "header");
+  table = loadTable("assets/COLDAT_dyads - Foglio6.csv", "csv", "header");
+  table3 = loadTable("assets/COLDAT_dyads - Foglio3.csv", "csv", "header");
 }
 
 

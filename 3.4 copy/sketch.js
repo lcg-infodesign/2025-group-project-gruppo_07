@@ -25,8 +25,6 @@ let clusterColorsByName = {
 };
 
 let customPositions = {}; 
-let hoveredSphere = null; // Per tracciare la sfera in hover
-
 
 function preload() {
   table = loadTable("assets/COLDAT_dyads - Foglio6.csv", "csv", "header");
@@ -46,7 +44,7 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 
-document.querySelectorAll('.text, .text2, .pointer, .pointer2, .pointer3, .text3').forEach(el => observer.observe(el));
+document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .pointer3, .text3, .falseBtn,.falseTimeLine, .text4, .text5').forEach(el => observer.observe(el));
 
 
 
@@ -65,13 +63,13 @@ function setup(){
       colonizerGroups.get(colonizer).push({ country, duration, endYear, startYear });
     }
 
-  new p5(sketch, 'general_view')
+  //new p5(sketch, 'general_view')
   new p5(sketch1, 'time_view')
 }
 
 
 
-let sketch = function(p){
+/*let sketch = function(p){
   p.createContainerCanvas = function(container){
     let w = container.width
     let h = container.height
@@ -81,6 +79,7 @@ let sketch = function(p){
   p.setup = function(){
     let container = p.select('#general_view')
     p.createContainerCanvas(container)
+   
   
    // Posizioni
   customPositions = {
@@ -108,6 +107,7 @@ let sketch = function(p){
 
     let colr = clusterColorsByName[colonizer] || "#ffffff";
     let rad = costumRadius[colonizer].r;
+
     clusters.push(new Cluster(x, y, rad, colonizerGroups.get(colonizer), colonizer, colr));
   });
 
@@ -119,21 +119,6 @@ let sketch = function(p){
     cl.update();
     cl.show();
   }
-  }
-  
-  p.mousePressed = function(){
-    if (p.mouseX < 0 || p.mouseX > p.width || p.mouseY < 0 || p.mouseY > p.height) return true;
-    for (let cl of clusters) {
-      for (let s of cl.sphere) {
-        let d = p.dist(p.mouseX, p.mouseY, s.x, s.y);
-        if (d < s.r + 15) {
-          let pageUrl = "inghilterra.html?colonizer=" + cl.name + "&country=" + encodeURIComponent(s.country || '');
-          window.location.href = pageUrl;
-          return false;
-        }
-      }
-    }
-    return true;
   }
 class Cluster {
   constructor(x, y, r, dataArray, name, colr){
@@ -163,8 +148,7 @@ class Cluster {
       this.sphere.push({
         x, y, r: br, v: createVector(0,0), 
         endYear: rec.endYear,
-        startYear: rec.startYear,
-        country: rec.country
+        startYear: rec.startYear  
       });
     }
   }
@@ -221,12 +205,12 @@ class Cluster {
 
 }
 }
+*/
 
 
 
 
 
-//sketch timeline
 
 let sketch1 = function(p){
   let localClusters = [];
@@ -238,8 +222,8 @@ let sketch1 = function(p){
   let globalMaxEnd   = -Infinity;
   let playCheckBox;
   let isPlaying = false;
-  let sliderBounds = null;
-  let lastSliderInteraction = 0;  // Traccia quando lo slider è stato usato
+  let hoveredSphere = null;
+  let morphWidth = 0
 
   p.createContainerCanvas = function(container){
     let w = container.width;
@@ -255,19 +239,9 @@ let sketch1 = function(p){
     forceSlider = p.createSlider(0, 100, 0, 0.01);
     let sliderWidth = p.constrain(p.floor(p.windowWidth * 0.4), 200, 800);
     forceSlider.style('width', sliderWidth + 'px');
+    forceSlider.position(((p.windowWidth - sliderWidth)/2) + 150, p.windowHeight - 70);
     
-    let sliderX = ((p.windowWidth - sliderWidth)/2) + 150;
-    let sliderY = p.windowHeight - 70;
-  
-    forceSlider.position(sliderX, sliderY);
 
-    //salvo i confini dello slider per il mousePressed
-    sliderBounds = {
-    x: sliderX,
-    y: sliderY,
-    width: sliderWidth,
-    height: 40
-  };
  p.updateSliderGradient= function() {
   let val = forceSlider.value();
   let min = forceSlider.elt.min;
@@ -292,9 +266,6 @@ let sketch1 = function(p){
 
   
  forceSlider.input(p.updateSliderGradient);
- forceSlider.input(() => {
-   lastSliderInteraction = Date.now();
- });
 
   playCheckBox = p.select('#playBtn')
   playCheckBox.changed(() => {
@@ -337,45 +308,7 @@ let sketch1 = function(p){
   }
 
 
-  p.mousePressed = function() {
-  // Controlla se il click è SULLO SLIDER - se sì, non fare nulla (lascia fare allo slider)
-  if (sliderBounds && 
-      mouseX >= sliderBounds.x && 
-      mouseX <= sliderBounds.x + sliderBounds.width &&
-      mouseY >= sliderBounds.y && 
-      mouseY <= sliderBounds.y + sliderBounds.height) {
-    return true;  // Permetti allo slider di gestirlo
-  }
-
-  // Se NON è sullo slider, controlla se hai cliccato su una bolla
-  if (mouseX < 0 || mouseX > p.width || mouseY < 0 || mouseY > p.height) {
-    return true;
-  }
-
-  for (let cl of localClusters) {
-    for (let s of cl.sphere) {
-      let d = p.dist(mouseX, mouseY, s.x, s.y);
-      let distToClusterCenter = p.dist(s.x, s.y, cl.x, cl.y);
-      
-      // Controlla se la bolla è cliccata E se non è nell'outer cluster
-      if (d < s.r + 15 && distToClusterCenter < cl.r ) { //DA SISTEMARE PROVARE A USARE il raggio del cluster
-        console.log("Clicked:", cl.name, "colony:", s.country);
-        
-        
-        let pageUrl = "inghilterra.html?colonizer=" + cl.name + "&country=" + encodeURIComponent(s.country);
-        window.location.href = pageUrl;
-        return false;  // Consuma l'evento
-
-        
-      }
-    }
-  }
-
-  return true;  // Se non è né slider né bolla, permetti agli altri elementi
-}
-
-  //draw
-  p.draw = function(){ 
+  p.draw = function(){
     p.clear();
     
     if (isPlaying) {
@@ -392,11 +325,83 @@ let sketch1 = function(p){
     for(let cl of localClusters){
       cl.update();
       cl.show();
+       
     }
 
-  }
-  
+    hoveredSphere = null;
 
+for (let cl of localClusters) {
+  for (let s of cl.sphere) {
+
+    let d = p.dist(p.mouseX, p.mouseY, s.x, s.y);
+    let distToClusterCenter = p.dist(cl.x, cl.y, s.x, s.y);
+
+    if (d < s.r/2 && distToClusterCenter < cl.r) {
+      hoveredSphere = s;  
+      p.push();
+  
+  
+  p.stroke("#313131");
+  p.fill("#e7e1d18b");
+
+  p.textSize(14);
+  let textW = p.textWidth(s.country);
+  
+  let padding = 20;              
+  let boxW = textW + padding * 2;  
+  let boxH = 30;
+
+  p.rect(p.mouseX + 10, p.mouseY - boxH - 5, boxW, boxH, 5);
+
+  p.fill("#313131");
+  p.textFont("montserrat")
+  p.textAlign(p.CENTER, p.CENTER);
+  p.text(s.country, p.mouseX + 10 + boxW / 2, p.mouseY - boxH / 2 - 5);
+
+  p.pop
+
+
+
+
+    } 
+  }
+}
+}
+
+  p.mousePressed = function () {
+
+  let sliderBox = forceSlider.elt.getBoundingClientRect();
+  let mx = p.mouseX + window.scrollX;
+  let my = p.mouseY + window.scrollY;
+
+  if (
+    mx >= sliderBox.left && mx <= sliderBox.right &&
+    my >= sliderBox.top  && my <= sliderBox.bottom
+  ) {
+    return; 
+  }
+
+  for (let cl of localClusters) {
+    for (let s of cl.sphere) {
+
+      let d = p.dist(p.mouseX, p.mouseY, s.x, s.y);
+
+      let distToClusterCenter = p.dist(cl.x, cl.y, s.x, s.y);
+
+      if (d < s.r && distToClusterCenter < cl.r) {
+
+        let pageUrl =
+          "inghilterra.html?colonizer=" +
+          cl.name +
+          "&country=" +
+          encodeURIComponent(s.country);
+
+        window.location.href = pageUrl;
+        return;
+      }
+    }
+  }
+};
 
   class Cluster{
     constructor(x, y, r, data, name, colr){
@@ -417,14 +422,16 @@ let sketch1 = function(p){
         let x = outerCluster.x + p.cos(angle)*outerCluster.r;
         let y = outerCluster.y + p.sin(angle)*outerCluster.r;
         let br = p.map(rec.duration,0,maxDur,5,36);
+        
         this.sphere.push({
           x, y, r: 10, targetR: br,
           v: p.createVector(0,0),
           startYear: rec.startYear,
           endYear: rec.endYear,
+          country: rec.country,
           colr: p.color(colr),
           currentColor: p.color(180),
-          country: rec.country,
+          fadeAlpha: 255
         });
       }
     }
@@ -485,7 +492,7 @@ update() {
       let distAB = p.sqrt(dx*dx + dy*dy); 
       let minDist = A.r + B.r + 1; 
       if(distAB < minDist){ 
-        let overlap = (minDist - distAB) * 0.02; 
+        let overlap = (minDist - distAB) * 0.03; 
         let ang = p.atan2(dy, dx); 
         A.v.x -= p.cos(ang) * overlap; 
         A.v.y -= p.sin(ang) * overlap; 
@@ -497,11 +504,30 @@ update() {
   }
 
     show(){
-      for(let s of this.sphere){
-        p.fill(s.currentColor);
-        p.noStroke();
-        p.circle(s.x,s.y,s.r);
-      }
+
+  for (let s of this.sphere) {
+
+  if (hoveredSphere) {
+
+    if (s === hoveredSphere) {
+      s.fadeAlpha = p.lerp(s.fadeAlpha, 255, 0.2);
+    } else {
+      s.fadeAlpha = p.lerp(s.fadeAlpha, 50, 0.15);
+    }
+
+  } else {
+    s.fadeAlpha = p.lerp(s.fadeAlpha, 255, 0.1);
+  }
+
+  // --- DISEGNO ---
+  let c = p.color(s.currentColor);
+  c.setAlpha(s.fadeAlpha);
+  
+  p.fill(c);
+  p.noStroke();
+  p.circle(s.x, s.y, s.r);
+}
+  
 
       if (forceSlider.value() === 0 || forceSlider.value() === 1) {
         p.fill(this.colr);
@@ -512,11 +538,12 @@ update() {
         p.fill(c);                    
       }
 
-p.noStroke();
-p.circle(this.x, this.y, 10);;
+      p.noStroke();
+      p.circle(this.x, this.y, 10);;
     }
+  
   }
-  }
+}
 
 
 
