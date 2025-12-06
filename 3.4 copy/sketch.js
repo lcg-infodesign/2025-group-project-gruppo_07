@@ -239,6 +239,7 @@ let sketch1 = function(p){
     forceSlider = p.createSlider(0, 100, 0, 0.01);
     let sliderWidth = p.constrain(p.floor(p.windowWidth * 0.4), 200, 800);
     forceSlider.style('width', sliderWidth + 'px');
+    forceSlider.style("z-index", "99999")
     forceSlider.position(((p.windowWidth - sliderWidth)/2) + 150, p.windowHeight - 70);
     
 
@@ -336,7 +337,14 @@ for (let cl of localClusters) {
     let d = p.dist(p.mouseX, p.mouseY, s.x, s.y);
     let distToClusterCenter = p.dist(cl.x, cl.y, s.x, s.y);
 
-    if (d < s.r/2 && distToClusterCenter < cl.r) {
+    let sliderVal = forceSlider.value() / 100;
+    let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
+    let tEnd   = p.map(s.endYear, globalMinEnd,   globalMaxEnd,   0.15, 0.95);
+
+
+    if (sliderVal < tStart || sliderVal > tEnd) continue;
+    if (distToClusterCenter > cl.r) continue;
+    if (d < s.r/2) {
       hoveredSphere = s;  
       p.push();
   
@@ -386,19 +394,22 @@ for (let cl of localClusters) {
 
       let d = p.dist(p.mouseX, p.mouseY, s.x, s.y);
 
+      let sliderVal = forceSlider.value() / 100;
+      let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
+      let tEnd   = p.map(s.endYear, globalMinEnd,   globalMaxEnd,   0.15, 0.95);
+
+
+      if (sliderVal < tStart || sliderVal > tEnd) continue;
       let distToClusterCenter = p.dist(cl.x, cl.y, s.x, s.y);
+      if (distToClusterCenter > cl.r) continue;
 
-      if (d < s.r && distToClusterCenter < cl.r) {
-
-        let pageUrl =
-          "inghilterra.html?colonizer=" +
-          cl.name +
-          "&country=" +
-          encodeURIComponent(s.country);
-
-        window.location.href = pageUrl;
-        return;
+  
+      if (d < s.r) {
+        let pageUrl = "inghilterra.html?colonizer=" + cl.name + "&country=" + encodeURIComponent(s.country);
+         window.location.href = pageUrl;
+         return;
       }
+
     }
   }
 };
@@ -452,10 +463,7 @@ update() {
    } else if (entryProgress >= tStart && entryProgress < tEnd) { 
     s.currentColor = p.lerpColor(s.currentColor, s.colr, 0.1); 
     let dInternal = p.createVector(this.x - s.x, this.y - s.y); 
-    let baseForce = 0.006; 
-    let sizeBoost = p.map(this.r, 80, 300, 0.012, 0.006); 
-    // più forza per cluster piccoli 
-    dInternal.mult(sizeBoost); 
+    dInternal.mult(0.005); 
     s.v.add(dInternal); 
     let distToCenter = p.dist(s.x, s.y, this.x, this.y); 
     let localProgress = p.map(entryProgress, tStart, tEnd, 0, 1); 
@@ -492,7 +500,7 @@ update() {
       let distAB = p.sqrt(dx*dx + dy*dy); 
       let minDist = A.r + B.r + 1; 
       if(distAB < minDist){ 
-        let overlap = (minDist - distAB) * 0.03; 
+        let overlap = (minDist - distAB) * 0.04; 
         let ang = p.atan2(dy, dx); 
         A.v.x -= p.cos(ang) * overlap; 
         A.v.y -= p.sin(ang) * overlap; 
@@ -519,7 +527,6 @@ update() {
     s.fadeAlpha = p.lerp(s.fadeAlpha, 255, 0.1);
   }
 
-  // --- DISEGNO ---
   let c = p.color(s.currentColor);
   c.setAlpha(s.fadeAlpha);
   
@@ -529,17 +536,14 @@ update() {
 }
   
 
-      if (forceSlider.value() === 0 || forceSlider.value() === 1) {
-        p.fill(this.colr);
-      } else {
-        let c = p.color(this.colr);
-        this.alpha = p.lerp(this.alpha, 120, 0.12)   
-        c.setAlpha(this.alpha);              
-        p.fill(c);                    
-      }
+   p.push()
 
-      p.noStroke();
+      p.stroke(this.colr);
+      p.strokeWeight(2)
+      p.fill("#E7E1D1")
       p.circle(this.x, this.y, 10);;
+
+    p.pop()
     }
   
   }
