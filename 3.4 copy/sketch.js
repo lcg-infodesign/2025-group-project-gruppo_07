@@ -382,6 +382,7 @@ for (let cl of localClusters) {
   }
 
   for (let cl of localClusters) {
+    // Click sui pallini grandi (paesi)
     for (let s of cl.sphere) {
 
       let d = p.dist(p.mouseX, p.mouseY, s.x, s.y);
@@ -400,6 +401,17 @@ for (let cl of localClusters) {
         return;
       }
     }
+
+    // Click sul pallini centrale (colonizzatore)
+    let dCenter = p.dist(p.mouseX, p.mouseY, cl.x, cl.y);
+    if (dCenter < 10) {
+      let pageUrl =
+        "inghilterra.html?colonizer=" +
+        cl.name;
+
+      window.location.href = pageUrl;
+      return;
+    }
   }
 };
 
@@ -414,7 +426,8 @@ for (let cl of localClusters) {
       this.sphere = [];
       this.rectWidth = 0;
       this.rectHeight = 0;
-      this.alpha = 255
+      this.alpha = 255;
+      this.nameAlpha = 255;
 
       let maxDur = Math.max(...data.map(d=>d.duration));
       for(let rec of data){
@@ -540,6 +553,26 @@ update() {
 
       p.noStroke();
       p.circle(this.x, this.y, 10);;
+
+      // Aggiorna alpha del nome in base allo slider
+      if (forceSlider.value() === 0) {
+        this.nameAlpha = p.lerp(this.nameAlpha, 255, 0.1);
+      } else {
+        this.nameAlpha = p.lerp(this.nameAlpha, 0, 0.08);
+      }
+
+      // Mostra nome colonizzatore con transizione smooth
+      if (this.nameAlpha > 2) {
+        p.push();
+        let textColor = p.color("#313131");
+        textColor.setAlpha(this.nameAlpha);
+        p.fill(textColor);
+        p.textFont("montserrat");
+        p.textAlign(p.CENTER, p.CENTER);
+        p.textSize(12);
+        p.text(this.name.toUpperCase(), this.x, this.y - 25);
+        p.pop();
+      }
     }
   
   }
