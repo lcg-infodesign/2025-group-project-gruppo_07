@@ -15,24 +15,25 @@
 
   </head>
 
-  <body>
+  <body data-page="home"> <!-- ho dovuto fare così perchè se no dava probelmi con il fatto che a PAESI COLONIZZATORI
+    non è legata nessuna pagina -->
  
     <div id="header">
     <nav class="navbar">
     <ul>
-        <li id="first" ><a href="#" class="active" class="list1">HOME</a></li>
+       <li id="first" ><a href="index.html" class="list1" id="nav-home">HOME</a></li>
         <li class="dropdown">
-                <a href="#" class="list1" >PAESI COLONIZZATORI</a>
+                <a href="#" class="list1" id="nav-colonizers">PAESI COLONIZZATORI</a>
 
                 <ul class="dropdown-menu">
-                    <li><a href="#">Britannia</a></li>
-                    <li><a href="#">Francia</a></li>
-                    <li><a href="#">Spagna</a></li>
-                    <li><a href="#">Portogallo</a></li>
-                    <li><a href="#">Germania</a></li>
-                    <li><a href="#">Belgio</a></li>
-                    <li><a href="#" id="smallText">Paesi Bassi</a></li>
-                    <li id="drpdwn"><a href="#">Italia</a></li>
+                    <li><a href="inghilterra.html?colonizer=britain">Britannia</a></li>
+                  <li><a href="inghilterra.html?colonizer=france">Francia</a></li>
+                  <li><a href="inghilterra.html?colonizer=spain">Spagna</a></li>
+                  <li><a href="inghilterra.html?colonizer=portugal">Portogallo</a></li>
+                  <li><a href="inghilterra.html?colonizer=germany">Germania</a></li>
+                  <li><a href="inghilterra.html?colonizer=belgium">Belgio</a></li>
+                  <li><a href="inghilterra.html?colonizer=netherlands" id="smallText">Paesi Bassi</a></li>
+                  <li id="drpdwn"><a href="inghilterra.html?colonizer=italy">Italia</a></li>
                 </ul>
             </li>
         <li ><a href="#" class="list1">DATI E METODOLOGIA</a></li>
@@ -131,6 +132,26 @@
     </div>
   </div>
       
+    <div id="sketch"></div> <!-- qui vieni rimandato se vai su home da colonizzatore -->
     <script src="sketch.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+
+        const page = document.body.dataset.page;
+
+        // Rimuove eventuali active
+        document.querySelectorAll(".navbar a").forEach(a => a.classList.remove("active"));
+
+        if (page === "home") {
+          document.getElementById("nav-home").classList.add("active");
+        }
+
+        if (page === "colonizers") {
+          document.getElementById("nav-colonizers").classList.add("active");
+        }
+
+      });
+</script>
   </body>
 </html>

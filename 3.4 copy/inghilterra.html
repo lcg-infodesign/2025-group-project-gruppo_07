@@ -4,148 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>British Colonial Empire</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-    }
-    
-    /* Navbar */
-    #navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 70px;
-      background-color: #000000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 30px;
-      box-sizing: border-box;
-      z-index: 1000;
-    }
-    
-    /* Logo area (sinistra) */
-    #logo-area {
-      width: 150px;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-    }
-    
-    /* Home button (centro) */
-    #home-button {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-    }
-    
-    #home-button:hover .home-icon {
-      fill: #cccccc;
-    }
-    
-    .home-icon {
-      fill: white;
-      transition: fill 0.3s;
-    }
-    
-    #home-label {
-      color: white;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    /* Title (destra del centro) */
-    #title {
-      display: none; /* spostato nel canvas */
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      margin-left: auto;
-      margin-right: 0px;
-    }
-    
-    /* Menu hamburger (destra) */
-    #menu-button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      width: 35px;
-    }
-    
-    .hamburger-line {
-      width: 100%;
-      height: 3px;
-      background-color: white;
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-    
-    #menu-button:hover .hamburger-line {
-      background-color: #cccccc;
-    }
-    
-    /* Canvas container */
-    #canvas-container {
-      margin-top: 70px;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      #title {
-        font-size: 18px;
-        margin-right: 20px;
-      }
-      
-      #logo-area {
-        width: 100px;
-        font-size: 16px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/fjl2lye.css">
+    <link rel="stylesheet" href="https://use.typekit.net/iyd1qds.css">
 </head>
-<body>
-  <!-- Navbar -->
-  <nav id="navbar">
-    <!-- Logo area (sinistra) -->
-    <div id="logo-area">
-      <!-- LOGO -->
+<body data-page="colonizers"> <!-- ho dovuto fare così perchè se no dava probelmi con il fatto che a PAESI COLONIZZATORI
+    non è legata nessuna pagina -->
+      <div id="header">
+    <nav class="navbar">
+    <ul>
+        <li id="first" ><a href="index.html#sketch" class="list1" id="nav-home">HOME</a></li>
+        <li class="dropdown">
+                <a href="#" class="list1" id="nav-colonizers">PAESI COLONIZZATORI</a>
+
+                <ul class="dropdown-menu">
+                  <li><a href="inghilterra.html?colonizer=britain">Britannia</a></li>
+                  <li><a href="inghilterra.html?colonizer=france">Francia</a></li>
+                  <li><a href="inghilterra.html?colonizer=spain">Spagna</a></li>
+                  <li><a href="inghilterra.html?colonizer=portugal">Portogallo</a></li>
+                  <li><a href="inghilterra.html?colonizer=germany">Germania</a></li>
+                  <li><a href="inghilterra.html?colonizer=belgium">Belgio</a></li>
+                  <li><a href="inghilterra.html?colonizer=netherlands" id="smallText">Paesi Bassi</a></li>
+                  <li id="drpdwn"><a href="inghilterra.html?colonizer=italy">Italia</a></li>
+                </ul>
+            </li>
+        <li ><a href="#" class="list1">DATI E METODOLOGIA</a></li>
+        <li id="last" ><a href="#" class="list1">CHI SIAMO</a></li>
+    </ul>
+</nav>
     </div>
-    
-    <!-- Home button (centro) -->
-    <button id="home-button" onclick="window.location.href='index.html#time_view'">
-      <svg class="home-icon" width="32" height="32" viewBox="0 0 24 24">
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-      </svg>
-      <span id="home-label">Home</span>
-    </button>
-    
-    <!-- Title -->
-    <div id="title">British Colonial Empire</div>
-    
-    <!-- Menu hamburger (destra) -->
-    <button id="menu-button" onclick="toggleMenu()">
-      <div class="hamburger-line"></div>
-      <div class="hamburger-line"></div>
-      <div class="hamburger-line"></div>
-    </button>
-  </nav>
   
   <!-- Canvas container -->
   <div id="canvas-container"></div>
@@ -158,5 +45,24 @@
     }
   </script>
   <script src="inghilterra.js"></script>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", () => {
+
+        const page = document.body.dataset.page;
+
+        // Rimuove eventuali active
+        document.querySelectorAll(".navbar a").forEach(a => a.classList.remove("active"));
+
+        if (page === "home") {
+          document.getElementById("nav-home").classList.add("active");
+        }
+
+        if (page === "colonizers") {
+          document.getElementById("nav-colonizers").classList.add("active");
+        }
+
+      });
+</script>
 </body>
 </html>
