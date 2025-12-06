@@ -227,7 +227,7 @@ function drawTimeline() {
       textSize(16);
       let labelW = textWidth(label) + 20;
       let labelH = 28;
-      let labelX = xStart + (barWidth - labelW) / 2;
+      let labelX = xStart + barWidth + 10;
       let labelY = yPos - labelH / 2;
 
       fill(30, op);
