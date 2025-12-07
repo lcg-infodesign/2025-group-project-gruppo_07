@@ -245,8 +245,6 @@ ul li ul.dropdown-menu{
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  
 }
 
 
@@ -254,12 +252,18 @@ ul li ul.dropdown-menu{
 .text{
   color: #313131;
   width: 50vw;
-  font-size: 2vh;
+  font-size: 2.2vh;
   text-align: center;
   opacity: 0;
   transform: translateY(8vh);
   transition: 1s ease-out 1.5s;
   transition-delay: 1s;
+  line-height: 170%;
+}
+
+.text span#explanationItalic{
+  /*font-style: italic;*/
+  font-weight: bold;
 }
 
 .text.show{
@@ -279,7 +283,7 @@ ul li ul.dropdown-menu{
 .text2{
   color: #313131;
   width: 50vw;
-  font-size: 3vh;
+  font-size: 2.2vh;
   text-align: center;
   opacity: 0;
   transform: translateY(22vh);
@@ -290,6 +294,11 @@ ul li ul.dropdown-menu{
   opacity: 1;
   transform: translateY(20vh);
 
+}
+
+.text2 span#conclusionItalic{
+  /*font-style: italic;*/
+  font-weight: bold;
 }
 
 .pointer {
@@ -364,7 +373,7 @@ ul li ul.dropdown-menu{
 .text3{
   color: #313131;
   width: 50vw;
-  font-size: 3vh;
+  font-size: 2.2vh;
   text-align: center;
   opacity: 0;
   transform: translateY(52vh);
@@ -386,6 +395,11 @@ ul li ul.dropdown-menu{
   align-items: center;
   
   
+}
+
+.text3 span#conclusionItalic{
+  /*font-style: italic;*/
+  font-weight: bold;
 }
 
 .falseBtn{
@@ -496,12 +510,17 @@ ul li ul.dropdown-menu{
 .text5{
   color: #313131;
   width: 50vw;
-  font-size: 2vh;
+  font-size: 2.2vh;
   text-align: center;
   opacity: 0;
   transform: translateY(24vh);
   transition: 1s ease-out ;
   transition-delay: 3.6s;
+  line-height: 170%;
+}
+.text5 span#conclusionItalic{
+  /*font-style: italic;*/
+  font-weight: bold;
 }
 
 .text5.show{
@@ -658,7 +677,7 @@ ul li ul.dropdown-menu{
 
 #playIcon{
   position: absolute;
-  bottom: 4.5%;
+  bottom: 4%;
   left: 35%;
   cursor: pointer;
   border: solid 0.2px #313131;

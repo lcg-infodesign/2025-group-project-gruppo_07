@@ -306,6 +306,15 @@ let sketch1 = function(p){
       let rad  = costumRadius[colonizer].r;
       localClusters.push(new Cluster(pos.x,pos.y,rad,colonizerGroups.get(colonizer),colonizer,colr));
     });
+
+    // Ripristina la posizione della timeline se esiste
+let savedSliderPosition = localStorage.getItem('timelinePosition');
+if (savedSliderPosition) {
+  forceSlider.value(parseFloat(savedSliderPosition));
+  p.updateSliderGradient();
+  // Pulisci il localStorage dopo il caricamento
+  localStorage.removeItem('timelinePosition');
+}
   }
   
 
@@ -381,8 +390,9 @@ for (let cl of localClusters) {
 }
 }
 
-  p.mousePressed = function () {
+  // MODIFICA IL p.mousePressed() dove reindirizza alle pagine
 
+p.mousePressed = function () {
   let sliderBox = forceSlider.elt.getBoundingClientRect();
   let mx = p.mouseX + window.scrollX;
   let my = p.mouseY + window.scrollY;
@@ -397,34 +407,30 @@ for (let cl of localClusters) {
   for (let cl of localClusters) {
     // Click sui pallini grandi (paesi)
     for (let s of cl.sphere) {
-
       let d = p.dist(p.mouseX, p.mouseY, s.x, s.y);
-
       let sliderVal = forceSlider.value() / 100;
       let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
       let tEnd   = p.map(s.endYear, globalMinEnd,   globalMaxEnd,   0.15, 0.95);
-
 
       if (sliderVal < tStart || sliderVal > tEnd) continue;
       let distToClusterCenter = p.dist(cl.x, cl.y, s.x, s.y);
       if (distToClusterCenter > cl.r) continue;
 
-  
       if (d < s.r) {
+        // SALVA la posizione dello slider prima di andare alla pagina
+        localStorage.setItem('timelinePosition', forceSlider.value());
         let pageUrl = "inghilterra.html?colonizer=" + cl.name + "&country=" + encodeURIComponent(s.country);
-         window.location.href = pageUrl;
-         return;
+        window.location.href = pageUrl;
+        return;
       }
-
     }
 
     // Click sul pallini centrale (colonizzatore)
     let dCenter = p.dist(p.mouseX, p.mouseY, cl.x, cl.y);
     if (dCenter < 10) {
-      let pageUrl =
-        "inghilterra.html?colonizer=" +
-        cl.name;
-
+      // SALVA la posizione dello slider
+      localStorage.setItem('timelinePosition', forceSlider.value());
+      let pageUrl = "inghilterra.html?colonizer=" + cl.name;
       window.location.href = pageUrl;
       return;
     }
@@ -441,10 +447,9 @@ for (let cl of localClusters) {
           p.mouseX < textX + textWidth / 2 + padding &&
           p.mouseY > textY - textHeight / 2 - padding &&
           p.mouseY < textY + textHeight / 2 + padding) {
-        let pageUrl =
-          "inghilterra.html?colonizer=" +
-          cl.name;
-
+        // SALVA la posizione dello slider
+        localStorage.setItem('timelinePosition', forceSlider.value());
+        let pageUrl = "inghilterra.html?colonizer=" + cl.name;
         window.location.href = pageUrl;
         return;
       }
