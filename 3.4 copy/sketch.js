@@ -307,6 +307,7 @@ let sketch1 = function(p){
       localClusters.push(new Cluster(pos.x,pos.y,rad,colonizerGroups.get(colonizer),colonizer,colr));
     });
   }
+  
 
 
   p.draw = function(){
@@ -328,6 +329,8 @@ let sketch1 = function(p){
       cl.show();
        
     }
+
+  
 
     hoveredSphere = null;
 
@@ -361,12 +364,14 @@ for (let cl of localClusters) {
 
   p.rect(p.mouseX + 10, p.mouseY - boxH - 5, boxW, boxH, 5);
 
+  p.push()
+  p.noStroke()
   p.fill("#313131");
   p.textFont("montserrat")
   p.textAlign(p.CENTER, p.CENTER);
   p.text(s.country, p.mouseX + 10 + boxW / 2, p.mouseY - boxH / 2 - 5);
-
-  p.pop
+  p.pop()
+  p.pop()
 
 
 
@@ -534,7 +539,7 @@ update() {
       let distAB = p.sqrt(dx*dx + dy*dy); 
       let minDist = A.r + B.r + 1; 
       if(distAB < minDist){ 
-        let overlap = (minDist - distAB) * 0.04; 
+        let overlap = (minDist - distAB) * 0.02; 
         let ang = p.atan2(dy, dx); 
         A.v.x -= p.cos(ang) * overlap; 
         A.v.y -= p.sin(ang) * overlap; 
@@ -547,30 +552,7 @@ update() {
 
     show(){
 
-  for (let s of this.sphere) {
-
-  if (hoveredSphere) {
-
-    if (s === hoveredSphere) {
-      s.fadeAlpha = p.lerp(s.fadeAlpha, 255, 0.2);
-    } else {
-      s.fadeAlpha = p.lerp(s.fadeAlpha, 50, 0.15);
-    }
-
-  } else {
-    s.fadeAlpha = p.lerp(s.fadeAlpha, 255, 0.1);
-  }
-
-  let c = p.color(s.currentColor);
-  c.setAlpha(s.fadeAlpha);
-  
-  p.fill(c);
-  p.noStroke();
-  p.circle(s.x, s.y, s.r);
-}
-  
-
-   p.push();
+      p.push();
       p.stroke(this.colr);
       p.strokeWeight(2);
       p.fill("#E7E1D1");
@@ -597,6 +579,31 @@ update() {
         p.text(this.name.toUpperCase(), this.x, this.y - 25);
         p.pop();
       }
+
+  for (let s of this.sphere) {
+
+  if (hoveredSphere) {
+
+    if (s === hoveredSphere) {
+      s.fadeAlpha = p.lerp(s.fadeAlpha, 255, 0.2);
+    } else {
+      s.fadeAlpha = p.lerp(s.fadeAlpha, 50, 0.15);
+    }
+
+  } else {
+    s.fadeAlpha = p.lerp(s.fadeAlpha, 255, 0.1);
+  }
+
+  let c = p.color(s.currentColor);
+  c.setAlpha(s.fadeAlpha);
+  
+  p.fill(c);
+  p.noStroke();
+  p.circle(s.x, s.y, s.r);
+}
+  
+
+   
     }
   
   }

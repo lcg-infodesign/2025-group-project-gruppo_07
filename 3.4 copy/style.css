@@ -254,7 +254,7 @@ ul li ul.dropdown-menu{
 .text{
   color: #313131;
   width: 50vw;
-  font-size: 3vh;
+  font-size: 2vh;
   text-align: center;
   opacity: 0;
   transform: translateY(8vh);
@@ -293,12 +293,11 @@ ul li ul.dropdown-menu{
 }
 
 .pointer {
-  opacity: 50%;
   position: absolute;
   width: 2vh;
   height: 2vh;
   border-radius: 50%;
-  background-color: #811f1a7a;
+  border: solid 4px #81201A;
   left: 48%;
   transform: translateY(40vh) scale(0);
   transition: transform 0.5s ease-out 1s;
@@ -391,12 +390,13 @@ ul li ul.dropdown-menu{
 
 .falseBtn{
   position: absolute;
-  background-color: #313131;
+  background-color: #E7E1D1;
   width: fit-content;
   height: fit-content;
-  color: white;
+  border: solid 0.5px #313131;
+  border-radius: 10px;
   padding: 0.5em 1em 0.5em 1em;
-  left: 20%;
+  left: 29%;
   opacity: 0;
   scale: 1;
   transform: translateY(2vh);
@@ -405,18 +405,39 @@ ul li ul.dropdown-menu{
   
 }
 
+.falseBtn svg{
+  fill: #313131;
+}
+
 .falseBtn.show{
   transform: translateY(0);
   opacity: 1;
   animation: click 0.5s ease 2.4s forwards;
+
+  .pauseIcon{
+  position: absolute;
+  left: 29%;
+  
 }
+
+ .pauseIcon svg{
+  fill: #E7E1D1;
+  opacity: 0;
+  animation: showing 0.1s ease 2.6s forwards;
+}
+}
+
+
 
 @keyframes click{
-  0%{scale: 1;}
-  50%{scale: 0.6;}
-  100%{scale: 1;}
+  0%{scale: 1; background-color: #E7E1D1;}
+  50%{scale: 0.6; background-color: #E7E1D1;}
+  100%{scale: 1; background-color: #313131;}
 }
 
+@keyframes showing{
+  to{opacity: 1;}
+}
 
 
 .falseTimeLine{
@@ -424,65 +445,58 @@ ul li ul.dropdown-menu{
   width: 65vh;
   height: 5vh;
   transform: translateY(2vh);
-  right: 15%;
+  right: 25%;
   border: solid 5px #E7E1D1;
   box-shadow: 0 0 0 1px #313131;
   border-radius: 5px;
   z-index: 1;
   opacity: 0;
   transition: 0.5s ease;
-  transition-delay: 3s;
+  transition-delay: 1s;
 }
 
 .falseTimeLine.show{
   transform: translateY(0);
   opacity: 1;
-}
 
-.thumb{
+  .thumb{
   position: absolute;
   width: 5vh;
   height: 5vh;
   background-color: #313131;
-  right: 25%;
+  right: 95%;
   border: solid 5px #E7E1D1;
   box-shadow: 0 0 0 1px #313131;
   border-radius: 50%;
   scale: 1.4 1.4;
   z-index: 3;
+  animation: thumbMove 1.5s ease 3s forwards;
 }
 
 .progress{
   display: inline-block;
-  width: 45vh;
+  width: 2vh;
   height: 5vh;
   background-color: #313131;
   z-index: 2;
+  animation: progression 1.5s ease 3.01s forwards;
 }
-
-.text4{
-  color: #313131;
-  width: 50vw;
-  font-size: 3vh;
-  text-align: center;
-  top: 25%;
-  opacity: 0;
-  position: absolute;
-  transition: 1s ease-out ;
-  transition-delay: 1.5s;
-}
-.text4.show{
-  opacity: 1;
-  top: 20%;
-
 
 }
 
+
+@keyframes thumbMove{
+  to{ right: 25%;}
+}
+
+@keyframes progression{
+  to{ width: 45vh;}
+}
 
 .text5{
   color: #313131;
   width: 50vw;
-  font-size: 3vh;
+  font-size: 2vh;
   text-align: center;
   opacity: 0;
   transform: translateY(24vh);
@@ -627,8 +641,8 @@ ul li ul.dropdown-menu{
 }*/
 #playBtn{
   position: absolute;
-  bottom: 5%;
-  right: 25%;
+  bottom: 4.5%;
+  left: 35%;
   
   width: 0;      
   height: 0;
@@ -644,12 +658,12 @@ ul li ul.dropdown-menu{
 
 #playIcon{
   position: absolute;
-  bottom: 5%;
-  right: 13%;
+  bottom: 4.5%;
+  left: 35%;
   cursor: pointer;
   border: solid 0.2px #313131;
   border-radius: 10px;
-  padding: 0.1vh;
+  padding: 0.2vh 1vh 0.2vh 1vh;
   transition: 0.2s ease;
   z-index: 1;
 }
@@ -661,7 +675,7 @@ ul li ul.dropdown-menu{
 #pauseIcon{
   position: absolute;
   bottom: 5%;
-  right: 2%;
+  right: 20%;
   opacity: 0;
   transition: 0.2s ease;
   z-index: 2;
@@ -733,9 +747,7 @@ input[type="range"] {
   scale: 2 2;
   position: relative;
   transform: translateY(0.2vh);
-  opacity: 0;
-  z-index: 4; 
-  transition: 0.2s ease;
+
 }
 &::-moz-range-thumb {
   appearance: none;
@@ -749,23 +761,8 @@ input[type="range"] {
   scale: 2 2;
   position: relative;
   transform: translateY(0.2vh);
-  opacity: 0;
-  z-index: 4; 
-  transition: 0.2s ease;
+  
 }
-}
-
-input[type="range"]:hover{
-
-  &::-webkit-slider-thumb {
-  opacity: 1;
-
-}
-
-&::-moz-range-thumb{
-  opacity: 1;
-}
-
 }
 
 #legenda{
