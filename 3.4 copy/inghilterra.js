@@ -36,15 +36,29 @@ let selectedCountry = null;
 let colonizer = null;
 let colonizerTitle = "";
 let colonizerDescriptions = {
-  "britain": "Inghilterra",
-  "france": "Francia",
-  "spain": "Spagna",
-  "portugal": "Portogallo",
-  "germany": "Germania",
-  "belgium": "Belgio",
-  "netherlands": "Paesi Bassi",
-  "italy": "Italia"
+  "britain": "United Kingdom",
+  "france": "France",
+  "spain": "Spain",
+  "portugal": "Portugal",
+  "germany": "Germany",
+  "belgium": "Belgium",
+  "netherlands": "Nertherland",
+  "italy": "Italy"
 };
+
+// Mappa Colori RGB per i Colonizzatori
+let colonizerColors = {
+  "britain": [139, 0, 0],   
+  "france": [77, 72, 113],  
+  "spain": [227, 188, 71],   
+  "portugal": [153, 171, 89], 
+  "germany": [135, 153, 189], 
+  "belgium": [202, 93, 132],  
+  "netherlands": [217, 121, 99], 
+  "italy": [126, 193, 175]    
+};
+
+let currentColor = [0, 0, 0]; // Variabile per il colore RGB corrente
 
 
 function preload() {
@@ -59,24 +73,24 @@ function setup() {
   // Leggi i parametri URL
   let urlParams = new URLSearchParams(window.location.search);
   colonizer = urlParams.get("colonizer");
-  selectedCountry = urlParams.get("country");  // Sarà null se vieni dalla navbar
+  selectedCountry = urlParams.get("country"); 
 
-  console.log("Colonizer:", colonizer);
-  console.log("Selected Country:", selectedCountry);
+  // --- IMPOSTAZIONE DEL COLORE DINAMICO ---
+  if (colonizer && colonizerColors[colonizer]) {
+    currentColor = colonizerColors[colonizer];
+  } else {
+    currentColor = colonizerColors["britain"]; 
+  }
 
-  // Se non hai colonizer, mostra messaggio di errore o torna a home
+
   if (!colonizer) {
     console.error("Nessun colonizzatore specificato!");
-    // Opzionale: reindirizzare a home
-    // window.location.href = "index.html";
     return;
   }
 
   // Seleziona righe per il colonizzatore specificato
   let selected = table.findRows(colonizer, "colonizer");
   colonizerTitle = colonizerDescriptions[colonizer] || colonizer;
-
-  console.log("Found rows:", selected.length);
 
   for (let i = 0; i < selected.length; i++) {
     let row = selected[i];
@@ -95,66 +109,60 @@ function setup() {
   minYOffset = min(0, height - 3000);
   maxYOffset = 0;
 
-  // Costruisci array ordinabile
-let sortable = [];
+  // Costruisci array ordinabile e ordina (dal più antico al più recente)
+  let sortable = [];
+  for (let i = 0; i < colonies.length; i++) {
+    sortable.push({
+      colony: colonies[i],
+      start: colStartYear[i],
+      end: colEndYear[i],
+      country: colCountries[i],
+      duration: colDuration[i]
+    });
+  }
 
-for (let i = 0; i < colonies.length; i++) {
-  sortable.push({
-    colony: colonies[i],
-    start: colStartYear[i],
-    end: colEndYear[i],
-    country: colCountries[i],
-    duration: colDuration[i]
-  });
-}
+  sortable.sort((a, b) => a.start - b.start);
 
-// Ordina dal più recente (start grande) → al più antico (start piccolo)
-sortable.sort((a, b) => a.start - b.start);
+  colonies = [];
+  colStartYear = [];
+  colEndYear = [];
+  colCountries = [];
+  colDuration = [];
 
-colonies = [];
-colStartYear = [];
-colEndYear = [];
-colCountries = [];
-colDuration = [];
-
-for (let item of sortable) {
-  colonies.push(item.colony);
-  colStartYear.push(item.start);
-  colEndYear.push(item.end);
-  colCountries.push(item.country);
-  colDuration.push(item.duration);
-}
+  for (let item of sortable) {
+    colonies.push(item.colony);
+    colStartYear.push(item.start);
+    colEndYear.push(item.end);
+    colCountries.push(item.country);
+    colDuration.push(item.duration);
+  }
 }
 
 
 function drawTimeline() {
   push();
 
-  chartX = 200;
+  chartX = 680;
   let chartY = 180;
-  chartWidth = width - 750;
+  chartWidth = windowWidth - 750; 
   let chartHeight = colonies.length * 25;
 
   let minYear = 1450;
   let maxYear = 2000;
 
-  // Background box
   textAlign(LEFT);
-  noStroke();
-  fill(200, 200, 200, 100);
-  rect(chartX - 150, chartY - 10, chartWidth + 170, chartHeight + 60, 12);
-
-  // Strisce colorate per periodi storici
+  
+  
+  // Strisce colorate per periodi storici (Colore dinamico con opacità)
   noStroke();
   let x1900 = map(1900, minYear, maxYear, chartX, chartX + chartWidth);
   let x1950 = map(1950, minYear, maxYear, chartX, chartX + chartWidth);
-  fill(139, 0, 0, 30);
+  fill(currentColor[0], currentColor[1], currentColor[2], 30);
   rect(x1900, chartY, x1950 - x1900, chartHeight);
 
   // Assi
-  stroke(100);
-  strokeWeight(2);
-  line(chartX, chartY, chartX, chartY + chartHeight);
+  stroke(100, 150);
+  strokeWeight(0.5); 
   line(chartX, chartY + chartHeight, chartX + chartWidth, chartY + chartHeight);
 
   // Anni e linee verticali
@@ -168,13 +176,13 @@ function drawTimeline() {
     let x = map(year, minYear, maxYear, chartX, chartX + chartWidth);
     text(year, x, chartY + chartHeight + 25);
     stroke(200);
-    strokeWeight(1);
+    strokeWeight(0.5);
     line(x, chartY, x, chartY + chartHeight);
   }
 
   noStroke();
   timelinePositions = [];
-  let dotSize = 10;
+  let dotSize = 8; 
   let rowHeight = 25;
 
   hoveredIndex = -1;
@@ -193,14 +201,11 @@ function drawTimeline() {
 
     timelinePositions.push({ index: i, xStart, xEnd, yPos, chartX, chartY, country });
 
-    // Calcola distanza del mouse dalla linea
     let mouseDist = abs(contentMouseY - yPos);
-    let isOnLine = (contentMouseX >= xStart && contentMouseX <= xEnd) && mouseDist < 10;
     let isClicked = (country === clickedCountry);
-    let isSelected = (country === selectedCountry);  // viene dal link principale
+    let isSelected = (country === selectedCountry); 
     let someoneSelected = clickedCountry || selectedCountry;
     
-    // Target opacities
     let targetOpacity =
       someoneSelected
         ? (isClicked || isSelected ? 255 : 100)
@@ -210,91 +215,81 @@ function drawTimeline() {
     fadeOpacity[country] = lerp(fadeOpacity[country], targetOpacity, fadeSpeed);
     let op = fadeOpacity[country];
 
-    //disegno
+    // Disegno
     if (isClicked || isSelected) {
 
-  hoveredIndex = i;
+      hoveredIndex = i;
 
-  // ---- BARRA ROSSA ARROTONDATA ----
-  noStroke();
-      fill(230, 50, 40, op);
-      let barHeight = 20;
-      let barY = yPos - barHeight / 2;
-      let barWidth = xEnd - xStart;
-      rect(xStart, barY, barWidth, barHeight, barHeight);
+      // ---- BARRA SELEZIONATA (Colore dinamico) ----
+      stroke(currentColor[0], currentColor[1], currentColor[2], op); 
+      strokeWeight(6); 
+      line(xStart, yPos, xEnd, yPos);
+      strokeWeight(2); 
 
-      let label = `${int(start)}-${int(end)}`;
-      textSize(16);
-      let labelW = textWidth(label) + 20;
-      let labelH = 28;
-      let labelX = xStart + barWidth + 10;
-      let labelY = yPos - labelH / 2;
+      // Pallino Inizio (Pieno - Colore dinamico)
+      noStroke();
+      fill(currentColor[0], currentColor[1], currentColor[2], op); 
+      circle(xStart, yPos, dotSize + 4);
 
-      fill(30, op);
-      rect(labelX, labelY, labelW, labelH, 6);
+      // Pallino Fine (Pieno - Colore dinamico)
+      fill(currentColor[0], currentColor[1], currentColor[2], op); 
+      circle(xEnd, yPos, dotSize + 4);
 
-      fill(255, op);
-      textAlign(CENTER, CENTER);
-      text(label, labelX + labelW / 2, labelY + labelH / 2);
+      // Etichetta Anni
+      let label = `${int(start)} - ${int(end)}`;
+      textSize(15); 
+      textStyle(BOLD);
+      
+      let isLightColor = (currentColor[0] + currentColor[1] + currentColor[2]) / 3 > 180;
 
+      // Logica Contorno per Leggibilità (Utile per colori chiari come il Giallo)
+      if (isLightColor) {
+        stroke(40, op); 
+        strokeWeight(1); 
+      } else {
+        noStroke();
+      }
 
-} else {
-  // BARRA NORMALE
-      stroke(160, 82, 45, op);
-      strokeWeight(4);
+      // Etichetta Inizio (Testo colorato)
+      
+      fill(currentColor[0], currentColor[1], currentColor[2], op); 
+      textAlign(RIGHT, CENTER);
+      text(int(start), xStart - 10, yPos);
+
+      // Etichetta Fine (Testo colorato)
+      fill(currentColor[0], currentColor[1], currentColor[2], op); 
+      textAlign(LEFT, CENTER);
+      text(int(end), xEnd + 10, yPos);
+
+      noStroke(); // Reset dello stroke
+    
+    } else {
+      // BARRA NORMALE (Colore dinamico più scuro/opaco)
+      
+      // La linea della barra non selezionata
+      stroke(currentColor[0], currentColor[1], currentColor[2], op * 0.7); 
+      strokeWeight(1.2); 
       line(xStart, yPos, xEnd, yPos);
 
-      noStroke();
-      fill(160, 82, 45, op);
+      // Pallino Inizio (Vuoto - Bordo dinamico)
+      stroke(currentColor[0], currentColor[1], currentColor[2], op * 0.7); 
+      strokeWeight(1);
+      fill(255, 255, 255, op); 
       circle(xStart, yPos, dotSize);
 
-      fill(192, 192, 192, op);
+      // Pallino Fine (Vuoto - Bordo dinamico)
+      stroke(currentColor[0], currentColor[1], currentColor[2], op * 0.7); 
+      strokeWeight(1);
+      fill(255, 255, 255, op); 
       circle(xEnd, yPos, dotSize);
     
-}
-
-      // Tooltip con informazioni - SOLO se il mouse è effettivamente sopra
-      /*if (isOnLine) {
-        push();
-        let tipText = `${country}, ${int(start)}-${int(end)}`;
-        textSize(12);
-        textStyle(NORMAL);
-        let boxWidth = textWidth(tipText) + 16;
-        let boxHeight = 28;
-
-        let boxX = contentMouseX + 12;
-        let boxY = contentMouseY - 15;
-
-        rectMode(CORNER);
-        fill(50, 50, 50, 240);
-        stroke(139, 0, 0);
-        strokeWeight(1.5);
-        rect(boxX, boxY, boxWidth, boxHeight, 4);
-
-        textAlign(LEFT, CENTER);
-        fill(255);
-        text(tipText, boxX + 8, boxY + boxHeight / 2);
-        pop();
-      }
-      noStroke();
-        } else {
-      stroke(160, 82, 45, 150);
-      strokeWeight(4);
-      line(xStart, yPos, xEnd, yPos);
-
-      noStroke();
-      fill(160, 82, 45);
-      circle(xStart, yPos, dotSize);
-      fill(192, 192, 192);
-      circle(xEnd, yPos, dotSize);
-    } */
+    }
 
     // Nome della colonia a sinistra
-    // Nome rosso se selezionato o cliccato
     if (country === clickedCountry || country === selectedCountry) {
-      fill(230, 50, 40);  // rosso
+      fill(currentColor[0], currentColor[1], currentColor[2]);  // Colore dinamico
     } else {
-      fill(40, op);            // colore normale
+      fill(40, op);            
     }
 
     textAlign(RIGHT, CENTER);
@@ -302,18 +297,84 @@ function drawTimeline() {
     text(country, chartX - 15, yPos);
     }
 
-  // Aggiorna contentHeight per lo scrolling
   contentHeight = chartY + chartHeight + 300;
 
   pop();
 }
+
+
+// Didascalia Colonia Selezionata
+
+function drawColonyInfo() {
+  if (clickedCountry || selectedCountry) {
+    
+    let currentCountryName = clickedCountry || selectedCountry;
+    let index = colCountries.indexOf(currentCountryName);
+
+    if (index === -1) return;
+
+    let start = colStartYear[index];
+    let end = colEndYear[index];
+    let duration = colDuration[index]; 
+
+    // Variabili di riferimento usate in drawSideInfo()
+    let sideX = chartX + chartWidth + 50; 
+    let sideY = 180;
+
+    // Posizionamento sotto la descrizione generale (stimato a circa y + 350)
+    let infoX = 80; 
+    let infoY = 150; // Inizia sotto il testo descrittivo
+
+    push();
+    
+  
+    // Titolo colonia
+fill(currentColor[0], currentColor[1], currentColor[2]);
+textFont("Montserrat");
+textSize(26);
+textStyle(BOLD);
+textAlign(LEFT, TOP);
+text(currentCountryName, infoX, infoY);
+
+    textFont("Montserrat");
+text(currentCountryName, infoX, infoY);
+textFont("sans-serif");
+
+    // Dettagli (Lista Punti)
+    fill(40);
+    textSize(16);
+    textStyle(NORMAL);
+    let lineSpacing = 25;
+    let startY = infoY + 50;
+    
+    // Lista di Dettagli
+    textFont("Montserrat");
+text(`• Inizio colonizzazione: ${int(start)}`, infoX, startY);
+text(`• Fine colonizzazione: ${int(end)}`, infoX, startY + lineSpacing);
+text(`• Durata colonizzazione: ${nf(duration, 0, 1)} anni`, infoX, startY + lineSpacing * 2);
+textFont("sans-serif");
+
+    
+    // Pulsante Fittizio 
+    noStroke();
+    fill(currentColor[0], currentColor[1], currentColor[2]); 
+    rect(infoX, startY + lineSpacing * 3.5, 200, 30, 5);
+    
+    fill(255);
+    textSize(12);
+    textAlign(CENTER, CENTER);
+    text("PER ULTERIORI INFORMAZIONI", infoX + 100, startY + lineSpacing * 3.5 + 15);
+
+    pop();
+  }
+}
+
 
 function mousePressed() {
   let mx = mouseX;
   let my = mouseY - yOffset;
 
   for (let p of timelinePositions) {
-
     // CLICK SUL NOME
     let nameX1 = chartX - 90;
     let nameX2 = chartX - 10;
@@ -321,7 +382,7 @@ function mousePressed() {
     let nameY2 = p.yPos + 10;
 
     if (mx >= nameX1 && mx <= nameX2 && my >= nameY1 && my <= nameY2) {
-      selectedCountry = null;   // <-- disattiva selezione iniziale
+      selectedCountry = null;  
       clickedCountry = p.country;
       return;
     }
@@ -344,6 +405,7 @@ function mousePressed() {
     }
   }
 
+  // Deseleziona se clicchi fuori
   clickedCountry = null;
   selectedCountry = null;
 
@@ -355,57 +417,59 @@ function mousePressed() {
 
 function drawSideInfo() {
   push();
+  
 
-  let sideX = chartX + chartWidth + 50;
-  let sideY = 180;
-  let sideWidth = 400;
-  let sideHeight = 300;
+  // COLONNA SINISTRA
+  let sideX = 90;       // distanza dal bordo sinistro
+  let topY = 700;       // margine alto
+  let columnWidth = 400;
 
-  // Background
-  noStroke();
-  fill(200, 200, 200, 100);
-  rect(sideX, sideY - 10 , sideWidth, sideHeight, 8);
-
-  // Titolo
-  fill(139, 0, 0);
-  textSize(24);
+  
+  // 1. TITOLO COLONIZZATORE
+  
+  fill(currentColor[0], currentColor[1], currentColor[2]);
+  textFont("Montserrat");
+  textSize(32);
   textStyle(BOLD);
   textAlign(LEFT, TOP);
-  text(colonizerTitle, sideX + 20, sideY);
+  text(colonizerTitle, sideX, topY);
+
+  
+  // 2. TESTO DESCRITTIVO IMPERO
+  
+  let descY = topY + 60;
+
+  // Linea verticale
+  stroke(currentColor[0], currentColor[1], currentColor[2]);
+  strokeWeight(3);
+  line(sideX - 15, descY, sideX - 15, descY + 100);
+  noStroke();
 
   // Testo
   fill(60);
   textSize(16);
   textStyle(NORMAL);
   textAlign(LEFT, TOP);
-  text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Questo è un testo di prova per vedere come viene il layout a destra del grafico. qui un po' di dettagli su questo impero coloniale.", sideX + 20, sideY + 50, sideWidth - 40, sideHeight - 70);
+
+  let desc =
+    "Qui puoi vedere il periodo di dominazione coloniale esercitato da questo impero. " +
+    "Ogni barra rappresenta una colonia, con le date di inizio e fine del controllo, " +
+    "e una visualizzazione chiara del rapporto storico tra impero e territorio.";
+
+  text(desc, sideX, descY, columnWidth);
 
   pop();
 }
 
-
-/*function drawTitle() {
-  push();
-  let titleY = 50;
-  translate(0, titleY);
-
-  fill(40);
-  textSize(32);
-  textAlign(CENTER);
-  text("L'Impero " + colonizerTitle + ": Cronologia Coloniale", width / 2, 20);
-  pop();
-}*/
 
 
 function draw() {
   clear();
 
   if (!autoScrollDone && timelinePositions.length > 0 && selectedCountry) {
-    // Trova riga della colonia selezionata
     let row = timelinePositions.find(p => p.country === selectedCountry);
 
     if (row) {
-      // Calcola offset per centrare la riga
       let targetY = -(row.yPos - height / 2);
       yOffset = constrain(targetY, minYOffset, maxYOffset);
       autoScrollDone = true;
@@ -420,10 +484,10 @@ function draw() {
 
   drawTimeline();
   drawSideInfo();
+  drawColonyInfo(); 
 
   pop();
 
-  // Aggiorna i limiti di scroll basandosi su contentHeight
   minYOffset = min(0, height - contentHeight);
 }
 

@@ -58,6 +58,7 @@ h1{
 }
 
 .list1 {
+    position: relative;
     text-decoration: none; 
     color: #313131; 
     font-size: 14px;
@@ -68,18 +69,37 @@ h1{
 }
 
 .list1:hover {
-    border: solid 0.1px#313131;
-    border-radius: 5px; 
+    border: none;
+    border-radius: 0;
+  
+    padding: 0.2em 3em 0.1em 3em;
     
 }
 
 
 .navbar a.active {
-    color: #313131;  
-    border-radius: 5px; 
-    border: solid 0.1px#313131;
-    padding: 0.2em 3em 0.2em 3em;
+    color: #313131;
     text-decoration: none; 
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important; 
+    border-bottom: solid 1px #313131 !important; 
+    padding: 0.2em 3em 0.1em 3em; 
+}
+
+.list1::after {
+  content: '';
+  position: absolute;
+  width: 0; 
+ height: 1px; 
+ left: 0;
+ bottom: 0; 
+ background-color: #313131; 
+ transition: width 0.3s ease-out; 
+}
+
+.list1:hover::after {
+    width: 100%;
 }
 
 .navbar li.dropdown {
