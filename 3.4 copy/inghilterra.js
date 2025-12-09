@@ -1,5 +1,6 @@
 let table;
 let table3;
+let tableDescriptions; // Variabile per le descrizioni specifiche per colonizzatore
 let colonies = [];
 let colDuration = [];
 let colEndYear = [];
@@ -59,16 +60,47 @@ let colonizerColors = {
 };
 
 let currentColor = [0, 0, 0]; // Variabile per il colore RGB corrente
+let currentDescription = "Caricamento della descrizione in corso..."; // Variabile per la descrizione dinamica
+let currentSourceLinkText = "Source: Encyclopaedia Britannica-“British Empire”";
+let currentSourceLinkURL = "https://www.britannica.com/place/British-Empire";
+let sourceLinkElement;
 
 
 function preload() {
   table = loadTable("assets/COLDAT_dyads - Foglio6.csv", "csv", "header");
   table3 = loadTable("assets/COLDAT_dyads - Foglio3.csv", "csv", "header");
+  tableDescriptions = loadTable("assets/paragrafi-dettaglio.csv", "csv", "header"); // Caricamento del file descrittivo
 }
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  // ESTRAZIONE DEL PARAGRAFO E SEPARAZIONE
+    if (tableDescriptions) {
+        let descRow = tableDescriptions.findRows(colonizer, "colonizer");
+        if (descRow.length > 0) {
+            let fullText = descRow[0].get("paragraph");
+            let parts = splitParagraphAndSource(fullText);
+            
+            currentParagraph = parts.paragraph;
+            currentSourceLinkText = parts.sourceText;
+            
+            // Per ora, l'URL è fittizio (devi fornirlo nel CSV se è dinamico)
+            currentSourceLinkURL = "https://www.google.com/search?q=" + encodeURIComponent(colonizer + " colonial empire source"); 
+        } else {
+            currentParagraph = "Descrizione non trovata per questo colonizzatore.";
+        }
+    }
+    
+    // CREAZIONE DELL'ELEMENTO LINK HTML
+    if (currentSourceLinkText) {
+        sourceLinkElement = createA(currentSourceLinkURL, currentSourceLinkText, '_blank');
+        sourceLinkElement.style('font-size', '14px');
+        sourceLinkElement.style('color', `rgb(${currentColor[0]}, ${currentColor[1]}, ${currentColor[2]})`); // Colore dinamico
+        sourceLinkElement.style('position', 'absolute');
+        sourceLinkElement.hide(); // Nascondi inizialmente
+    }
 
   // Leggi i parametri URL
   let urlParams = new URLSearchParams(window.location.search);
@@ -87,6 +119,17 @@ function setup() {
     console.error("Nessun colonizzatore specificato!");
     return;
   }
+  
+  // ESTRAZIONE DEL PARAGRAFO SPECIFICO
+  if (tableDescriptions) {
+    let descRow = tableDescriptions.findRows(colonizer, "colonizer");
+    if (descRow.length > 0) {
+      currentDescription = descRow[0].get("paragraph");
+    } else {
+      currentDescription = "Descrizione non trovata per questo colonizzatore.";
+    }
+  }
+
 
   // Seleziona righe per il colonizzatore specificato
   let selected = table.findRows(colonizer, "colonizer");
@@ -318,28 +361,22 @@ function drawColonyInfo() {
     let end = colEndYear[index];
     let duration = colDuration[index]; 
 
-    // Variabili di riferimento usate in drawSideInfo()
-    let sideX = chartX + chartWidth + 50; 
-    let sideY = 180;
-
-    // Posizionamento sotto la descrizione generale (stimato a circa y + 350)
+    // Posizionamento in alto a sinistra per evitare sovrapposizione con drawSideInfo
     let infoX = 80; 
-    let infoY = 150; // Inizia sotto il testo descrittivo
+    let infoY = windowHeight * 0.1; // <--- NUOVA POSIZIONE: Alto Sinistra
 
     push();
     
   
     // Titolo colonia
-fill(currentColor[0], currentColor[1], currentColor[2]);
-textFont("Montserrat");
-textSize(26);
-textStyle(BOLD);
-textAlign(LEFT, TOP);
-text(currentCountryName, infoX, infoY);
-
+    fill(currentColor[0], currentColor[1], currentColor[2]);
     textFont("Montserrat");
-text(currentCountryName, infoX, infoY);
-textFont("sans-serif");
+    textSize(26);
+    textStyle(BOLD);
+    textAlign(LEFT, TOP);
+    text(currentCountryName, infoX, infoY);
+
+    textFont("sans-serif"); 
 
     // Dettagli (Lista Punti)
     fill(40);
@@ -350,10 +387,10 @@ textFont("sans-serif");
     
     // Lista di Dettagli
     textFont("Montserrat");
-text(`• Beginning of colonization: ${int(start)}`, infoX, startY);
-text(`• End of colonization: ${int(end)}`, infoX, startY + lineSpacing);
-text(`• Colonization duration: ${nf(duration, 0, 1)} years`, infoX, startY + lineSpacing * 2);
-textFont("sans-serif");
+    text(`• Beginning of colonization: ${int(start)}`, infoX, startY);
+    text(`• End of colonization: ${int(end)}`, infoX, startY + lineSpacing);
+    text(`• Colonization duration: ${nf(duration, 0, 1)} years`, infoX, startY + lineSpacing * 2);
+    textFont("sans-serif");
 
     
     // Pulsante Fittizio 
@@ -422,7 +459,7 @@ function drawSideInfo() {
 
   // COLONNA SINISTRA
   let sideX = windowWidth*0.06;       // distanza dal bordo sinistro
-  let topY = windowHeight*0.73;       // margine alto
+  let topY = windowHeight*0.50;       // <--- RIPRISTINATA POSIZIONE IN BASSO A SINISTRA
   let columnWidth = 350;
 
   
@@ -436,14 +473,14 @@ function drawSideInfo() {
   text(colonizerTitle, sideX, topY);
 
   
-  // 2. TESTO DESCRITTIVO IMPERO
+  // 2. TESTO DESCRITTIVO IMPERO (DYNAMIC TEXT)
   
   let descY = topY + 60;
 
   // Linea verticale
   stroke(currentColor[0], currentColor[1], currentColor[2]);
   strokeWeight(3);
-  line(sideX - 15, descY, sideX - 15, descY + 100);
+  line(sideX - 15, descY, sideX - 15, descY + 270); 
   noStroke();
 
   // Testo
@@ -452,12 +489,8 @@ function drawSideInfo() {
   textStyle(NORMAL);
   textAlign(LEFT, TOP);
 
-  let desc =
-    "Qui puoi vedere il periodo di dominazione coloniale esercitato da questo impero. " +
-    "Ogni barra rappresenta una colonia, con le date di inizio e fine del controllo, " +
-    "e una visualizzazione chiara del rapporto storico tra impero e territorio.";
-
-  text(desc, sideX, descY, columnWidth);
+  // VISUALIZZA IL TESTO CARICATO DINAMICAMENTE
+  text(currentDescription, sideX, descY, columnWidth); 
 
   pop();
 }
