@@ -306,14 +306,12 @@ function drawSideInfo(){
   strokeWeight(3);
   line(sideX - 15, descY, sideX - 15, descY + 270); 
   noStroke();
+  
   fill(60);
   textSize(16);
   textStyle(NORMAL);
   textAlign(LEFT, TOP);
-  let desc = "Qui puoi vedere il periodo di dominazione coloniale esercitato da questo impero. " +
-             "Ogni barra rappresenta una colonia, con le date di inizio e fine del controllo, " +
-             "e una visualizzazione chiara del rapporto storico tra impero e territorio.";
-  text(desc, sideX, descY, columnWidth);
+  text(currentDescription, sideX, descY, columnWidth);
   pop();
 }
 
