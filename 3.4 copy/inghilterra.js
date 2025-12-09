@@ -45,15 +45,47 @@ let colonizerColors = {
 // Colore corrente scelto in base al colonizzatore
 let currentColor = [0, 0, 0]; // Variabile per il colore RGB corrente
 let currentDescription = "Caricamento della descrizione in corso..."; // Variabile per la descrizione dinamica
-let currentSourceLinkText = "Source: Encyclopaedia Britannica-“British Empire”";
-let currentSourceLinkURL = "https://www.britannica.com/place/British-Empire";
-let sourceLinkElement;
+let currentParagraph = ""; // <--- PARTE PRINCIPALE DEL TESTO
+let currentSourceLinkText = ""; // <--- TESTO DEL LINK (es. "Source: Encyclopaedia...")
+let currentSourceLinkURL = ""; // <--- URL VERO E PROPRIO DEL LINK (se presente)
+let sourceLinkElement; // <--- ELEMENTO LINK HTML DI P5.js
 
 // Buffer grafico (p5.Graphics) per gestire il contenuto scrollabile
 let coloniesLayer;
 
 // Coordinata verticale iniziale del grafico
 let chartY = 120;
+
+
+// =========================================================
+// FUNZIONE HELPER: SPLIT PARAGRAPH AND SOURCE
+// =========================================================
+function splitParagraphAndSource(fullText) {
+    // Cerco l'indice dove inizia "Source:"
+    let sourceIndex = fullText.indexOf("Source:");
+    
+    if (sourceIndex !== -1) {
+        // Se trovo "Source:", separo il paragrafo
+        let paragraph = fullText.substring(0, sourceIndex).trim();
+        let sourceText = fullText.substring(sourceIndex).trim();
+        
+        // Rimuovo eventuali newline dal testo della fonte
+        sourceText = sourceText.replace(/\n/g, ' '); 
+        
+        // Estraggo l'URL fittizio dalla fonte (questo dovrebbe essere dinamico dal CSV se necessario)
+        // Uso un URL di ricerca per l'esempio
+        let url = "https://www.google.com/search?q=" + encodeURIComponent(sourceText);
+
+        return {
+            paragraph: paragraph,
+            sourceText: sourceText,
+            url: url
+        };
+    }
+    // Se non trovo "Source:", restituisco il testo completo come paragrafo
+    return { paragraph: fullText, sourceText: "", url: "" };
+}
+
 
 // =========================================================
 // PRELOAD — Carica i dati CSV prima dell'avvio
@@ -70,33 +102,6 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  // Legge i parametri URL per colonizzatore e paese selezionato
-  // ESTRAZIONE DEL PARAGRAFO E SEPARAZIONE
-    if (tableDescriptions) {
-        let descRow = tableDescriptions.findRows(colonizer, "colonizer");
-        if (descRow.length > 0) {
-            let fullText = descRow[0].get("paragraph");
-            let parts = splitParagraphAndSource(fullText);
-            
-            currentParagraph = parts.paragraph;
-            currentSourceLinkText = parts.sourceText;
-            
-            // Per ora, l'URL è fittizio (devi fornirlo nel CSV se è dinamico)
-            currentSourceLinkURL = "https://www.google.com/search?q=" + encodeURIComponent(colonizer + " colonial empire source"); 
-        } else {
-            currentParagraph = "Descrizione non trovata per questo colonizzatore.";
-        }
-    }
-    
-    // CREAZIONE DELL'ELEMENTO LINK HTML
-    if (currentSourceLinkText) {
-        sourceLinkElement = createA(currentSourceLinkURL, currentSourceLinkText, '_blank');
-        sourceLinkElement.style('font-size', '14px');
-        sourceLinkElement.style('color', `rgb(${currentColor[0]}, ${currentColor[1]}, ${currentColor[2]})`); // Colore dinamico
-        sourceLinkElement.style('position', 'absolute');
-        sourceLinkElement.hide(); // Nascondi inizialmente
-    }
-
   // Leggi i parametri URL
   let urlParams = new URLSearchParams(window.location.search);
   colonizer = urlParams.get("colonizer");
@@ -111,14 +116,31 @@ function setup() {
     return;
   }
   
-  // ESTRAZIONE DEL PARAGRAFO SPECIFICO
+  // ESTRAZIONE E SEPARAZIONE DEL PARAGRAFO (Testo dinamico e link)
   if (tableDescriptions) {
     let descRow = tableDescriptions.findRows(colonizer, "colonizer");
     if (descRow.length > 0) {
-      currentDescription = descRow[0].get("paragraph");
+      let fullText = descRow[0].get("paragraph");
+      let parts = splitParagraphAndSource(fullText);
+      
+      currentParagraph = parts.paragraph;
+      currentSourceLinkText = parts.sourceText;
+      currentSourceLinkURL = parts.url;
+      currentDescription = fullText; // Mantiene la variabile originale per debug/fallback
+
     } else {
-      currentDescription = "Descrizione non trovata per questo colonizzatore.";
+      currentParagraph = "Descrizione non trovata per questo colonizzatore.";
+      currentSourceLinkText = "";
     }
+  }
+  
+  // CREAZIONE DELL'ELEMENTO LINK HTML (per poterlo posizionare e non interferire con P5.js draw)
+  if (currentSourceLinkText) {
+      sourceLinkElement = createA(currentSourceLinkURL, currentSourceLinkText, '_blank');
+      sourceLinkElement.style('font-size', '14px');
+      sourceLinkElement.style('color', `rgb(${currentColor[0]}, ${currentColor[1]}, ${currentColor[2]})`); // Colore dinamico
+      sourceLinkElement.style('position', 'absolute');
+      sourceLinkElement.hide(); // Nascondi inizialmente
   }
 
 
@@ -288,30 +310,65 @@ function drawColoniesLayer(){
 // =========================================================
 function drawSideInfo(){
   push();
-  let sideX = windowWidth * 0.06,
-      topY = windowHeight * 0.73,
-      columnWidth = 350;
+  let sideX = windowWidth * 0.06;
+  let topY = windowHeight * 0.73; // Punto di partenza in basso a sinistra
+  let columnWidth = 400;
+  let estimatedLineHeight = 22; // Altezza stimata per textSize(16) + interlinea
 
-  // Titolo colonizzatore
+  // 1. Titolo colonizzatore
   fill(currentColor);
   textFont("Montserrat");
   textSize(32);
   textStyle(BOLD);
   textAlign(LEFT, TOP);
-  text(colonizerTitle, sideX, topY);
+  text(colonizerTitle, sideX, topY - 70);
 
-  // Descrizione laterale
-  let descY = topY + 60;
-  stroke(currentColor);
-  strokeWeight(3);
-  line(sideX - 15, descY, sideX - 15, descY + 270); 
-  noStroke();
-  
+  // 2. Setup per il paragrafo
+  let descY = topY -15;
   fill(60);
   textSize(16);
   textStyle(NORMAL);
   textAlign(LEFT, TOP);
-  text(currentDescription, sideX, descY, columnWidth);
+  
+  // Impostazione delle proprietà per calcolare l'altezza
+  // (P5.js non ha un modo diretto, quindi usiamo la stima di righe)
+  // Nota: textWidth() richiede che il font sia caricato e la dimensione settata
+  
+  let paragraphText = currentParagraph;
+  
+  // Calcolo approssimativo dell'altezza del testo:
+  // 1. Calcola la larghezza totale che il testo occuperebbe se fosse su una riga.
+  let totalTextWidth = textWidth(paragraphText);
+  
+  // 2. Calcola quante righe intere sono necessarie data la columnWidth.
+  let requiredLines = Math.ceil(totalTextWidth / columnWidth);
+  
+  // 3. Calcola l'altezza verticale totale del blocco di testo.
+  let totalTextHeight = requiredLines * estimatedLineHeight;
+  
+  // 4. Aggiustamento per il link, se presente (stimato in 30px aggiuntivi)
+  let linkOffset = currentSourceLinkText ? 30 : 0;
+  let lineLength = totalTextHeight + linkOffset + 10; // Aggiungo 10px di padding in basso
+
+
+  // Disegna la linea verticale (DINAMICA)
+  stroke(currentColor);
+  strokeWeight(3);
+  line(sideX - 15, descY, sideX - 15, descY + lineLength-5); // <--- LUNGHEZZA DINAMICA
+  noStroke();
+  
+  // Disegna il paragrafo (solo il testo principale)
+  text(paragraphText, sideX, descY, columnWidth);
+  
+  // Posiziona il link HTML se esiste
+  if (sourceLinkElement) {
+    sourceLinkElement.show();
+    // Posizionamento del link subito sotto il paragrafo
+    sourceLinkElement.position(sideX, descY + totalTextHeight + 5); 
+  } else if (sourceLinkElement) {
+    sourceLinkElement.hide();
+  }
+  
   pop();
 }
 
@@ -328,7 +385,8 @@ function drawColonyInfo(){
       end = colEndYear[index],
       duration = colDuration[index];
 
-  let infoX = 80, infoY = 150;
+  // Posizionamento in alto a sinistra (separato dalla SideInfo in basso)
+  let infoX = 80, infoY = windowHeight * 0.1; 
   push();
   fill(currentColor);
   textFont("Montserrat");
@@ -342,18 +400,18 @@ function drawColonyInfo(){
   textSize(16);
   textStyle(NORMAL);
   let lineSpacing = 25, startY = infoY + 50;
-  text(`• Inizio colonizzazione: ${int(start)}`, infoX, startY);
-  text(`• Fine colonizzazione: ${int(end)}`, infoX, startY + lineSpacing);
-  text(`• Durata colonizzazione: ${nf(duration,0,1)} anni`, infoX, startY + lineSpacing * 2);
+  text(`• Beginning of colonization: ${int(start)}`, infoX, startY);
+  text(`• End of colonization: ${int(end)}`, infoX, startY + lineSpacing);
+  text(`• Colonization duration: ${nf(duration,0,1)} years`, infoX, startY + lineSpacing * 2);
 
   // Pulsante fittizio
   noStroke();
   fill(currentColor);
-  rect(infoX, startY + lineSpacing * 3.5, 200, 30, 5);
+  rect(infoX, startY + lineSpacing * 3.5, 250, 30, 5);
   fill(255);
   textSize(12);
   textAlign(CENTER, CENTER);
-  text("PER ULTERIORI INFORMAZIONI", infoX + 100, startY + lineSpacing * 3.5 + 15);
+  text("MORE INFORMATION ON WIKIPEDIA", infoX + 125, startY + lineSpacing * 3.5 + 15);
   pop();
 }
 
@@ -401,6 +459,10 @@ function mousePressed(){
   if(!clickedSomething){
     clickedCountry = null;
     selectedCountry = null;
+    // Nascondi il link quando si deseleziona
+    if (sourceLinkElement) {
+      sourceLinkElement.hide();
+    }
   }
 
   // Reset opacità
