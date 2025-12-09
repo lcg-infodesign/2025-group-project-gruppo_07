@@ -220,7 +220,7 @@ function drawTimeline() {
 
       hoveredIndex = i;
 
-      // ---- BARRA SELEZIONATA (Colore dinamico) ----
+      // BARRA SELEZIONATA (Colore dinamico) 
       stroke(currentColor[0], currentColor[1], currentColor[2], op); 
       strokeWeight(6); 
       line(xStart, yPos, xEnd, yPos);
@@ -286,6 +286,7 @@ function drawTimeline() {
     }
 
     // Nome della colonia a sinistra
+    push()
     if (country === clickedCountry || country === selectedCountry) {
       fill(currentColor[0], currentColor[1], currentColor[2]);  // Colore dinamico
     } else {
@@ -349,21 +350,21 @@ textFont("sans-serif");
     
     // Lista di Dettagli
     textFont("Montserrat");
-text(`• Inizio colonizzazione: ${int(start)}`, infoX, startY);
-text(`• Fine colonizzazione: ${int(end)}`, infoX, startY + lineSpacing);
-text(`• Durata colonizzazione: ${nf(duration, 0, 1)} anni`, infoX, startY + lineSpacing * 2);
+text(`• Beginning of colonization: ${int(start)}`, infoX, startY);
+text(`• End of colonization: ${int(end)}`, infoX, startY + lineSpacing);
+text(`• Colonization duration: ${nf(duration, 0, 1)} years`, infoX, startY + lineSpacing * 2);
 textFont("sans-serif");
 
     
     // Pulsante Fittizio 
     noStroke();
     fill(currentColor[0], currentColor[1], currentColor[2]); 
-    rect(infoX, startY + lineSpacing * 3.5, 200, 30, 5);
+    rect(infoX, startY + lineSpacing * 3.5, 250, 30, 5);
     
     fill(255);
     textSize(12);
     textAlign(CENTER, CENTER);
-    text("PER ULTERIORI INFORMAZIONI", infoX + 100, startY + lineSpacing * 3.5 + 15);
+    text("MORE INFORMATION ON WIKIPEDIA", infoX + 120, startY + lineSpacing * 3.5 + 15);
 
     pop();
   }
@@ -420,9 +421,9 @@ function drawSideInfo() {
   
 
   // COLONNA SINISTRA
-  let sideX = 90;       // distanza dal bordo sinistro
-  let topY = 700;       // margine alto
-  let columnWidth = 400;
+  let sideX = windowWidth*0.06;       // distanza dal bordo sinistro
+  let topY = windowHeight*0.73;       // margine alto
+  let columnWidth = 350;
 
   
   // 1. TITOLO COLONIZZATORE
