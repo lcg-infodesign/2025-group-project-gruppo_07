@@ -224,6 +224,12 @@ let sketch1 = function(p){
   let isPlaying = false;
   let hoveredSphere = null;
   let morphWidth = 0
+  let sliderHover = false;
+  let sliderX = 0;
+  let sliderY = 0;
+  let sliderW = 0;
+  let sliderH = 0;
+
 
   p.createContainerCanvas = function(container){
     let w = container.width;
@@ -325,7 +331,7 @@ if (savedSliderPosition) {
     if (isPlaying) {
   let val = forceSlider.value();
   if (val < 100) {
-    forceSlider.value(val + 0.1); 
+    forceSlider.value(val + 0.05); 
     p.updateSliderGradient();
   } else {
     isPlaying = false;
@@ -354,9 +360,10 @@ for (let cl of localClusters) {
     let tEnd   = p.map(s.endYear, globalMinEnd,   globalMaxEnd,   0.15, 0.95);
 
 
-    if (sliderVal < tStart || sliderVal > tEnd) continue;
-    if (distToClusterCenter > cl.r) continue;
+    if (sliderVal < tStart || sliderVal > tEnd) continue; 
+    if (distToClusterCenter > cl.r) continue; 
     if (d < s.r/2) {
+      p.cursor('pointer');
       hoveredSphere = s;  
       p.push();
   
@@ -385,12 +392,45 @@ for (let cl of localClusters) {
 
 
 
-    } 
+    }
   }
 }
+
+// Ottieni posizione reale dello slider
+let r = forceSlider.elt.getBoundingClientRect();
+sliderX = r.left - p.canvas.getBoundingClientRect().left;
+sliderY = r.top  - p.canvas.getBoundingClientRect().top;
+sliderW = r.width;
+sliderH = r.height;
+
+// Detect hover
+if (
+  p.mouseX >= sliderX &&
+  p.mouseX <= sliderX + sliderW &&
+  p.mouseY >= sliderY - 20 &&        // margine per attivare effetto prima della linea
+  p.mouseY <= sliderY + sliderH
+) {
+  sliderHover = true;
+} else {
+  sliderHover = false;
 }
 
-  // MODIFICA IL p.mousePressed() dove reindirizza alle pagine
+if (sliderHover) {
+  p.push();
+  p.noStroke();
+  p.fill(49, 49, 49, 100);  // colore della linea (semi-trasparente)
+
+
+  let fixedX = sliderX + sliderW / 2; // esempio: posizione centrale
+  // rettangolo verticale che si alza sopra lo slider
+  p.rectMode(p.CENTER)
+  p.rect(fixedX - 3, sliderY - 30, r.width, 50, 3);
+
+  p.pop();
+}
+
+ 
+}
 
 p.mousePressed = function () {
   let sliderBox = forceSlider.elt.getBoundingClientRect();

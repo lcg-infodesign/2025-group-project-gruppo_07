@@ -7,6 +7,11 @@ html, body {
  
 }
 
+
+.skipBtn{
+  font-family:"montserrat", sans-serif;
+}
+
 h1{
   font-family: "benton-modern-display", serif;
 }
@@ -26,7 +31,7 @@ h1{
 .navbar {
     display: inline-block;
     padding: 8px 15px;
-    border-radius: 50px;
+    /*border-radius: 50px;*/
     background-color: #E7E1D1;
     opacity: 0;
     transform: translateY(2vh);
@@ -64,8 +69,8 @@ h1{
     font-size: 14px;
     padding: 0.2em 3em 0.2em 3em;
     transition: 0.5s ease;
-    border: solid 0.1px #E7E1D1;
     border-radius: 5px; 
+    user-select: none;
 }
 
 .list1:hover {
@@ -100,6 +105,9 @@ h1{
 
 .list1:hover::after {
     width: 100%;
+    height: 1px; 
+    left: 0;
+    bottom: 0; 
 }
 
 .navbar li.dropdown {
@@ -124,7 +132,7 @@ ul li ul.dropdown-menu li a {
 
 ul li ul.dropdown-menu li a:hover {
     display: inline-block; 
-    padding:10px 3em 10px 3em;       
+    padding:10px 2em 10px 2em;       
     text-align: center;    
     color: #313131;
     padding-bottom: 1em;
@@ -141,7 +149,7 @@ ul li ul.dropdown-menu li a:hover {
 }
 
 #drpdwn{
-  border-bottom: none;
+  border: none;
 
 }
 

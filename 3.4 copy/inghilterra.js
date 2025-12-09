@@ -4,8 +4,7 @@
 
 // Tabelle dei dati CSV
 let table, table3;
-
-// Array contenenti informazioni sulle colonie
+let tableDescriptions; // Variabile per le descrizioni specifiche per colonizzatore
 let colonies = [];
 let colDuration = [], colEndYear = [], colStartYear = [], colCountries = [];
 
@@ -44,7 +43,11 @@ let colonizerColors = {
 };
 
 // Colore corrente scelto in base al colonizzatore
-let currentColor = [0,0,0];
+let currentColor = [0, 0, 0]; // Variabile per il colore RGB corrente
+let currentDescription = "Caricamento della descrizione in corso..."; // Variabile per la descrizione dinamica
+let currentSourceLinkText = "Source: Encyclopaedia Britannica-“British Empire”";
+let currentSourceLinkURL = "https://www.britannica.com/place/British-Empire";
+let sourceLinkElement;
 
 // Buffer grafico (p5.Graphics) per gestire il contenuto scrollabile
 let coloniesLayer;
@@ -56,8 +59,9 @@ let chartY = 120;
 // PRELOAD — Carica i dati CSV prima dell'avvio
 // =========================================================
 function preload() {
-  table = loadTable("assets/COLDAT_dyads - Foglio6.csv","csv","header");
-  table3 = loadTable("assets/COLDAT_dyads - Foglio3.csv","csv","header");
+  table = loadTable("assets/COLDAT_dyads - Foglio6.csv", "csv", "header");
+  table3 = loadTable("assets/COLDAT_dyads - Foglio3.csv", "csv", "header");
+  tableDescriptions = loadTable("assets/paragrafi-dettaglio.csv", "csv", "header"); // Caricamento del file descrittivo
 }
 
 // =========================================================
@@ -67,6 +71,33 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   // Legge i parametri URL per colonizzatore e paese selezionato
+  // ESTRAZIONE DEL PARAGRAFO E SEPARAZIONE
+    if (tableDescriptions) {
+        let descRow = tableDescriptions.findRows(colonizer, "colonizer");
+        if (descRow.length > 0) {
+            let fullText = descRow[0].get("paragraph");
+            let parts = splitParagraphAndSource(fullText);
+            
+            currentParagraph = parts.paragraph;
+            currentSourceLinkText = parts.sourceText;
+            
+            // Per ora, l'URL è fittizio (devi fornirlo nel CSV se è dinamico)
+            currentSourceLinkURL = "https://www.google.com/search?q=" + encodeURIComponent(colonizer + " colonial empire source"); 
+        } else {
+            currentParagraph = "Descrizione non trovata per questo colonizzatore.";
+        }
+    }
+    
+    // CREAZIONE DELL'ELEMENTO LINK HTML
+    if (currentSourceLinkText) {
+        sourceLinkElement = createA(currentSourceLinkURL, currentSourceLinkText, '_blank');
+        sourceLinkElement.style('font-size', '14px');
+        sourceLinkElement.style('color', `rgb(${currentColor[0]}, ${currentColor[1]}, ${currentColor[2]})`); // Colore dinamico
+        sourceLinkElement.style('position', 'absolute');
+        sourceLinkElement.hide(); // Nascondi inizialmente
+    }
+
+  // Leggi i parametri URL
   let urlParams = new URLSearchParams(window.location.search);
   colonizer = urlParams.get("colonizer");
   selectedCountry = urlParams.get("country");
@@ -79,6 +110,17 @@ function setup() {
     console.error("Nessun colonizzatore specificato!");
     return;
   }
+  
+  // ESTRAZIONE DEL PARAGRAFO SPECIFICO
+  if (tableDescriptions) {
+    let descRow = tableDescriptions.findRows(colonizer, "colonizer");
+    if (descRow.length > 0) {
+      currentDescription = descRow[0].get("paragraph");
+    } else {
+      currentDescription = "Descrizione non trovata per questo colonizzatore.";
+    }
+  }
+
 
   // Filtra le righe del dataset per il colonizzatore selezionato
   let selected = table.findRows(colonizer,"colonizer");
@@ -262,7 +304,7 @@ function drawSideInfo(){
   let descY = topY + 60;
   stroke(currentColor);
   strokeWeight(3);
-  line(sideX - 15, descY, sideX - 15, descY + 100);
+  line(sideX - 15, descY, sideX - 15, descY + 270); 
   noStroke();
   fill(60);
   textSize(16);
