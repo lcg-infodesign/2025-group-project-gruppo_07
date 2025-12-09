@@ -1,4 +1,6 @@
 let table;
+let tableTime;
+let colonne = []
 let costumRadius = {
   "britain": {r: 295},
   "france": {r: 255},
@@ -28,6 +30,7 @@ let customPositions = {};
 
 function preload() {
   table = loadTable("assets/COLDAT_dyads - Foglio6.csv", "csv", "header");
+  tableTime = loadTable("assets/colonie_per_anno.csv", "csv", "header")
 }
 
 //Prova animazione javascript    
@@ -61,6 +64,12 @@ function setup(){
 
       if (!colonizerGroups.has(colonizer)) colonizerGroups.set(colonizer, []);
       colonizerGroups.get(colonizer).push({ country, duration, endYear, startYear });
+    }
+
+    for(let i = 0; i < 2; i++){
+      let colums = tableTime.getColumn(i);
+      colonne[i] = colums.map(i => float(i))
+      console.log(colonne)
     }
 
   //new p5(sketch, 'general_view')
@@ -222,13 +231,15 @@ let sketch1 = function(p){
   let globalMaxEnd   = -Infinity;
   let playCheckBox;
   let isPlaying = false;
-  let hoveredSphere = null;
-  let morphWidth = 0
+  let hoveredSphere = null;  
   let sliderHover = false;
   let sliderX = 0;
   let sliderY = 0;
   let sliderW = 0;
   let sliderH = 0;
+  let hoverAlpha = 0;   
+  let hoverOffset = 20; 
+
 
 
   p.createContainerCanvas = function(container){
@@ -373,12 +384,28 @@ for (let cl of localClusters) {
 
   p.textSize(14);
   let textW = p.textWidth(s.country);
+  let textW2 = p.textWidth(cl.name)
   
   let padding = 20;              
   let boxW = textW + padding * 2;  
+  let boxW2 = textW2 + padding * 2;  
   let boxH = 30;
 
+  /*p.push()
+  p.rectMode(p.CENTER)
+  p.rect(cl.x, cl.y-30, boxW2, boxH, 5);
+  p.pop()*/
+
   p.rect(p.mouseX + 10, p.mouseY - boxH - 5, boxW, boxH, 5);
+  
+  p.push()
+  p.noStroke()
+  p.fill(cl.colr);
+  p.textFont("montserrat");
+  p.textStyle(p.BOLD)
+  p.textAlign(p.CENTER, p.CENTER);
+  p.text(cl.name.toUpperCase(), p.mouseX + 10 + boxW / 2, p.mouseY - boxH / 2 - 30);
+  p.pop()
 
   p.push()
   p.noStroke()
@@ -389,6 +416,7 @@ for (let cl of localClusters) {
   p.pop()
   p.pop()
 
+  
 
 
 
@@ -415,19 +443,66 @@ if (
   sliderHover = false;
 }
 
+// Animazione
 if (sliderHover) {
+  hoverAlpha = p.lerp(hoverAlpha, 20, 0.15); 
+  hoverOffset = p.lerp(hoverOffset, 0, 0.15);   
+} else {
+  hoverAlpha = p.lerp(hoverAlpha, 0, 0.15);     
+  hoverOffset = p.lerp(hoverOffset, 20, 0.15);  
+}
+
+
+
+if (hoverAlpha > 1) {   
+  let fixedX = sliderX + sliderW / 2;
+
+  // Rettangolo
   p.push();
   p.noStroke();
-  p.fill(49, 49, 49, 100);  // colore della linea (semi-trasparente)
+  p.fill(49, 49, 49, hoverAlpha);  
+  p.rectMode(p.CENTER);
+  p.rect(fixedX, sliderY - 30 + hoverOffset, sliderW, 50, 3); 
+  p.pop();
 
+  // Grafico
+  let graphHeight = 50;
+  p.push();
+  
+  p.translate(sliderX, sliderY - 30 + hoverOffset - graphHeight / 2); 
 
-  let fixedX = sliderX + sliderW / 2; // esempio: posizione centrale
-  // rettangolo verticale che si alza sopra lo slider
-  p.rectMode(p.CENTER)
-  p.rect(fixedX - 3, sliderY - 30, r.width, 50, 3);
+  p.curveTightness(-2.5);
+  p.beginShape();
+  p.fill(49, 49, 49, hoverAlpha)
+  p.stroke("#31313131")
+  p.strokeWeight(1.2);
+  
+  
+  let firstX = p.map(colonne[0][0], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
+  let firstY = p.map(colonne[1][0], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight * 0.95, graphHeight * 0.05);
+  p.curveVertex(firstX, firstY); 
+  
+  for (let i = 0; i < colonne[0].length; i++) {
+    let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
+    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight * 0.95, graphHeight * 0.05);
 
+    p.curveVertex(x, y); 
+  }
+  
+  
+  let lastIndex = colonne[0].length - 1;
+  let lastX = p.map(colonne[0][lastIndex], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
+  let lastY = p.map(colonne[1][lastIndex], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight * 0.95, graphHeight * 0.05);
+  p.curveVertex(lastX, lastY); // Punto di controllo finale
+
+  
+  
+  p.endShape(); 
   p.pop();
 }
+
+
+
 
  
 }

@@ -794,6 +794,8 @@ input[type="range"] {
   scale: 2 2;
   position: relative;
   transform: translateY(0.2vh);
+  opacity: 0;
+  transition: 0.2s ease;
 
 }
 &::-moz-range-thumb {
@@ -808,8 +810,19 @@ input[type="range"] {
   scale: 2 2;
   position: relative;
   transform: translateY(0.2vh);
+  opacity: 0;
+  transition: 0.2s ease;
   
 }
+}
+
+input[type="range"]:hover{
+  &::-webkit-slider-thumb{
+    opacity: 1;
+  }
+   &::-moz-range-thumb {
+    opacity: 1;
+   }
 }
 
 #legenda{
