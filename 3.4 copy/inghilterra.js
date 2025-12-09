@@ -220,7 +220,7 @@ function drawTimeline() {
 
       hoveredIndex = i;
 
-      // ---- BARRA SELEZIONATA (Colore dinamico) ----
+      // BARRA SELEZIONATA (Colore dinamico) 
       stroke(currentColor[0], currentColor[1], currentColor[2], op); 
       strokeWeight(6); 
       line(xStart, yPos, xEnd, yPos);
@@ -286,6 +286,7 @@ function drawTimeline() {
     }
 
     // Nome della colonia a sinistra
+    push()
     if (country === clickedCountry || country === selectedCountry) {
       fill(currentColor[0], currentColor[1], currentColor[2]);  // Colore dinamico
     } else {
@@ -420,9 +421,9 @@ function drawSideInfo() {
   
 
   // COLONNA SINISTRA
-  let sideX = 90;       // distanza dal bordo sinistro
-  let topY = 700;       // margine alto
-  let columnWidth = 400;
+  let sideX = windowWidth*0.06;       // distanza dal bordo sinistro
+  let topY = windowHeight*0.73;       // margine alto
+  let columnWidth = 350;
 
   
   // 1. TITOLO COLONIZZATORE
