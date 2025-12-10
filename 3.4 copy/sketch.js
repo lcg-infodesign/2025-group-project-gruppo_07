@@ -18,7 +18,7 @@ let colonizerGroups = new Map();
 let clusterColorsByName = {
   "britain": "#81201A",   
   "france": "#4D4871",   
-  "spain": "#E3BC47",   
+  "spain": "#C49A00",   
   "portugal": "#99AB59",   
   "germany": "#8799BD",   
   "belgium": "#CA5D84",   

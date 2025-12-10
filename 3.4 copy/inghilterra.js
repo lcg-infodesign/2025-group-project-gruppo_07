@@ -38,7 +38,7 @@ let colonizerDescriptions = {
 
 // Colori associati a ciascun colonizzatore
 let colonizerColors = {
-  "britain":[139,0,0],"france":[77,72,113],"spain":[227,188,71],"portugal":[153,171,89],
+  "britain":[139,0,0],"france":[77,72,113],"spain":[196, 154, 0],"portugal":[153,171,89],
   "germany":[135,153,189],"belgium":[202,93,132],"netherlands":[217,121,99],"italy":[126,193,175]
 };
 
@@ -295,10 +295,12 @@ function drawColoniesLayer(){
     }
 
     // Nome del paese a sinistra della barra
-    coloniesLayer.textAlign(RIGHT, CENTER);
-    coloniesLayer.textSize(11);
-    coloniesLayer.fill(country === clickedCountry || country === selectedCountry ? currentColor : [40, op]);
-    coloniesLayer.text(country, chartX - 15, yPos);
+      coloniesLayer.noStroke(); 
+      coloniesLayer.textAlign(RIGHT, CENTER);
+      coloniesLayer.textSize(11);
+      coloniesLayer.fill(country === clickedCountry || country === selectedCountry ? currentColor : [40, op]);
+      coloniesLayer.text(country.toUpperCase(), chartX - 15, yPos); 
+
   }
 
   // Disegna il buffer sul canvas principale
@@ -311,8 +313,8 @@ function drawColoniesLayer(){
 function drawSideInfo(){
   push();
   let sideX = windowWidth * 0.06;
-  let topY = windowHeight * 0.73; // Punto di partenza in basso a sinistra
-  let columnWidth = 400;
+  let topY = windowHeight * 0.69; // Punto di partenza in basso a sinistra
+  let columnWidth = 350;
   let estimatedLineHeight = 22; // Altezza stimata per textSize(16) + interlinea
 
   // 1. Titolo colonizzatore
@@ -348,7 +350,7 @@ function drawSideInfo(){
   
   // 4. Aggiustamento per il link, se presente (stimato in 30px aggiuntivi)
   let linkOffset = currentSourceLinkText ? 30 : 0;
-  let lineLength = totalTextHeight + linkOffset + 10; // Aggiungo 10px di padding in basso
+  let lineLength = totalTextHeight + linkOffset + 2; // Aggiungo 10px di padding in basso
 
 
   // Disegna la linea verticale (DINAMICA)
