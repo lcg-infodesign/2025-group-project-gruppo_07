@@ -261,7 +261,7 @@ function drawColoniesLayer(){
     let isClicked = (country === clickedCountry);
     let isSelected = (country === selectedCountry);
     let someoneSelected = clickedCountry || selectedCountry;
-    let targetOpacity = someoneSelected ? (isClicked || isSelected ? 255 : 100) : 255;
+    let targetOpacity = someoneSelected ? (isClicked || isSelected ? 255 : 40) : 255;
     fadeOpacity[country] = lerp(fadeOpacity[country], targetOpacity, fadeSpeed);
     let op = fadeOpacity[country];
 
@@ -297,8 +297,17 @@ function drawColoniesLayer(){
     // Nome del paese a sinistra della barra
       coloniesLayer.noStroke(); 
       coloniesLayer.textAlign(RIGHT, CENTER);
-      coloniesLayer.textSize(11);
-      coloniesLayer.fill(country === clickedCountry || country === selectedCountry ? currentColor : [40, op]);
+      if(country === clickedCountry || country === selectedCountry){
+        coloniesLayer.textSize(14);
+        coloniesLayer.fill(currentColor[0], currentColor[1], currentColor[2], op)
+        coloniesLayer.textStyle(BOLD)
+      } else{
+        coloniesLayer.textSize(11)
+        coloniesLayer.fill(80, 80, 80, op);
+        coloniesLayer.textStyle(NORMAL)
+      }
+      /*coloniesLayer.textSize(11);
+      coloniesLayer.fill(country === clickedCountry || country === selectedCountry ? currentColor : [40, op]);*/
       coloniesLayer.text(country.toUpperCase(), chartX - 15, yPos); 
 
   }
