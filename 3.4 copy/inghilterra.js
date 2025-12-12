@@ -49,6 +49,7 @@ let currentParagraph = ""; // <--- PARTE PRINCIPALE DEL TESTO
 let currentSourceLinkText = ""; // <--- TESTO DEL LINK (es. "Source: Encyclopaedia...")
 let currentSourceLinkURL = ""; // <--- URL VERO E PROPRIO DEL LINK (se presente)
 let sourceLinkElement; // <--- ELEMENTO LINK HTML DI P5.js
+let montserratFont; // Variabile per il font Montserrat
 
 // Buffer grafico (p5.Graphics) per gestire il contenuto scrollabile
 let coloniesLayer;
@@ -94,6 +95,8 @@ function preload() {
   table = loadTable("assets/COLDAT_dyads - Foglio6.csv", "csv", "header");
   table3 = loadTable("assets/COLDAT_dyads - Foglio3.csv", "csv", "header");
   tableDescriptions = loadTable("assets/paragrafi-dettaglio.csv", "csv", "header"); // Caricamento del file descrittivo
+  // Assumi che tu abbia caricato il font Montserrat correttamente
+  // montserratFont = loadFont('assets/Montserrat-Regular.otf'); 
 }
 
 // =========================================================
@@ -101,6 +104,9 @@ function preload() {
 // =========================================================
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  
+  // IMPOSTA IL FONT DI DEFAULT PER LO SKETCH (se caricato)
+  // if(montserratFont) textFont(montserratFont);
 
   // Leggi i parametri URL
   let urlParams = new URLSearchParams(window.location.search);
@@ -138,6 +144,7 @@ function setup() {
   if (currentSourceLinkText) {
       sourceLinkElement = createA(currentSourceLinkURL, currentSourceLinkText, '_blank');
       sourceLinkElement.style('font-size', '14px');
+      sourceLinkElement.style('font-family', 'Montserrat, sans-serif'); // Aggiunto font per l'elemento HTML
       sourceLinkElement.style('color', `rgb(${currentColor[0]}, ${currentColor[1]}, ${currentColor[2]})`); // Colore dinamico
       sourceLinkElement.style('position', 'absolute');
       sourceLinkElement.hide(); // Nascondi inizialmente
@@ -219,6 +226,10 @@ function drawTimeline(){
   textSize(12);
   fill(100);
   noStroke();
+  
+  // Imposta il font Montserrat per gli anni, se non è il font di default
+  textFont("Montserrat", 12); 
+  
   for(let year=minYear; year<=maxYear; year+=50){
     let x = map(year, minYear, maxYear, chartX, chartX+chartWidth);
     text(year, x, chartY+scrollHeight+20);
@@ -238,6 +249,9 @@ function drawColoniesLayer(){
 
   let rowHeight = 25;  // distanza verticale tra barre
   let dotSize = 8;     // dimensione dei pallini alle estremità
+
+  // Imposta il font per il buffer grafico
+  coloniesLayer.textFont("Montserrat", 11);
 
   for(let i=0;i<colonies.length;i++){
     let start = colStartYear[i],
@@ -261,6 +275,8 @@ function drawColoniesLayer(){
     let isClicked = (country === clickedCountry);
     let isSelected = (country === selectedCountry);
     let someoneSelected = clickedCountry || selectedCountry;
+    
+    // OPACITÀ: Solo se qualcuno è selezionato, applichiamo un fade
     let targetOpacity = someoneSelected ? (isClicked || isSelected ? 255 : 40) : 255;
     fadeOpacity[country] = lerp(fadeOpacity[country], targetOpacity, fadeSpeed);
     let op = fadeOpacity[country];
@@ -286,10 +302,11 @@ function drawColoniesLayer(){
 
     } else {
       // --- Barre non selezionate ---
+      // L'opacità viene applicata comunque alla linea e al pallino
       coloniesLayer.stroke(currentColor[0], currentColor[1], currentColor[2], op*0.7);
       coloniesLayer.strokeWeight(1.2);
       coloniesLayer.line(xStart, yPos, xEnd, yPos);
-      coloniesLayer.fill(255);
+      coloniesLayer.fill(255, op); // Pallini bianchi, opacità variabile
       coloniesLayer.circle(xStart, yPos, 8);
       coloniesLayer.circle(xEnd, yPos, 8);
     }
@@ -337,6 +354,7 @@ function drawSideInfo(){
   // 2. Setup per il paragrafo
   let descY = topY -15;
   fill(60);
+  textFont("Montserrat"); // Assicura che il paragrafo usi lo stesso font
   textSize(16);
   textStyle(NORMAL);
   textAlign(LEFT, TOP);
@@ -365,7 +383,7 @@ function drawSideInfo(){
   // Disegna la linea verticale (DINAMICA)
   stroke(currentColor);
   strokeWeight(3);
-  line(sideX - 15, descY, sideX - 15, descY + lineLength-5); // <--- LUNGHEZZA DINAMICA
+  line(sideX - 15, descY, sideX - 15, descY + lineLength-10); // <--- LUNGHEZZA DINAMICA
   noStroke();
   
   // Disegna il paragrafo (solo il testo principale)
@@ -408,6 +426,7 @@ function drawColonyInfo(){
 
   // Dati principali
   fill(40);
+  textFont("Montserrat"); // Assicura che i dati usino lo stesso font
   textSize(16);
   textStyle(NORMAL);
   let lineSpacing = 25, startY = infoY + 50;
