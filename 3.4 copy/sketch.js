@@ -591,7 +591,7 @@ p.mousePressed = function () {
         let angle = p.random(0,p.TWO_PI);
         let x = outerCluster.x + p.cos(angle)*outerCluster.r;
         let y = outerCluster.y + p.sin(angle)*outerCluster.r;
-        let br = p.map(rec.duration,0,maxDur,5,36);
+        let br = p.map(rec.duration,0,maxDur,5,36); //grandezza delle sfere compresa tra 5 e 36
         
         this.sphere.push({
           x, y, r: 10, targetR: br,

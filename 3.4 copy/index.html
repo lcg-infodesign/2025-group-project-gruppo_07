@@ -100,6 +100,8 @@
         <span id="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/></svg></span>
       </label>
     </div>
+
+    <!-- Legenda -->
     <div id="legenda">
     <h1>Colonial Empires</h1>
     <ul>
@@ -136,6 +138,30 @@
        
       </li>
     </ul>
+
+    <div id="sizeScale">
+      <h1>Duration of a colony</h1>
+      <div class="scaleBoxes">
+        <div class="scaleItem">
+          <span class="scaleSphere small"></span>
+          <p class="scaleLabel small">min</p>
+        </div>
+        <div class="scaleItem">
+          <!-- Arrow connecting small and large spheres -->
+          <svg class="scaleArrow" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- extend the line closer to edges so the perceived distance to sphere edges is even -->
+            <line x1="2" y1="12" x2="118" y2="12" stroke="#4d4d4d" stroke-width="1pt" stroke-linecap="round" />
+            <!-- small arrow head at the right end -->
+            <polygon points="118,12 110,6 110,18" fill="#4d4d4d" />
+          </svg>
+          <p class="scaleLabel medium">&nbsp;</p>
+        </div>
+        <div class="scaleItem">
+          <span class="scaleSphere large"></span>
+          <p class="scaleLabel large">max</p>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
       
