@@ -18,7 +18,7 @@ let colonizerGroups = new Map();
 let clusterColorsByName = {
   "britain": "#81201A",   
   "france": "#4D4871",   
-  "spain": "#E3BC47",   
+  "spain": "#C49A00",   
   "portugal": "#99AB59",   
   "germany": "#8799BD",   
   "belgium": "#CA5D84",   
@@ -471,7 +471,7 @@ if (hoverAlpha > 1) {
   
   p.translate(sliderX, sliderY - 30 + hoverOffset - graphHeight / 2); 
 
-  p.curveTightness(-2.5);
+  p.curveTightness(-0.5);
   p.beginShape();
   p.fill(49, 49, 49, hoverAlpha)
   p.stroke("#31313131")
@@ -479,12 +479,12 @@ if (hoverAlpha > 1) {
   
   
   let firstX = p.map(colonne[0][0], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-  let firstY = p.map(colonne[1][0], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight * 0.95, graphHeight * 0.05);
+  let firstY = p.map(colonne[1][0], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
   p.curveVertex(firstX, firstY); 
   
-  for (let i = 0; i < colonne[0].length; i++) {
+  for (let i = 0; i < colonne[0].length; i+= 20) {
     let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight * 0.95, graphHeight * 0.05);
+    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
 
     p.curveVertex(x, y); 
   }
@@ -492,7 +492,7 @@ if (hoverAlpha > 1) {
   
   let lastIndex = colonne[0].length - 1;
   let lastX = p.map(colonne[0][lastIndex], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-  let lastY = p.map(colonne[1][lastIndex], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight * 0.95, graphHeight * 0.05);
+  let lastY = p.map(colonne[1][lastIndex], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
   p.curveVertex(lastX, lastY); // Punto di controllo finale
 
   
