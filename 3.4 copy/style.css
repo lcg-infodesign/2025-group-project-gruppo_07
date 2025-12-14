@@ -983,22 +983,36 @@ input[type="range"]:hover{
     overflow: hidden;
     
     /* BILANCIARE L'ALTEZZA DEL MENU */
-    padding-top: 95px; /* Spinge il centro visivo verso il basso */
+    padding-top: 80px; /* Spinge il centro visivo verso il basso */
 }
 
-        /* Il grande cerchio tratteggiato sullo sfondo */
         .dotted-ring {
-            position: absolute;
-            width: 650px;
-            height: 650px;
-            border: 1px dashed #bfbfbf; /* Tratteggio leggero */
-            border-radius: 50%;
-            top: 50%;
-            left: 53%;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-            pointer-events: none; /* Non interferisce col mouse */
-        }
+    /* Posizionamento (rimane invariato) */
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    top: 48%;
+    left: 54%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+
+    /* --- MODIFICHE --- */
+    
+    /* 1. Rimuovi il vecchio bordo */
+    /* border: 1px dashed #bfbfbf;  */
+    
+    /* 2. Inserisci l'immagine */
+    background-image: url('assets/cerchio3b.png');
+    
+    /* 3. Assicurati che l'immagine si veda correttamente */
+    background-size: contain;   /* Adatta l'immagine al box (650x650) */
+    background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
+    background-position: center;  /* Centra l'immagine nel div */
+    
+    /* Opzionale: Se la tua immagine è quadrata e vuoi ritagliarla a cerchio */
+    /* border-radius: 50%; */ 
+}
 
         /* CONTENITORE DELLE BOLLE */
         .bubble-container {
