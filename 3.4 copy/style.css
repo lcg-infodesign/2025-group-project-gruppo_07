@@ -1139,3 +1139,137 @@ input[type="range"]:hover{
             top: 50%;
             left: 10%;
         }
+
+footer {
+            margin-top: 70px;
+            background-color: #E7E1D1;
+            border-top: 1px solid #313131;
+            padding: 80px 60px;
+            width: 100%;
+            overflow-x: hidden;
+
+        }
+        
+
+        .footer-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* HEADER FOOTER */
+        .footer-header {
+            position: relative;
+            margin-bottom: 80px;
+            padding-bottom: 60px;
+        }
+
+        .footer-header::after {
+          content: "";
+          position: absolute;
+          left: -60px;
+          bottom: 0;
+          width: calc(100% + 120px);
+          height: 1px;
+          background-color: #313131;
+}
+
+        .course-title {
+            font-family: "benton-modern-display", serif;
+            font-size: 3.5vh;
+            font-weight: 400;
+            color: #313131;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .course-info {
+            font-size: 1.3vh;
+            color: #313131;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        /* CONTENUTO PRINCIPALE */
+       .footer-content {
+    display: grid;
+    grid-template-columns: minmax(260px, 420px) minmax(220px, 360px) 160px;
+    gap: 240px;
+    margin-bottom: 80px;
+    align-items: start;
+}
+
+        .footer-section h3 {
+            font-size: 1.2vh;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #313131;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #313131;
+            padding-bottom: 12px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section li {
+            font-size: 1.4vh;
+            line-height: 1.9;
+            color: #313131;
+        }
+
+        .footer-section p {
+            font-size: 1.4vh;
+            line-height: 1.9;
+            color: #313131;
+        }
+
+        /* SEZIONE VUOTA PER EQUILIBRIO */
+        .footer-section.empty {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        /* LOGOS */
+        .footer-logos {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: flex-end;
+    margin-top: 40px;
+    padding: 0;
+    border: none;
+    max-width: 100%;
+}
+
+        .logo-placeholder {
+            width: 140px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1vh;
+            color: #313131;
+            flex-shrink: 0;
+            transition: 0.3s ease;
+        }
+
+        .logo-placeholder img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        /* FOOTER BOTTOM */
+        .footer-bottom {
+            font-size: 1.2vh;
+            color: #313131;
+            text-align: left;
+            border-top: 1px solid #313131;
+            padding-top: 40px;
+            line-height: 1.8;
+        }
