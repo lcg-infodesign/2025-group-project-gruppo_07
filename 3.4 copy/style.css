@@ -946,3 +946,196 @@ input[type="range"]:hover{
 .scaleLabel.large {
   /* fine-grained positioning not needed: labels follow their spheres */
 }
+
+/* CONTENITORE */
+.team {
+  padding: 500px 0;
+  position: relative;
+  width: 600px;
+  height: 600px;
+  margin: 100px auto;
+}
+
+/* CERCHI */
+.member {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  position: absolute;
+  top: 500px;
+  left: 200px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* AREA CENTRALE (TEAM) */
+       main {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    
+    /* BILANCIARE L'ALTEZZA DEL MENU */
+    padding-top: 95px; /* Spinge il centro visivo verso il basso */
+}
+
+        /* Il grande cerchio tratteggiato sullo sfondo */
+        .dotted-ring {
+            position: absolute;
+            width: 650px;
+            height: 650px;
+            border: 1px dashed #bfbfbf; /* Tratteggio leggero */
+            border-radius: 50%;
+            top: 50%;
+            left: 53%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none; /* Non interferisce col mouse */
+        }
+
+        /* CONTENITORE DELLE BOLLE */
+        .bubble-container {
+            position: relative;
+            width: 600px;
+            height: 750px;
+            z-index: 1;
+            
+        }
+
+        /* STILE GENERALE DELLE BOLLE */
+        .bubble {
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Ombra leggera */
+            transition: all 0.3s ease; /* Animazione fluida */
+            cursor: pointer;
+        }
+
+        /* Effetto Hover (quando passi sopra col mouse) */
+        .bubble:hover {
+            transform: scale(1.5); /* Ingrandisce */
+            z-index: 10; /* Porta in primo piano */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+/* Testo dentro le bolle */
+
+.bubble h4 {
+    font-size: 0.9rem;
+    color: #fff; /* Consiglio: testo bianco per contrasto */
+    margin: 0;
+    padding: 0 10px; /* Un po' di padding laterale per sicurezza */
+    
+    /* VISIBILE di default */
+    opacity: 1; 
+    transition: opacity 0.3s ease;
+    
+    /* Posizionamento per centratura perfetta */
+    position: absolute;
+    z-index: 2;
+}
+
+.bubble p {
+    font-size: 0.65rem; /* Leggermente più grande per leggibilità */
+    color: #fff;
+    margin: 0;
+    padding: 0 10px;
+    line-height: 1.2;
+    
+    /* NASCOSTO di default */
+    opacity: 0; 
+    transition: opacity 0.3s ease;
+    
+    /* Posizionamento per centratura perfetta */
+    position: absolute;
+    z-index: 2;
+}
+
+/* --- HOVER --- */
+
+/* Quando vai sopra col mouse: NASCONDI H4 */
+.bubble:hover h4 {
+    opacity: 0;
+}
+
+/* Quando vai sopra col mouse: MOSTRA P */
+.bubble:hover p {
+    opacity: 1;
+}
+
+        /* POSIZIONAMENTO E COLORI SPECIFICI */
+
+        /* 1. Bolla Gialla */
+        .b-yellow {
+            width: 170px;
+            height: 170px;
+            background-color: #E3BC47;
+            top: 20%;
+            left: 10%;
+        }
+
+        /* 2. Bolla Verde chiaro (in alto) */
+        .b-green-light {
+            width: 170px;
+            height: 170px;
+            background-color: #99AB59;
+            top: 10%;
+            left: 40%;
+        }
+
+        /* 3. Bolla Rosa (destra) */
+        .b-pink {
+            width: 170px;
+            height: 170px;
+            background-color: #CA5D84;
+            top: 20%;
+            left: 70%;
+        }
+
+        /* 4. Bolla Verde acqua (centro) */
+        .b-teal {
+            width: 170px;
+            height: 170px;
+            background-color: #8799BD;
+            top: 37%;
+            left: 40%;
+        }
+
+        /* 5. Bolla viola (basso destra) */
+        .b-terra {
+            width: 170px;
+            height: 170px;
+            background-color: #7b769f;
+            top: 50%;
+            left: 70%;
+        }
+
+        /* 6. Bolla AZZURRA (basso centro) */
+        .b-purple {
+            width: 170px;
+            height: 170px;
+            background-color: #7EC1AF;
+            top: 65%;
+            left: 40%;
+        }
+
+        /* 7. Bolla Rosa pesca (basso sinistra) */
+        .b-peach {
+            width: 170px;
+            height: 170px;
+            background-color: #D97963;
+            top: 50%;
+            left: 10%;
+        }
