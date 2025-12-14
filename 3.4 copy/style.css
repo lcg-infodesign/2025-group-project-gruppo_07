@@ -982,7 +982,7 @@ input[type="range"]:hover{
     position: relative;
     overflow: hidden;
     
-    /* AGGIUNGI QUESTO PER BILANCIARE L'ALTEZZA DEL MENU */
+    /* BILANCIARE L'ALTEZZA DEL MENU */
     padding-top: 95px; /* Spinge il centro visivo verso il basso */
 }
 
@@ -991,7 +991,7 @@ input[type="range"]:hover{
             position: absolute;
             width: 650px;
             height: 650px;
-            border: 1px dashed #ccccccfc; /* Tratteggio leggero */
+            border: 1px dashed #bfbfbf; /* Tratteggio leggero */
             border-radius: 50%;
             top: 50%;
             left: 53%;
@@ -1004,7 +1004,7 @@ input[type="range"]:hover{
         .bubble-container {
             position: relative;
             width: 600px;
-            height: 700px;
+            height: 750px;
             z-index: 1;
             
         }
@@ -1030,32 +1030,57 @@ input[type="range"]:hover{
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
-        /* Testo dentro le bolle */
-        .bubble h4 {
-            font-size: 0.9rem;
-            opacity: 0; /* Nascosto di default */
-            transition: opacity 0.3s ease;
-        }
-        
-        .bubble p {
-            font-size: 0.6rem;
-            margin-top: -10px;
-            opacity: 0; /* Nascosto di default */
-            transition: opacity 0.3s ease;
-        }
+/* Testo dentro le bolle */
 
-        /* Mostra il testo quando vai sopra col mouse */
-        .bubble:hover h4, 
-        .bubble:hover p {
-            opacity: 1;
-        }
+.bubble h4 {
+    font-size: 0.9rem;
+    color: #fff; /* Consiglio: testo bianco per contrasto */
+    margin: 0;
+    padding: 0 10px; /* Un po' di padding laterale per sicurezza */
+    
+    /* VISIBILE di default */
+    opacity: 1; 
+    transition: opacity 0.3s ease;
+    
+    /* Posizionamento per centratura perfetta */
+    position: absolute;
+    z-index: 2;
+}
+
+.bubble p {
+    font-size: 0.65rem; /* Leggermente più grande per leggibilità */
+    color: #fff;
+    margin: 0;
+    padding: 0 10px;
+    line-height: 1.2;
+    
+    /* NASCOSTO di default */
+    opacity: 0; 
+    transition: opacity 0.3s ease;
+    
+    /* Posizionamento per centratura perfetta */
+    position: absolute;
+    z-index: 2;
+}
+
+/* --- HOVER --- */
+
+/* Quando vai sopra col mouse: NASCONDI H4 */
+.bubble:hover h4 {
+    opacity: 0;
+}
+
+/* Quando vai sopra col mouse: MOSTRA P */
+.bubble:hover p {
+    opacity: 1;
+}
 
         /* POSIZIONAMENTO E COLORI SPECIFICI */
 
-        /* 1. Bolla Gialla Grande */
+        /* 1. Bolla Gialla */
         .b-yellow {
-            width: 150px;
-            height: 150px;
+            width: 170px;
+            height: 170px;
             background-color: #E3BC47;
             top: 20%;
             left: 10%;
@@ -1063,17 +1088,17 @@ input[type="range"]:hover{
 
         /* 2. Bolla Verde chiaro (in alto) */
         .b-green-light {
-            width: 150px;
-            height: 150px;
+            width: 170px;
+            height: 170px;
             background-color: #99AB59;
-            top: 5%;
+            top: 10%;
             left: 40%;
         }
 
         /* 3. Bolla Rosa (destra) */
         .b-pink {
-            width: 150px;
-            height: 150px;
+            width: 170px;
+            height: 170px;
             background-color: #CA5D84;
             top: 20%;
             left: 70%;
@@ -1081,8 +1106,8 @@ input[type="range"]:hover{
 
         /* 4. Bolla Verde acqua (centro) */
         .b-teal {
-            width: 150px;
-            height: 150px;
+            width: 170px;
+            height: 170px;
             background-color: #8799BD;
             top: 37%;
             left: 40%;
@@ -1090,8 +1115,8 @@ input[type="range"]:hover{
 
         /* 5. Bolla viola (basso destra) */
         .b-terra {
-            width: 150px;
-            height: 150px;
+            width: 170px;
+            height: 170px;
             background-color: #7b769f;
             top: 50%;
             left: 70%;
@@ -1099,17 +1124,17 @@ input[type="range"]:hover{
 
         /* 6. Bolla AZZURRA (basso centro) */
         .b-purple {
-            width: 150px;
-            height: 150px;
+            width: 170px;
+            height: 170px;
             background-color: #7EC1AF;
-            top: 70%;
-            left: 42%;
+            top: 65%;
+            left: 40%;
         }
 
         /* 7. Bolla Rosa pesca (basso sinistra) */
         .b-peach {
-            width: 150px;
-            height: 150px;
+            width: 170px;
+            height: 170px;
             background-color: #D97963;
             top: 50%;
             left: 10%;
