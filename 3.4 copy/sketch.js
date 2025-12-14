@@ -471,7 +471,7 @@ if (hoverAlpha > 1) {
   
   p.translate(sliderX, sliderY - 30 + hoverOffset - graphHeight / 2); 
 
-  p.curveTightness(-0.5);
+  p.curveTightness(-0.2);
   p.beginShape();
   p.fill(49, 49, 49, hoverAlpha)
   p.stroke("#31313131")
@@ -482,7 +482,7 @@ if (hoverAlpha > 1) {
   let firstY = p.map(colonne[1][0], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
   p.curveVertex(firstX, firstY); 
   
-  for (let i = 0; i < colonne[0].length; i+= 20) {
+  for (let i = 0; i < colonne[0].length; i+= 40) {
     let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
     let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
 
@@ -501,7 +501,29 @@ if (hoverAlpha > 1) {
   p.pop();
 }
 
+//data 
 
+p.push()
+let currentYear = Math.round( p.map(forceSlider.value(), 0, 100, 1433, 2010));
+p.textSize(14)
+
+let padding = 10
+let dateWidth = p.textWidth(currentYear) + padding*2
+p.rectMode(p.CENTER)
+p.stroke("#313131")
+p.strokeWeight(0.5)
+p.noFill()
+p.rect(sliderX + p.width * 0.43, sliderY+10, dateWidth, 30, 5);
+
+p.push()
+p.noStroke()
+p.textFont("montserrat")
+p.textAlign(p.CENTER, p.CENTER)
+p.textStyle(p.BOLD)
+p.fill("#313131")
+p.text(currentYear, (sliderX + p.width * 0.43), sliderY+10)
+p.pop()
+p.pop()
 
 
  

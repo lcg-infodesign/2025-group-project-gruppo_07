@@ -941,11 +941,11 @@ input[type="range"]:hover{
   transform: translateX(-50%);
 }
 
-.scaleLabel.small,
+/*.scaleLabel.small,
 .scaleLabel.medium,
 .scaleLabel.large {
-  /* fine-grained positioning not needed: labels follow their spheres */
-}
+fine-grained positioning not needed: labels follow their spheres 
+}*/
 
 /* CONTENITORE */
 .team {
@@ -973,7 +973,7 @@ input[type="range"]:hover{
 }
 
 /* AREA CENTRALE (TEAM) */
-       main {
+    .main {
     flex-grow: 1;
     width: 100%;
     display: flex;
@@ -983,22 +983,27 @@ input[type="range"]:hover{
     overflow: hidden;
     
     /* BILANCIARE L'ALTEZZA DEL MENU */
-    padding-top: 95px; /* Spinge il centro visivo verso il basso */
+    padding-top: 80px; /* Spinge il centro visivo verso il basso */
 }
 
-        /* Il grande cerchio tratteggiato sullo sfondo */
         .dotted-ring {
-            position: absolute;
-            width: 650px;
-            height: 650px;
-            border: 1px dashed #bfbfbf; /* Tratteggio leggero */
-            border-radius: 50%;
-            top: 50%;
-            left: 53%;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-            pointer-events: none; /* Non interferisce col mouse */
-        }
+ 
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    top: 48%;
+    left: 54%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+
+    background-image: url('assets/cerchio3b.png');
+    background-size: contain;   
+    background-repeat: no-repeat; 
+    background-position: center;  
+    
+ 
+}
 
         /* CONTENITORE DELLE BOLLE */
         .bubble-container {
@@ -1023,7 +1028,7 @@ input[type="range"]:hover{
             cursor: pointer;
         }
 
-        /* Effetto Hover (quando passi sopra col mouse) */
+        /* Effetto Hover */
         .bubble:hover {
             transform: scale(1.5); /* Ingrandisce */
             z-index: 10; /* Porta in primo piano */
@@ -1034,9 +1039,9 @@ input[type="range"]:hover{
 
 .bubble h4 {
     font-size: 0.9rem;
-    color: #fff; /* Consiglio: testo bianco per contrasto */
+    color: #fff; 
     margin: 0;
-    padding: 0 10px; /* Un po' di padding laterale per sicurezza */
+    padding: 0 10px; 
     
     /* VISIBILE di default */
     opacity: 1; 
@@ -1063,7 +1068,7 @@ input[type="range"]:hover{
     z-index: 2;
 }
 
-/* --- HOVER --- */
+/* hover*/
 
 /* Quando vai sopra col mouse: NASCONDI H4 */
 .bubble:hover h4 {
@@ -1075,7 +1080,7 @@ input[type="range"]:hover{
     opacity: 1;
 }
 
-        /* POSIZIONAMENTO E COLORI SPECIFICI */
+        /* posizionamento e colori superfici */
 
         /* 1. Bolla Gialla */
         .b-yellow {
