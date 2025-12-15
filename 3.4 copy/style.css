@@ -1082,6 +1082,18 @@ fine-grained positioning not needed: labels follow their spheres
     opacity: 1;
 }
 
+.bubble-container:hover .bubble {
+    opacity: 0.2; /* Tutte diventano trasparenti */
+}
+.bubble:hover {
+    opacity: 1 !important; /* Forza visibilità */
+    transform: scale(1.5);
+    z-index: 10;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    clip-path: circle(50% at 50% 50%);
+}
+
+
         /* posizionamento e colori superfici */
 
         /* 1. Bolla Gialla */
