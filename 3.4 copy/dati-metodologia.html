@@ -3,66 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>British Colonial Empire</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" href="https://use.typekit.net/fjl2lye.css">
-    <link rel="stylesheet" href="https://use.typekit.net/iyd1qds.css">
-</head>
-<body data-page="data-page"> <!-- ho dovuto fare così perchè se no dava probelmi con il fatto che a PAESI COLONIZZATORI
-    non è legata nessuna pagina -->
-      <div id="header">
-    <nav class="navbar">
-    <ul>
-        <li id="first" ><a href="index.html#sketch" class="list1" id="nav-home">HOME</a></li>
-        <li class="dropdown">
-                <a href="#" class="list1" id="nav-colonizers">COLONIZING COUNTRIES</a>
+  <title>Data and Methodology</title>
 
-                <ul class="dropdown-menu">
-                  <li><a href="inghilterra.html?colonizer=britain">Britannia</a></li>
-                  <li><a href="inghilterra.html?colonizer=france">Francia</a></li>
-                  <li><a href="inghilterra.html?colonizer=spain">Spagna</a></li>
-                  <li><a href="inghilterra.html?colonizer=portugal">Portogallo</a></li>
-                  <li><a href="inghilterra.html?colonizer=germany">Germania</a></li>
-                  <li><a href="inghilterra.html?colonizer=belgium">Belgio</a></li>
-                  <li><a href="inghilterra.html?colonizer=netherlands" id="smallText">Paesi Bassi</a></li>
-                  <li id="drpdwn"><a href="inghilterra.html?colonizer=italy">Italia</a></li>
-                </ul>
-            </li>
-        <li ><a href="dati-metodologia.html" class="list1" id="nav-data">DATA AND METHODOLOGY</a></li>
-        <li id="last" ><a href="the_team.html" class="list1">THE TEAM</a></li>
-    </ul>
-</nav>
-    </div>
-  
-  <!-- Canvas container -->
-  <div id="canvas-container"></div>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-  <script>
-    function toggleMenu() {
-      // Funzione per aprire/chiudere il menu hamburger
-      alert('Menu hamburger clicked! Implementa qui il tuo menu.');
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://use.typekit.net/fjl2lye.css">
+  <link rel="stylesheet" href="https://use.typekit.net/iyd1qds.css">
+
+  <!-- p5.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+
+  <style>
+    /* Canvas di sfondo */
+    #canvas-container {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
     }
-  </script>
-  <script src="inghilterra.js"></script>
+
+    #canvas-container canvas {
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* evita blocco interazioni */
+    }
+  </style>
+</head>
+
+<body data-page="data-page">
+  <div id="header">
+    <nav class="navbar">
+      <ul>
+        <li id="first"><a href="index.html#sketch" class="list1" id="nav-home">HOME</a></li>
+        <li class="dropdown">
+          <a href="#" class="list1" id="nav-colonizers">COLONIZING COUNTRIES</a>
+          <ul class="dropdown-menu">
+            <li><a href="inghilterra.html?colonizer=britain">Britannia</a></li>
+            <li><a href="inghilterra.html?colonizer=france">Francia</a></li>
+            <li><a href="inghilterra.html?colonizer=spain">Spagna</a></li>
+            <li><a href="inghilterra.html?colonizer=portugal">Portogallo</a></li>
+            <li><a href="inghilterra.html?colonizer=germany">Germania</a></li>
+            <li><a href="inghilterra.html?colonizer=belgium">Belgio</a></li>
+            <li><a href="inghilterra.html?colonizer=netherlands" id="smallText">Paesi Bassi</a></li>
+            <li id="drpdwn"><a href="inghilterra.html?colonizer=italy">Italia</a></li>
+          </ul>
+        </li>
+        <li><a href="dati-metodologia.html" class="list1" id="nav-data">DATA AND METHODOLOGY</a></li>
+        <li id="last"><a href="the_team.html" class="list1">THE TEAM</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Sfondo -->
+  <div id="canvas-container"></div>
+
+  <main class="data-methodology">
+    <h1>Data and Methodology</h1>
+
+    <section class="circle-section left fade-in">
+      <p>
+        The dataset we used is the <strong>Colonial Dates Dataset (COLDAT)</strong>, an archive that collects detailed
+        information on the extent and duration of European colonial empires.
+      </p>
+    </section>
+
+    <section class="circle-section right fade-in">
+      <p>
+        In particular, for each currently independent country and its former overseas colonies, the dataset records the
+        starting and ending years of colonization by the major colonial powers, based on standardized criteria and
+        reputable secondary sources.
+      </p>
+    </section>
+
+    <section class="circle-section left fade-in">
+      <p>
+        The eight powers considered are <strong>Belgium, Britain, France, Germany, Italy, the Netherlands, Portugal,</strong>
+        and <strong>Spain</strong>.
+      </p>
+    </section>
+
+    <section class="circle-section right fade-in">
+      <p>
+        Thanks to these data, it is possible to systematically analyze periods of expansion and decline of colonialism
+        in a comparative perspective, for example, by examining how long a given country remained colonized, by which
+        power, and during which historical period.
+      </p>
+    </section>
+
+    <section class="circle-section left fade-in">
+      <p>
+        To create the visualizations and the website, we conducted an in-depth analysis of the dataset, carefully
+        examining all the information it contains and organizing it using pivot tables. We then transformed these data
+        into graphical visualizations designed to represent the phenomenon of colonization as effectively as possible in
+        all its aspects, without overlooking any relevant information contained in the dataset.
+      </p>
+    </section>
+  </main>
+
+  <!-- Script -->
+  <script src="dati-metodologia.js"></script>
 
   <script>
-      document.addEventListener("DOMContentLoaded", () => {
-
-        const page = document.body.dataset.page;
-
-        // Rimuove eventuali active
-        document.querySelectorAll(".navbar a").forEach(a => a.classList.remove("active"));
-
-        if (page === "home") {
-          document.getElementById("nav-home").classList.add("active");
-        }
-
-        if (page === "colonizers") {
-          document.getElementById("nav-colonizers").classList.add("active");
-        }
-
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-</script>
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.fade-in').forEach(section => observer.observe(section));
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const page = document.body.dataset.page;
+      document.querySelectorAll(".navbar a").forEach(a => a.classList.remove("active"));
+      if (page === "data-page") {
+        document.getElementById("nav-data").classList.add("active");
+      }
+    });
+  </script>
 </body>
 </html>
