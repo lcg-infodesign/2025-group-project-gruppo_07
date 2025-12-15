@@ -7,7 +7,6 @@ html, body {
  
 }
 
-
 .skipBtn{
   font-family:"montserrat", sans-serif;
 }
@@ -25,7 +24,8 @@ h1{
   display: flex;
   justify-content: center;
   padding-top: 2% ;
-  background-color:#E7E1D1;
+  background-color: rgba(231, 225, 209, 0.8); /* leggermente trasparente */
+  backdrop-filter: blur(6px); /* effetto vetro */
   z-index: 100;
   
 }
@@ -1147,6 +1147,200 @@ fine-grained positioning not needed: labels follow their spheres
             left: 10%;
         }
 
+
+
+
+/* ============================= */
+/*  DATA AND METHODOLOGY PAGE    */
+/* ============================= */
+
+body[data-page="data-page"] {
+  color: #1a1a1a;
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+}
+
+.data-methodology {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+
+.data-methodology h1 {
+  font-family: "benton-modern-display", serif;
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 5rem;
+  color: #000;
+  letter-spacing: 0.5px;
+}
+
+.circle-section {
+  position: relative;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  margin: 0.1rem auto;
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #333;
+  font-family: "Montserrat", sans-serif;
+}
+
+.circle-section::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px; /* dimensione singolo pallino */
+  height: 8px;
+  border-radius: 50%;
+  background-color: transparent; 
+  transform: translate(-50%, -50%);
+  z-index: -1;
+
+  /* bordo di pallini perfettamente allineati lungo la circonferenza — 72 pallini */
+box-shadow:
+  0 -260px rgba(0,0,0,0.15),
+  23px -259px rgba(0,0,0,0.15),
+  45px -256px rgba(0,0,0,0.15),
+  68px -252px rgba(0,0,0,0.15),
+  90px -246px rgba(0,0,0,0.15),
+  112px -238px rgba(0,0,0,0.15),
+  130px -230px rgba(0,0,0,0.15),
+  145px -220px rgba(0,0,0,0.15),
+  165px -210px rgba(0,0,0,0.15),
+  180px -195px rgba(0,0,0,0.15),
+  195px -180px rgba(0,0,0,0.15),
+  208px -165px rgba(0,0,0,0.15),
+  220px -145px rgba(0,0,0,0.15),
+  230px -130px rgba(0,0,0,0.15),
+  238px -112px rgba(0,0,0,0.15),
+  245px -90px rgba(0,0,0,0.15),
+  250px -65px rgba(0,0,0,0.15),
+  254px -45px rgba(0,0,0,0.15),
+  256px -23px rgba(0,0,0,0.15),
+  256px 0 rgba(0,0,0,0.15),
+  256px 23px rgba(0,0,0,0.15),
+  254px 45px rgba(0,0,0,0.15),
+  250px 65px rgba(0,0,0,0.15),
+  245px 90px rgba(0,0,0,0.15),
+  238px 112px rgba(0,0,0,0.15),
+  230px 130px rgba(0,0,0,0.15),
+  220px 145px rgba(0,0,0,0.15),
+  208px 165px rgba(0,0,0,0.15),
+  195px 180px rgba(0,0,0,0.15),
+  180px 195px rgba(0,0,0,0.15),
+  165px 210px rgba(0,0,0,0.15),
+  145px 220px rgba(0,0,0,0.15),
+  130px 230px rgba(0,0,0,0.15),
+  112px 238px rgba(0,0,0,0.15),
+  90px 246px rgba(0,0,0,0.15),
+  68px 252px rgba(0,0,0,0.15),
+  45px 256px rgba(0,0,0,0.15),
+  23px 259px rgba(0,0,0,0.15),
+  0 260px rgba(0,0,0,0.15),
+  -23px 259px rgba(0,0,0,0.15),
+  -45px 256px rgba(0,0,0,0.15),
+  -68px 252px rgba(0,0,0,0.15),
+  -90px 246px rgba(0,0,0,0.15),
+  -112px 238px rgba(0,0,0,0.15),
+  -130px 230px rgba(0,0,0,0.15),
+  -145px 220px rgba(0,0,0,0.15),
+  -165px 210px rgba(0,0,0,0.15),
+  -180px 195px rgba(0,0,0,0.15),
+  -195px 180px rgba(0,0,0,0.15),
+  -208px 165px rgba(0,0,0,0.15),
+  -220px 145px rgba(0,0,0,0.15),
+  -230px 130px rgba(0,0,0,0.15),
+  -238px 112px rgba(0,0,0,0.15),
+  -245px 90px rgba(0,0,0,0.15),
+  -250px 65px rgba(0,0,0,0.15),
+  -254px 45px rgba(0,0,0,0.15),
+  -256px 23px rgba(0,0,0,0.15),
+  -256px 0 rgba(0,0,0,0.15),
+  -256px -23px rgba(0,0,0,0.15),
+  -254px -45px rgba(0,0,0,0.15),
+  -250px -65px rgba(0,0,0,0.15),
+  -245px -90px rgba(0,0,0,0.15),
+  -238px -112px rgba(0,0,0,0.15),
+  -230px -130px rgba(0,0,0,0.15),
+  -220px -145px rgba(0,0,0,0.15),
+  -208px -165px rgba(0,0,0,0.15),
+  -195px -180px rgba(0,0,0,0.15),
+  -180px -195px rgba(0,0,0,0.15),
+  -165px -210px rgba(0,0,0,0.15),
+  -145px -220px rgba(0,0,0,0.15),
+  -130px -230px rgba(0,0,0,0.15),
+  -112px -238px rgba(0,0,0,0.15),
+  -90px -246px rgba(0,0,0,0.15),
+  -68px -252px rgba(0,0,0,0.15),
+  -45px -256px rgba(0,0,0,0.15),
+  -23px -259px rgba(0,0,0,0.15);
+}
+
+
+
+/* Sfalsamento alternato */
+.circle-section.left {
+  margin-left: 1%;
+}
+
+.circle-section.right {
+  margin-left: auto;
+  margin-right: 1%;
+}
+
+/* Effetto comparsa scorrendo */
+.fade-in {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navbar a.active {
+  border-bottom: 1px solid #1a1a1a;
+}
+
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none; /* permette di cliccare normalmente sul testo */
+}
+
+#canvas-container canvas {
+  pointer-events: none; /* così il canvas non blocca click/hover */
+}
+
+#canvas-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+#canvas-container canvas {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 footer {
             margin-top: 70px;
             margin-bottom: 0px;
