@@ -240,6 +240,69 @@ let sketch1 = function(p){
   let hoverAlpha = 0;   
   let hoverOffset = 20; 
 
+  let paragraphs = [
+  {
+    start: 1500,
+    end: 1600,
+    title: "1500–1600: The Dawn of European Expansion",
+    text: "During the sixteenth century, European powers began to extend their reach across the globe. Spain and Portugal led this early phase of colonization after the voyages of Columbus (1492) and Vasco da Gama (1498). Their maritime empires established control over the Americas, coastal Africa, and parts of Asia, creating the first global trading networks. Although colonization was significant, most of the world—particularly in Asia and Africa—remained independent.",
+    alpha: 0,
+    yOffset: 20,
+    titleAlpha: 0,     
+    titleOffset: 40
+  },
+  {
+    start: 1750,
+    end: 1820,
+    title: "1750–1820: Expansion of Maritime Empires",
+    text: "By the late eighteenth century, colonial empires became central to global economics and politics. Britain, France, and the Netherlands built vast networks of colonies linked by maritime trade. The Seven Years’ War (1756–1763) confirmed Britain’s dominance in India and North America, while Spain and Portugal’s American empires began to weaken. This period saw a substantial increase in the number of territories under European rule, as colonial economies fueled industrial growth at home.",
+    alpha: 0,
+    yOffset: 20,
+    titleAlpha: 0,     
+    titleOffset: 40
+  },
+  {
+    start: 1880,
+    end: 1914,
+    title: "1880–1914: The Peak of Global Colonization",
+    text: "The decades before World War I marked the absolute height of imperial expansion. Industrialization, nationalism, and competition among European powers drove the Scramble for Africa (1884–1885) and the annexation of territories in Asia and the Pacific. By 1914, over four-fifths of the world’s land area was controlled or dominated by colonial powers, with Britain and France leading global empires that spanned every continent. This period represents the maximum global extent of colonial domination in human history.",
+    alpha: 0,
+    yOffset: 20,
+    titleAlpha: 0,     
+    titleOffset: 40
+  },
+  {
+    start: 1918,
+    end: 1939,
+    title: "1918–1939: Stagnation and Rising Nationalism",
+    text: "After World War I, European empires reached their greatest territorial extent but began to weaken internally. Germany lost its colonies under the Treaty of Versailles (1919), and Britain and France assumed control of new League of Nations mandates. Despite apparent stability, nationalist and independence movements emerged in India, the Middle East, and Africa. The colonial world remained vast—about two-thirds of the global population lived under imperial rule—but cracks in the system were becoming visible.",
+    alpha: 0,
+    yOffset: 20,
+    titleAlpha: 0,     
+    titleOffset: 40
+  },
+  {
+    start: 1945,
+    end: 1975,
+    title: "1945–1975: The Era of Decolonization",
+    text: "The aftermath of World War II brought the most dramatic decline in global colonization. European powers were economically and militarily exhausted, and colonial subjects demanded independence. The process began with India in 1947 and spread rapidly across Asia and Africa. The United Nations, Cold War politics, and global public opinion accelerated the dismantling of empires. By the mid-1970s, most colonies had gained sovereignty, marking the end of the classical colonial era.",
+    alpha: 0,
+    yOffset: 20,
+    titleAlpha: 0,     
+    titleOffset: 40
+  },
+  {
+    start: 1980,
+    end: 2000,
+    title: "1980–2000: The Postcolonial World",
+    text: "By the late twentieth century, almost all former colonies had achieved independence. Portugal’s withdrawal from Africa (1975), Zimbabwe’s independence (1980), and the return of Hong Kong to China (1997) symbolized the close of five centuries of European expansion. Only a few dependent territories remained under European control. Formal colonialism disappeared, but new forms of economic and political influence—sometimes called neo-colonialism—continued to shape global relations.",
+    alpha: 0,
+    yOffset: 20,
+    titleAlpha: 0,     
+    titleOffset: 40
+  }
+];
+
 
 
   p.createContainerCanvas = function(container){
@@ -522,8 +585,170 @@ p.textAlign(p.CENTER, p.CENTER)
 p.textStyle(p.BOLD)
 p.fill("#313131")
 p.text(currentYear, (sliderX + p.width * 0.43), sliderY+10)
+/*p.text(forceSlider.value(), sliderX, sliderY + 40)*/
+p.push()
+p.textSize(12)
+p.textStyle(p.NORMAL)
+p.textAlign(p.CENTER, p.CENTER)
+p.text("YEARS", (sliderX + p.width * 0.43), sliderY-15)
 p.pop()
 p.pop()
+p.pop()
+
+for (let pg of paragraphs) {
+  let inRange = currentYear >= pg.start && currentYear <= pg.end;
+
+  let targetAlpha = inRange ? 255 : 0;
+  let targetOffset = inRange ? 0 : 30;
+
+  pg.alpha   = p.lerp(pg.alpha, targetAlpha, 0.08);
+  pg.yOffset = p.lerp(pg.yOffset, targetOffset, 0.08);
+
+  
+  let titleTarget = inRange ? 255 : 0;
+  let titleOffsetTarget = inRange ? 0 : 40;
+
+  pg.titleAlpha  = p.lerp(pg.titleAlpha, titleTarget, 0.1);
+  pg.titleOffset = p.lerp(pg.titleOffset, titleOffsetTarget, 0.1);
+}
+
+p.push()
+p.stroke("#313131")
+p.strokeWeight(1)
+
+//1500-1600
+p.line(sliderX + sliderX * 0.123 , sliderY-70, sliderX + sliderX * 0.123, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.123) - 4, sliderY-70, (sliderX + sliderX * 0.123) +4, sliderY-70, sliderX + sliderX * 0.123,sliderY-74)
+p.pop()
+p.line(sliderX + sliderX * 0.2949 , sliderY-40, sliderX + sliderX * 0.2949, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.2949) - 4, sliderY-44, (sliderX + sliderX * 0.2949) +4, sliderY-44, sliderX + sliderX * 0.2949,sliderY-40)
+p.pop()
+
+
+//1750–1820
+p.line(sliderX + sliderX * 0.5486 , sliderY-80, sliderX + sliderX * 0.5486, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.5486) - 4, sliderY-80, (sliderX + sliderX * 0.5486) +4, sliderY-80, sliderX + sliderX * 0.5486,sliderY-84)
+p.pop()
+p.line(sliderX + sliderX * 0.665 , sliderY-40, sliderX + sliderX * 0.665, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.665) - 4, sliderY-44, (sliderX + sliderX * 0.665) +4, sliderY-44, sliderX + sliderX * 0.665,sliderY-40)
+p.pop()
+
+//1880-1914
+p.line(sliderX + sliderX * 0.77 , sliderY-80, sliderX + sliderX * 0.77, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.77) - 4, sliderY-80, (sliderX + sliderX * 0.77) +4, sliderY-80, sliderX + sliderX * 0.77,sliderY-84)
+p.pop()
+p.line(sliderX + sliderX * 0.824 , sliderY-40, sliderX + sliderX * 0.824, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.824) - 4, sliderY-44, (sliderX + sliderX * 0.824) +4, sliderY-44, sliderX + sliderX * 0.824,sliderY-40)
+p.pop()
+
+
+//1918-1939
+p.line(sliderX + sliderX * 0.834 , sliderY-70, sliderX + sliderX * 0.834, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.834) - 4, sliderY-70, (sliderX + sliderX * 0.834) +4, sliderY-70, sliderX + sliderX * 0.834,sliderY-74)
+p.pop()
+p.line(sliderX + sliderX * 0.869 , sliderY-40, sliderX + sliderX * 0.869, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.869) - 4, sliderY-44, (sliderX + sliderX * 0.869) +4, sliderY-44, sliderX + sliderX * 0.869,sliderY-40)
+p.pop()
+
+//1945-1975
+p.line(sliderX + sliderX * 0.877 , sliderY-70, sliderX + sliderX * 0.877, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.877) - 4, sliderY-70, (sliderX + sliderX * 0.877) +4, sliderY-70, sliderX + sliderX * 0.877,sliderY-74)
+p.pop()
+p.line(sliderX + sliderX * 0.869 , sliderY-40, sliderX + sliderX * 0.869, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.869) - 4, sliderY-44, (sliderX + sliderX * 0.869) +4, sliderY-44, sliderX + sliderX * 0.869,sliderY-40)
+p.pop()
+
+//1980-2000
+p.line(sliderX + sliderX * 0.9383 , sliderY-70, sliderX + sliderX * 0.9383, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.9383) - 4, sliderY-70, (sliderX + sliderX * 0.9383) +4, sliderY-70, sliderX + sliderX * 0.9383,sliderY-74)
+p.pop()
+p.line(sliderX + sliderX * 0.97 , sliderY-40, sliderX + sliderX * 0.97, sliderY+25 )
+p.push()
+p.fill("#313131")
+p.triangle((sliderX + sliderX * 0.97) - 4, sliderY-44, (sliderX + sliderX * 0.97) +4, sliderY-44, sliderX + sliderX * 0.97,sliderY-40)
+p.pop()
+p.pop()
+
+
+//paragrafi
+
+
+p.push()
+  p.noStroke()
+  p.fill("#313131")
+  p.rect(p.width * 0.1, p.height * 0.18, 1, 200)
+p.pop()
+
+
+
+let baseX = p.width * 0.11;
+let baseY = p.height * 0.2;
+let boxW  = 350;
+
+for (let pg of paragraphs) {
+
+  // TITOLO
+  if (pg.titleAlpha > 1) {
+    p.push();
+    p.noStroke();
+    p.fill(49, 49, 49, pg.titleAlpha);
+    p.textFont("benton-modern-display");
+    p.textSize(22);
+    p.textStyle(p.BOLD);
+    p.textAlign(p.LEFT, p.TOP);
+
+    p.text(
+      pg.title,
+      baseX,
+      (baseY + pg.titleOffset) - 30 ,
+      boxW
+    );
+    p.pop();
+  }
+
+  // TESTO
+  if (pg.alpha > 1) {
+    p.push();
+    p.noStroke();
+    p.fill(49, 49, 49, pg.alpha);
+    p.textFont("montserrat");
+    p.textSize(14);
+    p.textStyle(p.NORMAL);
+    p.textAlign(p.LEFT, p.TOP);
+
+    p.text(
+      pg.text,
+      baseX,
+      baseY + 28 + pg.yOffset,
+      boxW,
+      190
+    );
+    p.pop();
+  }
+}
+
 
 
  

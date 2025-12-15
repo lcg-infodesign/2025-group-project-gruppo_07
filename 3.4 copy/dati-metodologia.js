@@ -1,4 +1,4 @@
-let colors = ["#81201A", "#4D4871", "#C49A00", "#99AB59",
+/*let colors = ["#81201A", "#4D4871", "#C49A00", "#99AB59",
               "#8799BD", "#CA5D84", "#D97963", "#7EC1AF"];
 
 let clusters = [];
@@ -102,4 +102,4 @@ function isClusterOverlapping(x, y, minDist, clusters) {
   }
   return false;
 }
-
+*/
