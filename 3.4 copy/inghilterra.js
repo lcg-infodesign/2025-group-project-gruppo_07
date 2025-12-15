@@ -4,7 +4,7 @@
 
 // Tabelle dei dati CSV
 let table, table3;
-let tableDescriptions; // Variabile per le descrizioni specifiche per colonizzatore
+let tableDescriptions;
 let colonies = [];
 let colDuration = [], colEndYear = [], colStartYear = [], colCountries = [];
 
@@ -12,21 +12,21 @@ let colDuration = [], colEndYear = [], colStartYear = [], colCountries = [];
 let minYear = 1450, maxYear = 2000;
 
 // Scroll verticale e altezza dell'area visibile del grafico
-let yOffset = 0;        // posizione corrente dello scroll
-let scrollHeight;       // altezza del contenitore scrollabile
+let yOffset = 0;
+let scrollHeight;
 
 // Stati di selezione delle colonie
-let clickedCountry = null;    // colonia cliccata manualmente
-let selectedCountry = null;   // colonia selezionata da parametro URL (se presente)
+let clickedCountry = null;
+let selectedCountry = null;
 
-// Gestione effetto "fade" per evidenziare solo la colonia selezionata
+// Gestione effetto "fade"
 let fadeOpacity = {};   
 let fadeSpeed = 0.12;
 
 // Posizioni e dimensioni della timeline
 let timelinePositions = [];
-let chartX = 680;             // posizione orizzontale della timeline
-let chartWidth = 0;           // larghezza calcolata dinamicamente
+let chartX = 680;
+let chartWidth = 0;
 
 // Informazioni sul colonizzatore
 let colonizer = null;
@@ -42,87 +42,94 @@ let colonizerColors = {
   "germany":[135,153,189],"belgium":[202,93,132],"netherlands":[217,121,99],"italy":[126,193,175]
 };
 
-// Colore corrente scelto in base al colonizzatore
-let currentColor = [0, 0, 0]; // Variabile per il colore RGB corrente
-let currentDescription = "Caricamento della descrizione in corso..."; // Variabile per la descrizione dinamica
-let currentParagraph = ""; // <--- PARTE PRINCIPALE DEL TESTO
-let currentSourceLinkText = ""; // <--- TESTO DEL LINK (es. "Source: Encyclopaedia...")
-let currentSourceLinkURL = ""; // <--- URL VERO E PROPRIO DEL LINK (se presente)
-let sourceLinkElement; // <--- ELEMENTO LINK HTML DI P5.js
-let montserratFont; // Variabile per il font Montserrat
+// Colore corrente
+let currentColor = [0, 0, 0];
+let currentParagraph = "";
+let currentSourceLinkText = "";
+let currentSourceLinkURL = "";
+let sourceLinkElement;
 
-// Buffer grafico (p5.Graphics) per gestire il contenuto scrollabile
+// Buffer grafico
 let coloniesLayer;
-
-// Coordinata verticale iniziale del grafico
 let chartY = 120;
 
+// =========================================================
+// NUOVE VARIABILI PER ZOOM
+// =========================================================
+let isCompactView = true;
+let currentRowHeight = 8;
+let targetRowHeight = 8;
+let animationProgress = 1;
+let isAnimating = false;
+let toggleSlider;
 
 // =========================================================
 // FUNZIONE HELPER: SPLIT PARAGRAPH AND SOURCE
 // =========================================================
 function splitParagraphAndSource(fullText) {
-    // Cerco l'indice dove inizia "Source:"
-    let sourceIndex = fullText.indexOf("Source:");
-    
-    if (sourceIndex !== -1) {
-        // Se trovo "Source:", separo il paragrafo
-        let paragraph = fullText.substring(0, sourceIndex).trim();
-        let sourceText = fullText.substring(sourceIndex).trim();
-        
-        // Rimuovo eventuali newline dal testo della fonte
-        sourceText = sourceText.replace(/\n/g, ' '); 
-        
-        // Estraggo l'URL fittizio dalla fonte (questo dovrebbe essere dinamico dal CSV se necessario)
-        // Uso un URL di ricerca per l'esempio
-        let url = "https://www.google.com/search?q=" + encodeURIComponent(sourceText);
-
-        return {
-            paragraph: paragraph,
-            sourceText: sourceText,
-            url: url
-        };
-    }
-    // Se non trovo "Source:", restituisco il testo completo come paragrafo
-    return { paragraph: fullText, sourceText: "", url: "" };
+  let sourceIndex = fullText.indexOf("Source:");
+  
+  if (sourceIndex !== -1) {
+    let paragraph = fullText.substring(0, sourceIndex).trim();
+    let sourceText = fullText.substring(sourceIndex).trim();
+    sourceText = sourceText.replace(/\n/g, ' '); 
+    let url = "https://www.google.com/search?q=" + encodeURIComponent(sourceText);
+    return { paragraph, sourceText, url };
+  }
+  return { paragraph: fullText, sourceText: "", url: "" };
 }
 
+// =========================================================
+// EASING FUNCTION
+// =========================================================
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
 
 // =========================================================
-// PRELOAD — Carica i dati CSV prima dell'avvio
+// PRELOAD
 // =========================================================
 function preload() {
   table = loadTable("assets/COLDAT_dyads - Foglio6.csv", "csv", "header");
   table3 = loadTable("assets/COLDAT_dyads - Foglio3.csv", "csv", "header");
-  tableDescriptions = loadTable("assets/paragrafi-dettaglio.csv", "csv", "header"); // Caricamento del file descrittivo
-  // Assumi che tu abbia caricato il font Montserrat correttamente
-  // montserratFont = loadFont('assets/Montserrat-Regular.otf'); 
+  tableDescriptions = loadTable("assets/paragrafi-dettaglio.csv", "csv", "header");
 }
 
 // =========================================================
-// SETUP — Eseguito una volta all'avvio
+// SETUP
 // =========================================================
 function setup() {
   createCanvas(windowWidth, windowHeight);
   
-  // IMPOSTA IL FONT DI DEFAULT PER LO SKETCH (se caricato)
-  // if(montserratFont) textFont(montserratFont);
-
   // Leggi i parametri URL
   let urlParams = new URLSearchParams(window.location.search);
   colonizer = urlParams.get("colonizer");
   selectedCountry = urlParams.get("country");
 
-  // Imposta il colore in base al colonizzatore
-  if(colonizer && colonizerColors[colonizer]) currentColor = colonizerColors[colonizer];
-  else currentColor = colonizerColors["britain"];
+  // Imposta il colore
+  if(colonizer && colonizerColors[colonizer]) {
+    currentColor = colonizerColors[colonizer];
+  } else {
+    currentColor = colonizerColors["britain"];
+  }
 
   if(!colonizer){
     console.error("Nessun colonizzatore specificato!");
     return;
   }
+
+  // Lettura localStorage per modalità zoom
+  let savedView = localStorage.getItem('viewMode');
+  if(selectedCountry) {
+    // Se c'è selezione da URL, parte in zoom-out
+    isCompactView = false;
+  } else if(savedView) {
+    isCompactView = (savedView === 'compact');
+  }
+  currentRowHeight = isCompactView ? 8 : 25;
+  targetRowHeight = currentRowHeight;
   
-  // ESTRAZIONE E SEPARAZIONE DEL PARAGRAFO (Testo dinamico e link)
+  // Estrazione paragrafo e source
   if (tableDescriptions) {
     let descRow = tableDescriptions.findRows(colonizer, "colonizer");
     if (descRow.length > 0) {
@@ -132,31 +139,32 @@ function setup() {
       currentParagraph = parts.paragraph;
       currentSourceLinkText = parts.sourceText;
       currentSourceLinkURL = parts.url;
-      currentDescription = fullText; // Mantiene la variabile originale per debug/fallback
-
     } else {
       currentParagraph = "Descrizione non trovata per questo colonizzatore.";
       currentSourceLinkText = "";
     }
   }
   
-  // CREAZIONE DELL'ELEMENTO LINK HTML (per poterlo posizionare e non interferire con P5.js draw)
+  // Creazione link HTML
   if (currentSourceLinkText) {
-      sourceLinkElement = createA(currentSourceLinkURL, currentSourceLinkText, '_blank');
-      sourceLinkElement.style('font-size', '14px');
-      sourceLinkElement.style('font-family', 'Montserrat, sans-serif'); // Aggiunto font per l'elemento HTML
-      sourceLinkElement.style('color', `rgb(${currentColor[0]}, ${currentColor[1]}, ${currentColor[2]})`); // Colore dinamico
-      sourceLinkElement.style('position', 'absolute');
-      sourceLinkElement.hide(); // Nascondi inizialmente
+    sourceLinkElement = createA(currentSourceLinkURL, currentSourceLinkText, '_blank');
+    sourceLinkElement.style('font-size', '14px');
+    sourceLinkElement.style('font-family', 'Montserrat, sans-serif');
+    sourceLinkElement.style('color', `rgb(${currentColor[0]}, ${currentColor[1]}, ${currentColor[2]})`);
+    sourceLinkElement.style('position', 'absolute');
+    sourceLinkElement.style('text-decoration', 'none');
+    sourceLinkElement.hide();
   }
 
+  // Creazione toggle slider
+  createToggleSlider();
 
-  // Filtra le righe del dataset per il colonizzatore selezionato
+  // Filtra dataset
   let selected = table.findRows(colonizer,"colonizer");
   colonizerTitle = colonizerDescriptions[colonizer] || colonizer;
 
-  // Estrae i dati di ciascuna colonia
-  for(let i=0;i<selected.length;i++){
+  // Estrae dati
+  for(let i=0; i<selected.length; i++){
     let row = selected[i];
     colonies.push(row);
     colDuration.push(parseFloat(row.get("Duration")));
@@ -167,21 +175,26 @@ function setup() {
     fadeOpacity[country] = 255;
   }
 
-  // Ordina le colonie per anno di inizio colonizzazione
+  // Ordina per anno di inizio
   let sortable = [];
-  for(let i=0;i<colonies.length;i++){
+  for(let i=0; i<colonies.length; i++){
     sortable.push({
-      colony:colonies[i],
-      start:colStartYear[i],
-      end:colEndYear[i],
-      country:colCountries[i],
-      duration:colDuration[i]
+      colony: colonies[i],
+      start: colStartYear[i],
+      end: colEndYear[i],
+      country: colCountries[i],
+      duration: colDuration[i]
     });
   }
-  sortable.sort((a,b)=>a.start-b.start);
+  sortable.sort((a,b) => a.start - b.start);
 
-  // Ricostruisce gli array ordinati
-  colonies=[]; colStartYear=[]; colEndYear=[]; colCountries=[]; colDuration=[];
+  // Ricostruisce array ordinati
+  colonies = []; 
+  colStartYear = []; 
+  colEndYear = []; 
+  colCountries = []; 
+  colDuration = [];
+  
   for(let item of sortable){
     colonies.push(item.colony);
     colStartYear.push(item.start);
@@ -190,108 +203,204 @@ function setup() {
     colDuration.push(item.duration);
   }
 
-  // Crea il buffer per il contenuto scrollabile
-  coloniesLayer = createGraphics(windowWidth, colonies.length*30 + 50);
-
-  // Imposta altezza dell’area scrollabile (77% dell’altezza finestra)
+  // Crea buffer grafico
+  coloniesLayer = createGraphics(windowWidth, colonies.length * 30 + 200);
   scrollHeight = windowHeight * 0.77;
 }
 
 // =========================================================
-// DRAW — Ciclo principale di disegno
+// TOGGLE SLIDER CREATION
+// =========================================================
+function createToggleSlider() {
+  toggleSlider = createDiv('');
+  toggleSlider.style('position', 'absolute');
+  toggleSlider.style('width', '200px');
+  toggleSlider.style('height', '40px');
+  toggleSlider.style('border-radius', '5px');
+  toggleSlider.style('background-color', '#e0e0e0');
+  toggleSlider.style('cursor', 'pointer');
+  toggleSlider.style('display', 'flex');
+  toggleSlider.style('align-items', 'center');
+  toggleSlider.style('padding', '0');
+  toggleSlider.style('overflow', 'hidden');
+  toggleSlider.style('font-family', 'Montserrat, sans-serif');
+  toggleSlider.style('font-size', '11px');
+  toggleSlider.style('font-weight', 'bold');
+  toggleSlider.style('user-select', 'none');
+  toggleSlider.style('z-index', '1000');
+  
+  // Slider interno colorato
+  let slider = createDiv('');
+  slider.id('slider-inner');
+  slider.style('position', 'absolute');
+  slider.style('width', '100px');
+  slider.style('height', '40px');
+  slider.style('border-radius', '5px');
+  slider.style('background-color', `rgb(${currentColor[0]}, ${currentColor[1]}, ${currentColor[2]})`);
+  slider.style('transition', 'left 1s cubic-bezier(0.65, 0, 0.35, 1)');
+  slider.style('left', isCompactView ? '0px' : '100px');
+  slider.parent(toggleSlider);
+
+  // Label sinistra (ZOOM-IN)
+  let labelLeft = createDiv('ZOOM-IN');
+  labelLeft.id('label-left');
+  labelLeft.style('position', 'absolute');
+  labelLeft.style('left', '0');
+  labelLeft.style('width', '100px');
+  labelLeft.style('text-align', 'center');
+  labelLeft.style('line-height', '40px');
+  labelLeft.style('color', isCompactView ? 'white' : '#666');
+  labelLeft.style('transition', 'color 0.3s');
+  labelLeft.style('z-index', '2');
+  labelLeft.style('pointer-events', 'none');
+  labelLeft.parent(toggleSlider);
+
+  // Label destra (ZOOM-OUT)
+  let labelRight = createDiv('ZOOM-OUT');
+  labelRight.id('label-right');
+  labelRight.style('position', 'absolute');
+  labelRight.style('right', '0');
+  labelRight.style('width', '100px');
+  labelRight.style('text-align', 'center');
+  labelRight.style('line-height', '40px');
+  labelRight.style('color', isCompactView ? '#666' : 'white');
+  labelRight.style('transition', 'color 0.3s');
+  labelRight.style('z-index', '2');
+  labelRight.style('pointer-events', 'none');
+  labelRight.parent(toggleSlider);
+
+  // Click handler
+  toggleSlider.mousePressed(() => {
+    isCompactView = !isCompactView;
+    targetRowHeight = isCompactView ? 8 : 25;
+    isAnimating = true;
+    animationProgress = 0;
+    
+    // Salva preferenza
+    localStorage.setItem('viewMode', isCompactView ? 'compact' : 'expanded');
+    
+    // Aggiorna UI del toggle
+    select('#slider-inner').style('left', isCompactView ? '0px' : '100px');
+    select('#label-left').style('color', isCompactView ? 'white' : '#666');
+    select('#label-right').style('color', isCompactView ? '#666' : 'white');
+  });
+}
+
+// =========================================================
+// DRAW
 // =========================================================
 function draw() {
   clear();
 
-  drawTimeline();      // asse temporale e linee verticali
-  drawSideInfo();      // testo e descrizione laterale dell'impero
-  drawColoniesLayer(); // contenuto scrollabile (barre colonie)
-  drawColonyInfo();    // info dettagliate della colonia selezionata
+  // Animazione smooth del row height
+  if(isAnimating) {
+    animationProgress += 0.016; // ~1 secondo a 60fps
+    if(animationProgress >= 1) {
+      animationProgress = 1;
+      isAnimating = false;
+      currentRowHeight = targetRowHeight;
+    } else {
+      let startHeight = isCompactView ? 25 : 8;
+      let endHeight = isCompactView ? 8 : 25;
+      currentRowHeight = lerp(startHeight, endHeight, easeInOutCubic(animationProgress));
+    }
+    
+    // Ridimensiona il buffer durante l'animazione
+    let newHeight = colonies.length * currentRowHeight + 200;
+    coloniesLayer.resizeCanvas(windowWidth, newHeight);
+  }
+
+  drawTimeline();
+  drawSideInfo();
+  drawColoniesLayer();
+  drawColonyInfo();
 }
 
 // =========================================================
-// TIMELINE — Disegna la parte fissa del grafico con gli anni
+// TIMELINE
 // =========================================================
 function drawTimeline(){
   push();
   chartWidth = windowWidth - 750;
 
-  // Asse orizzontale inferiore
-  stroke(100,150);
+  stroke(100, 150);
   strokeWeight(0.5);
-  line(chartX, chartY+scrollHeight, chartX+chartWidth, chartY+scrollHeight);
+  line(chartX, chartY + scrollHeight, chartX + chartWidth, chartY + scrollHeight);
 
-  // Etichette degli anni + linee verticali
   textAlign(CENTER);
   textSize(12);
   fill(100);
   noStroke();
+  textFont("Montserrat", 12);
   
-  // Imposta il font Montserrat per gli anni, se non è il font di default
-  textFont("Montserrat", 12); 
-  
-  for(let year=minYear; year<=maxYear; year+=50){
-    let x = map(year, minYear, maxYear, chartX, chartX+chartWidth);
-    text(year, x, chartY+scrollHeight+20);
+  for(let year = minYear; year <= maxYear; year += 50){
+    let x = map(year, minYear, maxYear, chartX, chartX + chartWidth);
+    text(year, x, chartY + scrollHeight + 20);
     stroke(200);
     strokeWeight(0.5);
-    line(x, chartY, x, chartY+scrollHeight);
+    line(x, chartY, x, chartY + scrollHeight);
   }
   pop();
 }
 
 // =========================================================
-// COLONIES LAYER — Disegna le barre delle colonie nello spazio scrollabile
+// COLONIES LAYER
 // =========================================================
 function drawColoniesLayer(){
   coloniesLayer.clear();
   timelinePositions = [];
 
-  let rowHeight = 25;  // distanza verticale tra barre
-  let dotSize = 8;     // dimensione dei pallini alle estremità
-
-  // Imposta il font per il buffer grafico
   coloniesLayer.textFont("Montserrat", 11);
 
-  for(let i=0;i<colonies.length;i++){
+  for(let i = 0; i < colonies.length; i++){
     let start = colStartYear[i],
         end = colEndYear[i],
         country = colCountries[i];
 
-    // Calcola la posizione verticale della riga in base allo scroll
-    let yPos = (i * rowHeight) + 12 + yOffset;
-
-    // Calcola posizione orizzontale nel grafico (anni → coordinate)
+    let yPos = (i * currentRowHeight) + 12 + yOffset;
     let xStart = map(start, minYear, maxYear, chartX, chartX + chartWidth);
-    let xEnd   = map(end, minYear, maxYear, chartX, chartX + chartWidth);
+    let xEnd = map(end, minYear, maxYear, chartX, chartX + chartWidth);
 
-    // Memorizza la posizione per gestire i click
-    timelinePositions.push({ index:i, xStart, xEnd, yPos, country, start, end });
+    timelinePositions.push({ 
+      index: i, 
+      xStart, 
+      xEnd, 
+      yPos, 
+      country, 
+      start, 
+      end 
+    });
 
-    // Disegna solo se la barra è visibile nel contenitore
-    if(yPos + dotSize/2 < 0 || yPos - dotSize/2 > scrollHeight) continue;
+    // Skip se fuori viewport
+    if(yPos + 10 < 0 || yPos - 10 > scrollHeight) continue;
 
-    // Gestione fade-in/out per evidenziare la colonia selezionata
     let isClicked = (country === clickedCountry);
     let isSelected = (country === selectedCountry);
     let someoneSelected = clickedCountry || selectedCountry;
     
-    // OPACITÀ: Solo se qualcuno è selezionato, applichiamo un fade
     let targetOpacity = someoneSelected ? (isClicked || isSelected ? 255 : 40) : 255;
     fadeOpacity[country] = lerp(fadeOpacity[country], targetOpacity, fadeSpeed);
     let op = fadeOpacity[country];
 
-    // --- Disegno barra selezionata ---
+    // Spessore dinamico
+    let normalStroke = isCompactView ? 2.5 : 1.2;
+    let selectedStroke = isCompactView ? 5 : 6;
+
+    // Barra selezionata
     if(isClicked || isSelected){
       coloniesLayer.stroke(currentColor[0], currentColor[1], currentColor[2], op);
-      coloniesLayer.strokeWeight(6);
+      coloniesLayer.strokeWeight(selectedStroke);
       coloniesLayer.line(xStart, yPos, xEnd, yPos);
       coloniesLayer.noStroke();
 
-      // Pallini e etichette anni
-      coloniesLayer.fill(currentColor[0], currentColor[1], currentColor[2], op);
-      coloniesLayer.circle(xStart, yPos, 12);
-      coloniesLayer.circle(xEnd, yPos, 12);
+      // Pallini solo in vista espansa
+      if(!isCompactView) {
+        coloniesLayer.fill(currentColor[0], currentColor[1], currentColor[2], op);
+        coloniesLayer.circle(xStart, yPos, 12);
+        coloniesLayer.circle(xEnd, yPos, 12);
+      }
+
+      // Anni sempre visibili
       coloniesLayer.textSize(15);
       coloniesLayer.textStyle(BOLD);
       coloniesLayer.fill(currentColor);
@@ -301,49 +410,58 @@ function drawColoniesLayer(){
       coloniesLayer.text(int(end), xEnd + 10, yPos);
 
     } else {
-      // --- Barre non selezionate ---
-      // L'opacità viene applicata comunque alla linea e al pallino
-      coloniesLayer.stroke(currentColor[0], currentColor[1], currentColor[2], op*0.7);
-      coloniesLayer.strokeWeight(1.2);
+      // Barre non selezionate
+      coloniesLayer.stroke(currentColor[0], currentColor[1], currentColor[2], op * 0.7);
+      coloniesLayer.strokeWeight(normalStroke);
       coloniesLayer.line(xStart, yPos, xEnd, yPos);
-      coloniesLayer.fill(255, op); // Pallini bianchi, opacità variabile
-      coloniesLayer.circle(xStart, yPos, 8);
-      coloniesLayer.circle(xEnd, yPos, 8);
+      
+      // Pallini solo in vista espansa
+      if(!isCompactView) {
+        coloniesLayer.fill(255, op);
+        coloniesLayer.circle(xStart, yPos, 8);
+        coloniesLayer.circle(xEnd, yPos, 8);
+      }
     }
 
-    // Nome del paese a sinistra della barra
+    // Nome paese: solo se espanso O se selezionato in compact
+    if(!isCompactView || (isCompactView && (isClicked || isSelected))) {
       coloniesLayer.noStroke(); 
       coloniesLayer.textAlign(RIGHT, CENTER);
+      
       if(country === clickedCountry || country === selectedCountry){
         coloniesLayer.textSize(14);
-        coloniesLayer.fill(currentColor[0], currentColor[1], currentColor[2], op)
-        coloniesLayer.textStyle(BOLD)
-      } else{
-        coloniesLayer.textSize(11)
+        coloniesLayer.fill(currentColor[0], currentColor[1], currentColor[2], op);
+        coloniesLayer.textStyle(BOLD);
+      } else {
+        coloniesLayer.textSize(11);
         coloniesLayer.fill(80, 80, 80, op);
-        coloniesLayer.textStyle(NORMAL)
+        coloniesLayer.textStyle(NORMAL);
       }
-      /*coloniesLayer.textSize(11);
-      coloniesLayer.fill(country === clickedCountry || country === selectedCountry ? currentColor : [40, op]);*/
+      
       coloniesLayer.text(country.toUpperCase(), chartX - 15, yPos); 
-
+    }
   }
 
-  // Disegna il buffer sul canvas principale
   image(coloniesLayer, 0, chartY);
 }
 
 // =========================================================
-// SIDE INFO — Mostra titolo e descrizione dell’impero colonizzatore
+// SIDE INFO
 // =========================================================
 function drawSideInfo(){
   push();
   let sideX = windowWidth * 0.06;
-  let topY = windowHeight * 0.69; // Punto di partenza in basso a sinistra
+  
+  // Calcola la posizione del bottone toggle
+  let toggleY = chartY + scrollHeight - 20;
+  
+  // Il testo deve essere totpx sopra il bottone
+  let topY = toggleY - 190;
+  
   let columnWidth = 350;
-  let estimatedLineHeight = 22; // Altezza stimata per textSize(16) + interlinea
+  let estimatedLineHeight = 22;
 
-  // 1. Titolo colonizzatore
+  // Titolo colonizzatore
   fill(currentColor);
   textFont("Montserrat");
   textSize(32);
@@ -351,61 +469,49 @@ function drawSideInfo(){
   textAlign(LEFT, TOP);
   text(colonizerTitle, sideX, topY - 70);
 
-  // 2. Setup per il paragrafo
-  let descY = topY -15;
+  // Paragrafo
+  let descY = topY - 15;
   fill(60);
-  textFont("Montserrat"); // Assicura che il paragrafo usi lo stesso font
+  textFont("Montserrat");
   textSize(16);
   textStyle(NORMAL);
   textAlign(LEFT, TOP);
   
-  // Impostazione delle proprietà per calcolare l'altezza
-  // (P5.js non ha un modo diretto, quindi usiamo la stima di righe)
-  // Nota: textWidth() richiede che il font sia caricato e la dimensione settata
-  
   let paragraphText = currentParagraph;
-  
-  // Calcolo approssimativo dell'altezza del testo:
-  // 1. Calcola la larghezza totale che il testo occuperebbe se fosse su una riga.
   let totalTextWidth = textWidth(paragraphText);
-  
-  // 2. Calcola quante righe intere sono necessarie data la columnWidth.
   let requiredLines = Math.ceil(totalTextWidth / columnWidth);
-  
-  // 3. Calcola l'altezza verticale totale del blocco di testo.
   let totalTextHeight = requiredLines * estimatedLineHeight;
-  
-  // 4. Aggiustamento per il link, se presente (stimato in 30px aggiuntivi)
   let linkOffset = currentSourceLinkText ? 30 : 0;
-  let lineLength = totalTextHeight + linkOffset + 2; // Aggiungo 10px di padding in basso
+  let lineLength = totalTextHeight + linkOffset + 2;
 
-
-  // Disegna la linea verticale (DINAMICA)
+  // Linea verticale
   stroke(currentColor);
   strokeWeight(3);
-  line(sideX - 15, descY, sideX - 15, descY + lineLength-10); // <--- LUNGHEZZA DINAMICA
+  line(sideX - 15, descY, sideX - 15, descY + lineLength - 10);
   noStroke();
   
-  // Disegna il paragrafo (solo il testo principale)
   text(paragraphText, sideX, descY, columnWidth);
   
-  // Posiziona il link HTML se esiste
+  // Posiziona link
   if (sourceLinkElement) {
     sourceLinkElement.show();
-    // Posizionamento del link subito sotto il paragrafo
-    sourceLinkElement.position(sideX, descY + totalTextHeight + 5); 
-  } else if (sourceLinkElement) {
-    sourceLinkElement.hide();
+    sourceLinkElement.position(sideX, descY + totalTextHeight + 5);
+  }
+
+  // Posiziona toggle slider alla base del grafico
+  if(toggleSlider) {
+    toggleSlider.position(sideX, toggleY);
   }
   
   pop();
 }
 
 // =========================================================
-// COLONY INFO — Mostra dettagli della colonia selezionata
+// COLONY INFO
 // =========================================================
 function drawColonyInfo(){
   if(!clickedCountry && !selectedCountry) return;
+  
   let currentCountry = clickedCountry || selectedCountry;
   let index = colCountries.indexOf(currentCountry);
   if(index === -1) return;
@@ -414,8 +520,8 @@ function drawColonyInfo(){
       end = colEndYear[index],
       duration = colDuration[index];
 
-  // Posizionamento in alto a sinistra (separato dalla SideInfo in basso)
-  let infoX = 80, infoY = windowHeight * 0.1; 
+  let infoX = 80, infoY = windowHeight * 0.1;
+  
   push();
   fill(currentColor);
   textFont("Montserrat");
@@ -424,75 +530,111 @@ function drawColonyInfo(){
   textAlign(LEFT, TOP);
   text(currentCountry, infoX, infoY);
 
-  // Dati principali
   fill(40);
-  textFont("Montserrat"); // Assicura che i dati usino lo stesso font
+  textFont("Montserrat");
   textSize(16);
   textStyle(NORMAL);
   let lineSpacing = 25, startY = infoY + 50;
   text(`• Beginning of colonization: ${int(start)}`, infoX, startY);
   text(`• End of colonization: ${int(end)}`, infoX, startY + lineSpacing);
-  text(`• Colonization duration: ${nf(duration,0,1)} years`, infoX, startY + lineSpacing * 2);
+  text(`• Colonization duration: ${nf(duration, 0, 1)} years`, infoX, startY + lineSpacing * 2);
 
-  // Pulsante fittizio
+  // Pulsante Wikipedia
   noStroke();
-  fill(currentColor);
-  rect(infoX, startY + lineSpacing * 3.5, 250, 30, 5);
+  let buttonY = startY + lineSpacing * 3.5;
+  
+  // Cambia colore se il mouse è sopra
+  if(mouseX >= infoX && mouseX <= infoX + 250 && 
+     mouseY >= buttonY && mouseY <= buttonY + 30) {
+    fill(currentColor[0] * 0.8, currentColor[1] * 0.8, currentColor[2] * 0.8);
+    cursor(HAND);
+  } else {
+    fill(currentColor);
+    cursor(ARROW);
+  }
+  
+  rect(infoX, buttonY, 250, 30, 5);
   fill(255);
   textSize(12);
   textAlign(CENTER, CENTER);
-  text("MORE INFORMATION ON WIKIPEDIA", infoX + 125, startY + lineSpacing * 3.5 + 15);
+  text("MORE INFORMATION ON WIKIPEDIA", infoX + 125, buttonY + 15);
+  
   pop();
 }
 
 // =========================================================
-// INTERAZIONE MOUSE — Selezione e deselezione delle colonie
+// MOUSE PRESSED
 // =========================================================
 function mousePressed(){
   let mx = mouseX;
   let my = mouseY;
   let clickedSomething = false;
 
+  // Check se ho cliccato sul bottone Wikipedia
+  if(clickedCountry || selectedCountry) {
+    let currentCountry = clickedCountry || selectedCountry;
+    let index = colCountries.indexOf(currentCountry);
+    
+    if(index !== -1) {
+      let infoX = 80, infoY = windowHeight * 0.1;
+      let lineSpacing = 25, startY = infoY + 50;
+      let buttonY = startY + lineSpacing * 3.5;
+      
+      // Click sul bottone Wikipedia
+      if(mx >= infoX && mx <= infoX + 250 && 
+         my >= buttonY && my <= buttonY + 30) {
+        let wikiLink = colonies[index].get("wiki");
+        if(wikiLink && wikiLink.trim() !== "") {
+          window.open(wikiLink, '_blank');
+        }
+        return; // Non fare altro
+      }
+    }
+  }
+
+  // Check click sulle colonie nella timeline
   for(let p of timelinePositions){
     let mouseRelativeY = my - chartY - yOffset;
-    let rowY = p.index * 25 + 12;
+    let rowY = p.index * currentRowHeight + 12;
 
-    // Click sul nome
-    let nameX1 = chartX - 90, nameX2 = chartX - 10, nameY1 = rowY - 10, nameY2 = rowY + 10;
+    // Click sul nome - SEMPRE cliccabile in entrambe le viste
+    let nameX1 = chartX - 90, nameX2 = chartX - 10;
+    let nameY1 = rowY - 10, nameY2 = rowY + 10;
+    
     if(mx >= nameX1 && mx <= nameX2 && mouseRelativeY >= nameY1 && mouseRelativeY <= nameY2){
       clickedCountry = p.country;
-      selectedCountry = null; // annulla selezione da URL
+      selectedCountry = null;
       clickedSomething = true;
       break;
     }
 
     // Click sulla barra
-    if(mx >= p.xStart && mx <= p.xEnd && abs(mouseRelativeY - rowY) < 10){
+    let hitArea = isCompactView ? 5 : 10;
+    if(mx >= p.xStart && mx <= p.xEnd && abs(mouseRelativeY - rowY) < hitArea){
       clickedCountry = p.country;
-      selectedCountry = null; // annulla selezione da URL
+      selectedCountry = null;
       clickedSomething = true;
       break;
     }
 
-    // Click sui pallini
-    let dStart = dist(mx, mouseRelativeY, p.xStart, rowY);
-    let dEnd = dist(mx, mouseRelativeY, p.xEnd, rowY);
-    if(dStart < 10 || dEnd < 10){
-      clickedCountry = p.country;
-      selectedCountry = null; // annulla selezione da URL
-      clickedSomething = true;
-      break;
+    // Click sui pallini (solo in vista espansa)
+    if(!isCompactView) {
+      let dStart = dist(mx, mouseRelativeY, p.xStart, rowY);
+      let dEnd = dist(mx, mouseRelativeY, p.xEnd, rowY);
+      
+      if(dStart < 10 || dEnd < 10){
+        clickedCountry = p.country;
+        selectedCountry = null;
+        clickedSomething = true;
+        break;
+      }
     }
   }
 
-  // Click fuori: deseleziona tutto
+  // Deseleziona se click fuori
   if(!clickedSomething){
     clickedCountry = null;
     selectedCountry = null;
-    // Nascondi il link quando si deseleziona
-    if (sourceLinkElement) {
-      sourceLinkElement.hide();
-    }
   }
 
   // Reset opacità
@@ -500,18 +642,25 @@ function mousePressed(){
 }
 
 // =========================================================
-// SCROLL MOUSE — Gestione dello scroll verticale del grafico
+// MOUSE WHEEL
 // =========================================================
 function mouseWheel(event){
+  let totalHeight = colonies.length * currentRowHeight;
+  
+  // Disabilita scroll se tutto è visibile in compact
+  if(isCompactView && totalHeight < scrollHeight) {
+    return false;
+  }
+
   yOffset -= event.delta;
-  yOffset = constrain(yOffset, -colonies.length*25 + scrollHeight, 0);
+  yOffset = constrain(yOffset, -colonies.length * currentRowHeight + scrollHeight, 0);
   return false;
 }
 
 // =========================================================
-// RESIZE — Aggiorna dimensioni al ridimensionamento finestra
+// WINDOW RESIZED
 // =========================================================
 function windowResized(){ 
-  resizeCanvas(windowWidth, windowHeight); 
-  coloniesLayer.resizeCanvas(windowWidth, colonies.length*30 + 50);
+  resizeCanvas(windowWidth, windowHeight);
+  coloniesLayer.resizeCanvas(windowWidth, colonies.length * currentRowHeight + 200);
 }
