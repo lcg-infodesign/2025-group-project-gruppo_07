@@ -320,7 +320,7 @@ let sketch1 = function(p){
     let sliderWidth = p.constrain(p.floor(p.windowWidth * 0.4), 200, 800);
     forceSlider.style('width', sliderWidth + 'px');
     forceSlider.style("z-index", "99999")
-    forceSlider.position(((p.windowWidth - sliderWidth)/2) + 150, p.windowHeight - 70);
+    forceSlider.position(((p.windowWidth - sliderWidth)/2) + 200, p.windowHeight - 70);
     
 
  p.updateSliderGradient= function() {
@@ -366,18 +366,18 @@ let sketch1 = function(p){
       if(end   > globalMaxEnd)   globalMaxEnd   = end;
     }
 
-    outerCluster = { x: (p.width/2) + 150, y: p.height/2, r: 400};
+    outerCluster = { x: (p.width/2) + 200, y: p.height/2, r: 400};
 
     // posizioni cluster
     let positions = {
-    "britain": { x: (p.width * 0.48) + 150, y: p.height * 0.54 },
-    "france": { x: (p.width * 0.38) + 150, y: p.height * 0.68 },
-    "spain": { x: (p.width * 0.42) + 150, y: p.height * 0.23 },
-    "portugal": { x: (p.width * 0.56) + 150, y: p.height * 0.30 },
-    "germany": { x: (p.width * 0.65)+ 150, y: p.height * 0.43 },
-    "belgium": { x: (p.width * 0.60) + 150, y: p.height * 0.60 },
-    "netherlands": { x: (p.width * 0.53) + 150, y: p.height * 0.79 },
-    "italy": { x: (p.width * 0.38) + 150, y: p.height * 0.37 }
+    "britain": { x: (p.width * 0.48) + 200, y: p.height * 0.54 },
+    "france": { x: (p.width * 0.38) + 200, y: p.height * 0.68 },
+    "spain": { x: (p.width * 0.42) + 200, y: p.height * 0.23 },
+    "portugal": { x: (p.width * 0.56) + 200, y: p.height * 0.30 },
+    "germany": { x: (p.width * 0.65)+ 200, y: p.height * 0.43 },
+    "belgium": { x: (p.width * 0.60) + 200, y: p.height * 0.60 },
+    "netherlands": { x: (p.width * 0.53) + 200, y: p.height * 0.79 },
+    "italy": { x: (p.width * 0.38) + 200, y: p.height * 0.37 }
     };
 
     Array.from(colonizerGroups.keys()).forEach(colonizer=>{
@@ -508,7 +508,7 @@ if (
 
 // Animazione
 if (sliderHover) {
-  hoverAlpha = p.lerp(hoverAlpha, 20, 0.15); 
+  hoverAlpha = p.lerp(hoverAlpha, 200, 0.15); 
   hoverOffset = p.lerp(hoverOffset, 0, 0.15);   
 } else {
   hoverAlpha = p.lerp(hoverAlpha, 0, 0.15);     
@@ -523,7 +523,8 @@ if (hoverAlpha > 1) {
   // Rettangolo
   p.push();
   p.noStroke();
-  p.fill(49, 49, 49, hoverAlpha);  
+  //p.fill(49, 49, 49, hoverAlpha);  
+  p.noFill()
   p.rectMode(p.CENTER);
   p.rect(fixedX, sliderY - 30 + hoverOffset, sliderW, 50, 3); 
   p.pop();
@@ -542,12 +543,12 @@ if (hoverAlpha > 1) {
   
   
   let firstX = p.map(colonne[0][0], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-  let firstY = p.map(colonne[1][0], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
+  let firstY = p.map(colonne[1][0], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
   p.curveVertex(firstX, firstY); 
   
   for (let i = 0; i < colonne[0].length; i+= 40) {
     let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
+    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
 
     p.curveVertex(x, y); 
   }
@@ -555,7 +556,7 @@ if (hoverAlpha > 1) {
   
   let lastIndex = colonne[0].length - 1;
   let lastX = p.map(colonne[0][lastIndex], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-  let lastY = p.map(colonne[1][lastIndex], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
+  let lastY = p.map(colonne[1][lastIndex], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
   p.curveVertex(lastX, lastY); // Punto di controllo finale
 
   
@@ -616,7 +617,7 @@ p.push()
 p.stroke("#313131")
 p.strokeWeight(1)
 
-//1500-1600
+/*1500-1600
 p.line(sliderX + sliderX * 0.123 , sliderY-70, sliderX + sliderX * 0.123, sliderY+25 )
 p.push()
 p.fill("#313131")
@@ -627,7 +628,6 @@ p.push()
 p.fill("#313131")
 p.triangle((sliderX + sliderX * 0.2949) - 4, sliderY-44, (sliderX + sliderX * 0.2949) +4, sliderY-44, sliderX + sliderX * 0.2949,sliderY-40)
 p.pop()
-
 
 //1750–1820
 p.line(sliderX + sliderX * 0.5486 , sliderY-80, sliderX + sliderX * 0.5486, sliderY+25 )
@@ -689,21 +689,16 @@ p.push()
 p.fill("#313131")
 p.triangle((sliderX + sliderX * 0.97) - 4, sliderY-44, (sliderX + sliderX * 0.97) +4, sliderY-44, sliderX + sliderX * 0.97,sliderY-40)
 p.pop()
-p.pop()
+p.pop()*/
 
 
 //paragrafi
 
 
-p.push()
-  p.noStroke()
-  p.fill("#313131")
-  p.rect(p.width * 0.1, p.height * 0.18, 1, 200)
-p.pop()
 
 
 
-let baseX = p.width * 0.11;
+let baseX = p.width * 0.10;
 let baseY = p.height * 0.2;
 let boxW  = 350;
 
@@ -745,6 +740,12 @@ for (let pg of paragraphs) {
       boxW,
       190
     );
+
+  p.push()
+  p.noStroke()
+  p.fill(49, 49, 49, pg.alpha);
+      p.rect(baseX - 10, baseY + 28 + pg.yOffset, 1, 170)
+  p.pop()
     p.pop();
   }
 }

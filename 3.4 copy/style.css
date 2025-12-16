@@ -183,7 +183,7 @@ ul li ul.dropdown-menu{
   flex-direction: column;
  justify-content: center;
   align-items: center;
-  
+  position: relative;
   
 }
 
@@ -212,6 +212,8 @@ ul li ul.dropdown-menu{
   width: 10vh;
   height: 10vh;
   opacity: 0;
+  position: absolute;
+  bottom: 20%;
  
   animation: 
     fadeIn3 0.8s ease-out 3s forwards,
@@ -691,7 +693,7 @@ ul li ul.dropdown-menu{
 #playBtn{
   position: absolute;
   bottom: 4.5%;
-  left: 35%;
+  left: 38%;
   
   width: 0;      
   height: 0;
@@ -708,7 +710,7 @@ ul li ul.dropdown-menu{
 #playIcon{
   position: absolute;
   bottom: 4%;
-  left: 35%;
+  left: 38%;
   cursor: pointer;
   border: solid 0.2px #313131;
   border-radius: 10px;
@@ -1162,9 +1164,8 @@ fine-grained positioning not needed: labels follow their spheres
 
 
 
-/* ============================= */
 /*  DATA AND METHODOLOGY PAGE    */
-/* ============================= */
+
 
 body[data-page="data-page"] {
   color: #1a1a1a;
