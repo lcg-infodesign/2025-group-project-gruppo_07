@@ -383,8 +383,8 @@ function drawColoniesLayer(){
     let op = fadeOpacity[country];
 
     // Spessore dinamico
-    let normalStroke = isCompactView ? 2.5 : 1.2;
-    let selectedStroke = isCompactView ? 5 : 6;
+    let normalStroke = isCompactView ? 5 : 1.2;
+    let selectedStroke = isCompactView ? 7 : 6;
 
     // Barra selezionata
     if(isClicked || isSelected){
@@ -456,7 +456,7 @@ function drawSideInfo(){
   let toggleY = chartY + scrollHeight - 20;
   
   // Il testo deve essere totpx sopra il bottone
-  let topY = toggleY - 190;
+  let topY = toggleY - 220;
   
   let columnWidth = 350;
   let estimatedLineHeight = 22;
