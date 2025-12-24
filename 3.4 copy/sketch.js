@@ -350,8 +350,9 @@ let sketch1 = function(p){
 
   playCheckBox = p.select('#playBtn')
   playCheckBox.changed(() => {
-  isPlaying = playCheckBox.checked();
+  isPlaying = playCheckBox.checked()
 });
+
  
 
 
@@ -397,6 +398,20 @@ if (savedSliderPosition) {
 }
   }
   
+  p.keyPressed = function () {
+  // SPACE bar
+  if (p.key === ' ') {
+    isPlaying = !isPlaying;
+
+    
+    if (playCheckBox) {
+      playCheckBox.checked(isPlaying);
+    }
+
+    // evita lo scroll della pagina
+    return false;
+  }
+};
 
 
   p.draw = function(){
