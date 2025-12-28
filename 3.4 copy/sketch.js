@@ -237,7 +237,8 @@ let sketch1 = function(p){
   let sliderY = 0;
   let sliderW = 0;
   let sliderH = 0;
-  let hoverAlpha = 0;   
+  let hoverAlpha = 0;
+  let hoverAlpha2 = 0   
   let hoverOffset = 20; 
 
   let paragraphs = [
@@ -414,6 +415,7 @@ if (savedSliderPosition) {
 };
 
 
+
   p.draw = function(){
     p.clear();
     
@@ -443,14 +445,27 @@ for (let cl of localClusters) {
 
     let d = p.dist(p.mouseX, p.mouseY, s.x, s.y);
     let distToClusterCenter = p.dist(cl.x, cl.y, s.x, s.y);
+    //valori dello slider
+    let f = forceSlider.elt.getBoundingClientRect();
+    sliderX = f.left - p.canvas.getBoundingClientRect().left;
+    sliderY = f.top  - p.canvas.getBoundingClientRect().top;
+    sliderW = f.width;
+    sliderH = f.height;
 
-    let sliderVal = forceSlider.value() / 100;
+    let hoverSlider = p.mouseX >= sliderX &&
+    p.mouseX <= sliderX + sliderW &&
+    p.mouseY >= sliderY - 20 &&        
+    p.mouseY <= sliderY + sliderH
+
+    /*let sliderVal = forceSlider.value() / 100;
     let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
     let tEnd   = p.map(s.endYear, globalMinEnd,   globalMaxEnd,   0.15, 0.95);
 
 
     if (sliderVal < tStart || sliderVal > tEnd) continue; 
-    if (distToClusterCenter > cl.r) continue; 
+    if (distToClusterCenter > cl.r) continue; */
+
+    if(hoverSlider) continue; //Evita che le sfere dietro lo slider abbiano uno stato di hover
     if (d < s.r/2) {
       p.cursor('pointer');
       hoveredSphere = s;  
@@ -524,9 +539,11 @@ if (
 // Animazione
 if (sliderHover) {
   hoverAlpha = p.lerp(hoverAlpha, 200, 0.15); 
+  hoverAlpha2 = p.lerp(hoverAlpha2, 255, 0.15)
   hoverOffset = p.lerp(hoverOffset, 0, 0.15);   
 } else {
-  hoverAlpha = p.lerp(hoverAlpha, 0, 0.15);     
+  hoverAlpha = p.lerp(hoverAlpha, 0, 0.15); 
+  hoverAlpha2 = p.lerp(hoverAlpha2, 0, 0.15)    
   hoverOffset = p.lerp(hoverOffset, 20, 0.15);  
 }
 
@@ -553,8 +570,7 @@ if (hoverAlpha > 1) {
   p.curveTightness(-0.2);
   p.beginShape();
   p.fill(49, 49, 49, hoverAlpha)
-  p.stroke("#31313131")
-  p.strokeWeight(1.2);
+  p.noStroke()
   
   
   let firstX = p.map(colonne[0][0], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
@@ -578,6 +594,44 @@ if (hoverAlpha > 1) {
   
   p.endShape(); 
   p.pop();
+
+
+  // evidenziazione linea del grafico
+  p.push()
+  /*p.fill(49,49,49, hoverAlpha)
+  p.noStroke()*/
+  p.beginClip()
+  p.rect(sliderX + sliderW * 0.7, sliderY - 58, sliderW*0.2, 50, 3)
+  p.endClip()
+
+  p.push()
+  p.translate(sliderX, sliderY - 30 + hoverOffset - graphHeight / 2); 
+  p.beginShape();
+  p.stroke(255, 255, 255, hoverAlpha2)
+  p.strokeWeight(3)
+  p.noFill()
+  
+  p.curveVertex(firstX, firstY); 
+  
+  for (let i = 0; i < colonne[0].length; i+= 40) {
+    let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
+    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+
+    p.curveVertex(x, y); 
+  }
+
+  p.curveVertex(lastX, lastY); 
+
+  p.endShape(); 
+  p.pop()
+  p.pop()
+  p.push()
+  p.fill(255, 255, 255, hoverAlpha2)
+  p.circle(sliderX + sliderW*0.7, sliderY - 22 + hoverOffset, 10 )
+  p.circle(sliderX + sliderW*0.9, sliderY - 40 + hoverOffset, 10 )
+  p.pop()
+
+
 }
 
 //data 
@@ -632,86 +686,9 @@ p.push()
 p.stroke("#313131")
 p.strokeWeight(1)
 
-/*1500-1600
-p.line(sliderX + sliderX * 0.123 , sliderY-70, sliderX + sliderX * 0.123, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.123) - 4, sliderY-70, (sliderX + sliderX * 0.123) +4, sliderY-70, sliderX + sliderX * 0.123,sliderY-74)
-p.pop()
-p.line(sliderX + sliderX * 0.2949 , sliderY-40, sliderX + sliderX * 0.2949, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.2949) - 4, sliderY-44, (sliderX + sliderX * 0.2949) +4, sliderY-44, sliderX + sliderX * 0.2949,sliderY-40)
-p.pop()
-
-//1750–1820
-p.line(sliderX + sliderX * 0.5486 , sliderY-80, sliderX + sliderX * 0.5486, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.5486) - 4, sliderY-80, (sliderX + sliderX * 0.5486) +4, sliderY-80, sliderX + sliderX * 0.5486,sliderY-84)
-p.pop()
-p.line(sliderX + sliderX * 0.665 , sliderY-40, sliderX + sliderX * 0.665, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.665) - 4, sliderY-44, (sliderX + sliderX * 0.665) +4, sliderY-44, sliderX + sliderX * 0.665,sliderY-40)
-p.pop()
-
-//1880-1914
-p.line(sliderX + sliderX * 0.77 , sliderY-80, sliderX + sliderX * 0.77, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.77) - 4, sliderY-80, (sliderX + sliderX * 0.77) +4, sliderY-80, sliderX + sliderX * 0.77,sliderY-84)
-p.pop()
-p.line(sliderX + sliderX * 0.824 , sliderY-40, sliderX + sliderX * 0.824, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.824) - 4, sliderY-44, (sliderX + sliderX * 0.824) +4, sliderY-44, sliderX + sliderX * 0.824,sliderY-40)
-p.pop()
-
-
-//1918-1939
-p.line(sliderX + sliderX * 0.834 , sliderY-70, sliderX + sliderX * 0.834, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.834) - 4, sliderY-70, (sliderX + sliderX * 0.834) +4, sliderY-70, sliderX + sliderX * 0.834,sliderY-74)
-p.pop()
-p.line(sliderX + sliderX * 0.869 , sliderY-40, sliderX + sliderX * 0.869, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.869) - 4, sliderY-44, (sliderX + sliderX * 0.869) +4, sliderY-44, sliderX + sliderX * 0.869,sliderY-40)
-p.pop()
-
-//1945-1975
-p.line(sliderX + sliderX * 0.877 , sliderY-70, sliderX + sliderX * 0.877, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.877) - 4, sliderY-70, (sliderX + sliderX * 0.877) +4, sliderY-70, sliderX + sliderX * 0.877,sliderY-74)
-p.pop()
-p.line(sliderX + sliderX * 0.869 , sliderY-40, sliderX + sliderX * 0.869, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.869) - 4, sliderY-44, (sliderX + sliderX * 0.869) +4, sliderY-44, sliderX + sliderX * 0.869,sliderY-40)
-p.pop()
-
-//1980-2000
-p.line(sliderX + sliderX * 0.9383 , sliderY-70, sliderX + sliderX * 0.9383, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.9383) - 4, sliderY-70, (sliderX + sliderX * 0.9383) +4, sliderY-70, sliderX + sliderX * 0.9383,sliderY-74)
-p.pop()
-p.line(sliderX + sliderX * 0.97 , sliderY-40, sliderX + sliderX * 0.97, sliderY+25 )
-p.push()
-p.fill("#313131")
-p.triangle((sliderX + sliderX * 0.97) - 4, sliderY-44, (sliderX + sliderX * 0.97) +4, sliderY-44, sliderX + sliderX * 0.97,sliderY-40)
-p.pop()
-p.pop()*/
 
 
 //paragrafi
-
-
-
-
 
 let baseX = p.width * 0.10;
 let baseY = p.height * 0.2;
