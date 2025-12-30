@@ -457,13 +457,13 @@ for (let cl of localClusters) {
     p.mouseY >= sliderY - 20 &&        
     p.mouseY <= sliderY + sliderH
 
-    /*let sliderVal = forceSlider.value() / 100;
+    let sliderVal = forceSlider.value() / 100;
     let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
     let tEnd   = p.map(s.endYear, globalMinEnd,   globalMaxEnd,   0.15, 0.95);
 
 
-    if (sliderVal < tStart || sliderVal > tEnd) continue; 
-    if (distToClusterCenter > cl.r) continue; */
+    
+     
 
     if(hoverSlider) continue; //Evita che le sfere dietro lo slider abbiano uno stato di hover
     if (d < s.r/2) {
@@ -484,13 +484,23 @@ for (let cl of localClusters) {
   let boxW2 = textW2 + padding * 2;  
   let boxH = 30;
 
-  /*p.push()
-  p.rectMode(p.CENTER)
-  p.rect(cl.x, cl.y-30, boxW2, boxH, 5);
-  p.pop()*/
+  
 
+//targhette per i nomi delle colonie
   p.rect(p.mouseX + 10, p.mouseY - boxH - 5, boxW, boxH, 5);
   
+  if (distToClusterCenter > cl.r && sliderVal < tStart || sliderVal > tEnd){
+  
+  p.push()
+  p.noStroke()
+  p.fill("#313131");
+  p.textFont("montserrat")
+  p.textAlign(p.CENTER, p.CENTER);
+  p.text(s.country, p.mouseX + 10 + boxW / 2, p.mouseY - boxH / 2 - 5);
+  p.pop()
+  p.pop()
+
+  } else{
   p.push()
   p.noStroke()
   p.fill(cl.colr);
@@ -508,7 +518,7 @@ for (let cl of localClusters) {
   p.text(s.country, p.mouseX + 10 + boxW / 2, p.mouseY - boxH / 2 - 5);
   p.pop()
   p.pop()
-
+  }
   
 
 
@@ -528,7 +538,7 @@ sliderH = r.height;
 if (
   p.mouseX >= sliderX &&
   p.mouseX <= sliderX + sliderW &&
-  p.mouseY >= sliderY - 20 &&        // margine per attivare effetto prima della linea
+  p.mouseY >= sliderY - 20 &&        
   p.mouseY <= sliderY + sliderH
 ) {
   sliderHover = true;
@@ -569,7 +579,7 @@ if (hoverAlpha > 1) {
 
   p.curveTightness(-0.2);
   p.beginShape();
-  p.fill(49, 49, 49, hoverAlpha)
+  p.fill(186, 186, 186, hoverAlpha)
   p.noStroke()
   
   
@@ -596,6 +606,45 @@ if (hoverAlpha > 1) {
   p.pop();
 
 
+  
+  
+
+
+  //progress graph
+  p.push()
+  p.beginClip()
+  p.push()
+  p.translate(sliderX, sliderY - 30 + hoverOffset - graphHeight / 2); 
+  p.beginShape();
+  
+  p.curveVertex(firstX, firstY); 
+  
+  for (let i = 0; i < colonne[0].length; i+= 40) {
+    let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
+    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+
+    p.curveVertex(x, y); 
+
+  }
+
+  p.curveVertex(lastX, lastY); 
+
+  p.vertex(lastX, graphHeight); 
+  p.vertex(firstX, graphHeight);
+
+  p.endShape(p.CLOSE)
+  p.pop()
+  p.endClip()
+
+  let progressWidth = p.map(forceSlider.value(), 0, 100, 0, sliderW);
+  p.fill(49,49,49, hoverAlpha)
+  p.rect(sliderX, sliderY - 58, progressWidth, 50)
+  
+  p.pop()
+
+// evidenziazione prova
+
+  p.push()
   // evidenziazione linea del grafico
   p.push()
   /*p.fill(49,49,49, hoverAlpha)
@@ -604,7 +653,6 @@ if (hoverAlpha > 1) {
   p.rect(sliderX + sliderW * 0.7, sliderY - 58, sliderW*0.2, 50, 3)
   p.endClip()
 
-  p.push()
   p.translate(sliderX, sliderY - 30 + hoverOffset - graphHeight / 2); 
   p.beginShape();
   p.stroke(255, 255, 255, hoverAlpha2)
@@ -630,7 +678,6 @@ if (hoverAlpha > 1) {
   p.circle(sliderX + sliderW*0.7, sliderY - 22 + hoverOffset, 10 )
   p.circle(sliderX + sliderW*0.9, sliderY - 40 + hoverOffset, 10 )
   p.pop()
-
 
 }
 
@@ -763,13 +810,19 @@ p.mousePressed = function () {
     // Click sui pallini grandi (paesi)
     for (let s of cl.sphere) {
       let d = p.dist(p.mouseX, p.mouseY, s.x, s.y);
-      let sliderVal = forceSlider.value() / 100;
-      let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
-      let tEnd   = p.map(s.endYear, globalMinEnd,   globalMaxEnd,   0.15, 0.95);
+      //valori dello slider
+    let f = forceSlider.elt.getBoundingClientRect();
+    sliderX = f.left - p.canvas.getBoundingClientRect().left;
+    sliderY = f.top  - p.canvas.getBoundingClientRect().top;
+    sliderW = f.width;
+    sliderH = f.height;
 
-      if (sliderVal < tStart || sliderVal > tEnd) continue;
-      let distToClusterCenter = p.dist(cl.x, cl.y, s.x, s.y);
-      if (distToClusterCenter > cl.r) continue;
+    let hoverSlider = p.mouseX >= sliderX &&
+    p.mouseX <= sliderX + sliderW &&
+    p.mouseY >= sliderY - 20 &&        
+    p.mouseY <= sliderY + sliderH
+      
+      if(hoverSlider) continue;
 
       if (d < s.r) {
         // SALVA la posizione dello slider prima di andare alla pagina
