@@ -12,21 +12,7 @@
   <!-- p5.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
 
-  <style>
-    /* Canvas di sfondo */
-    #canvas-container {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      overflow: hidden;
-    }
 
-    #canvas-container canvas {
-      width: 100%;
-      height: 100%;
-      pointer-events: none; /* evita blocco interazioni */
-    }
-  </style>
 </head>
 
 <body data-page="data-page">
@@ -54,7 +40,8 @@
   </div>
 
   <!-- Sfondo -->
-  <div id="canvas-container"></div>
+   <div id="dati_sfondo">
+  
 
   <main class="data-methodology">
     <h1>Data and Methodology</h1>
@@ -99,7 +86,7 @@
     </section>
 
   </main>
-
+</div>
   <footer>
         <!-- Header -->
         <div class="footer-header">
