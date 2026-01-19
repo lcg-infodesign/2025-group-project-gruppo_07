@@ -18,6 +18,8 @@
   <body data-page="home"> <!-- ho dovuto fare così perchè se no dava probelmi con il fatto che a PAESI COLONIZZATORI
     non è legata nessuna pagina -->
  
+
+  <!--navbar-->
     <div id="header">
     <nav class="navbar">
     <ul>
@@ -41,22 +43,34 @@
     </ul>
 </nav>
     </div>
-  
+
+    
+    <div class="no_scroll">
+
     <div id="title_page">
       <h1 id="title">The Bubble of Colonialism</h1>
       <p id="subtitle"> Exploration of European colonial powers</p>
-
-      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
-      <button class="skipBtn"><a href="#time_view">SKIP INTRODUCTION</a></button>
+      
+      
+      <a href="#Slide1" class="SlideBtn sl1" id="s1">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
+      </a>
+      <a class="skipBtn" href="#time_view">SKIP INTRODUCTION</a></button>
     </div>
     <div class="bg_wrapper">
-    <div class="explanation">
+    <div class="explanation" id="Slide1">
       <p class="text"> Colonialism was a historical and political process in which <span id="explanationItalic">states expanded their control over foreign lands from the 15th to the 20th century</span>. 
       <br>Driven by the search for resources, markets, and global influence, colonial powers imposed their rule by force and reshaped local systems. <br>These actions deeply affected the development and identities of colonized societies. <span id="explanationItalic">Their long-lasting consequences still produce inequalities and tensions today.</span>
 </p>
+    
+ 
+      <a href="#Slide2" class="SlideBtn sl2" id="s2">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
+      </a>
+     
     </div>
      
-    <div class="explanation3">
+    <div class="explanation3" id="Slide2">
       <div class="falseBtn">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg>
         <span class="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/></svg></span>
@@ -69,20 +83,32 @@
         Thanks to an <span id="conclusionItalic">interactive timeline</span>, users can thoroughly explore the historical evolution of colonialism and analyze the correlations between major colonial events and their temporal context.
         <br>In this way, the user is able to visually grasp the moments of peaks and declines in colonization.
 </p>
+       
+     
+      <a href="#Slide3" class="SlideBtn sl3" id="s3">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
+      </a>
+   
    
     </div>
    
 
-    <div class="explanation2">
+    <div class="explanation2" id="Slide3">
       <p class="text2"> Each static bubble represents a <span id="conclusionItalic">colonialist nation</span></p>
       <span class="pointer"></span>
       <span class="pointer2"></span>
       <span class="pointer3"></span>
       <p class="text3"> while the abstract dots represent the <span id="conclusionItalic">colonized countries</span>, <br>whose size is linked to the <span id="conclusionItalic">duration of their colonization</span>.
 </p>
-   
+     
+  
+      <a href="#time_view" class="SlideBtn sl4" id="s4">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
+      </a>
+  
     </div>
 </div>
+
     
 
 
@@ -92,7 +118,7 @@
       <span id="generalBtn">VIEW GENERAL</span>
     </label>
     <div id="general_view" class="general_view"></div>-->
-    <div id="time_view">
+    <div id="time_view" class="ending">
       <input type="checkbox" id="playBtn"/>
       <label for="playBtn" id="playIcon">
         <svg id="playSvg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg>
@@ -163,6 +189,10 @@
     </div>
     </div>
   </div>
+
+  </div>
+
+
 
   <footer>
         <!-- Header -->

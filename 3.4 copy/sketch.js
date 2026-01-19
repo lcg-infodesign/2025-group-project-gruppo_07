@@ -1,3 +1,62 @@
+
+
+//javascript
+
+//Prova animazione javascript    
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      
+      observer.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.2
+});
+
+
+document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .pointer3, .text3, .falseBtn,.falseTimeLine, .text4, .text5, .sl1, .sl2, .sl3, .sl4, .ending').forEach(el => observer.observe(el));
+
+
+//prova per lo scroll
+
+
+
+  const buttons = document.querySelectorAll('.SlideBtn, .skipBtn'); 
+  const body = document.body;
+  const end = document.querySelector('.ending') 
+  const closedContainer = document.querySelector('.no_scroll') 
+  buttons.forEach(btn => { btn.addEventListener('click', e => { e.preventDefault(); // blocca l'anchor nativo 
+  const targetSelector = btn.getAttribute('href'); 
+  const arrivo = document.querySelector(targetSelector); 
+  if (!arrivo) return; 
+  // scroll smooth 
+  arrivo.scrollIntoView({ behavior: 'smooth' }); 
+  if (arrivo.classList.contains('ending')) {
+        closedContainer.style.overflow = 'auto';
+
+        buttons.forEach(b => {
+        b.style.opacity = '0';
+        b.style.pointerEvents = 'none';
+      });
+        
+      }
+
+
+}); }); 
+
+  
+  
+  
+
+
+
+
+
+
+//p5js
+
 let table;
 let tableTime;
 let colonne = []
@@ -33,21 +92,6 @@ function preload() {
   tableTime = loadTable("assets/colonie_per_anno.csv", "csv", "header")
 }
 
-//Prova animazione javascript    
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('show');
-      
-      observer.unobserve(entry.target);
-    }
-  });
-}, {
-  threshold: 0.2
-});
-
-
-document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .pointer3, .text3, .falseBtn,.falseTimeLine, .text4, .text5').forEach(el => observer.observe(el));
 
 
 
