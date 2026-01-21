@@ -4,7 +4,7 @@ html, body {
   background-color: #E7E1D1;
   color: #313131;
   font-family:"montserrat", sans-serif;
-  overflow-x: hidden;
+  overflow: hidden;
   
   
 }
@@ -176,6 +176,7 @@ ul li ul.dropdown-menu{
 
 .no_scroll{
   height: 100vh;
+  overflow-x: hidden;
   overflow-y: hidden;
 }
 
@@ -232,6 +233,42 @@ ul li ul.dropdown-menu{
   position: absolute;
   bottom: 20%;
 
+}
+
+.UpperSlide{
+  position: absolute;
+  left: 46%;
+  top: 20%;
+  width: 0;
+  height: 0;
+  border: none;
+  background-color: transparent;
+  animation: 
+  fadeIn3 0.8s ease-out 3s forwards,
+}
+
+.UpperSlide svg {
+  fill: #313131;
+  stroke-width: 0.5;
+  width: 10vh;
+  height: 10vh;
+  opacity: 0;
+  position: absolute;
+  top: 20%;
+  rotate: 180deg;
+
+}
+
+#u1{
+  position: absolute;
+  left: 46%;
+  top: 20%;
+}
+
+#u3{
+  position: absolute;
+  left: 46%;
+  top: 10%;
 }
 
 
@@ -383,13 +420,13 @@ ul li ul.dropdown-menu{
   font-size: 2.2vh;
   text-align: center;
   opacity: 0;
-  transform: translateY(22vh);
+  transform: translateY(28vh);
   transition: 1s ease-out ;
   transition-delay: 2s;
 }
 .text2.show{
   opacity: 1;
-  transform: translateY(20vh);
+  transform: translateY(26vh);
 
 }
 
@@ -405,20 +442,20 @@ ul li ul.dropdown-menu{
   border-radius: 50%;
   border: solid 4px #81201A;
   left: 48%;
-  transform: translateY(40vh) scale(0);
+  transform: translateY(41vh) scale(0);
   transition: transform 0.5s ease-out 1s;
 }
 
 .pointer.show {
-  transform: translateY(40vh) scale(1);
+  transform: translateY(41vh) scale(1);
   animation: bounceScale 0.5s ease-out 1.4s;
 }
 
 @keyframes bounceScale {
-  0%   { transform: translateY(40vh) scale(1); }
-  60%  { transform: translateY(40vh) scale(1.2); }
-  80%  { transform: translateY(40vh) scale(0.9); }
-  100% { transform: translateY(40vh) scale(1); }
+  0%   { transform: translateY(41vh) scale(1); }
+  60%  { transform: translateY(41vh) scale(1.2); }
+  80%  { transform: translateY(41vh) scale(0.9); }
+  100% { transform: translateY(41vh) scale(1); }
 }
 
 .pointer2 {
@@ -435,7 +472,7 @@ ul li ul.dropdown-menu{
 }
 
 .pointer2.show {
-  transform: translateY(40vh);
+  transform: translateY(41vh);
   left: 43%;
   opacity: 1;
   animation: bounceLeft 1s ease 3.49s forwards;
@@ -458,7 +495,7 @@ ul li ul.dropdown-menu{
 }
 
 .pointer3.show {
-  transform: translateY(40vh);
+  transform: translateY(41vh);
   left: 51%;
   opacity: 1;
   animation: bounceRight 1s ease 3.49s forwards;
@@ -473,14 +510,14 @@ ul li ul.dropdown-menu{
   font-size: 2.2vh;
   text-align: center;
   opacity: 0;
-  transform: translateY(52vh);
+  transform: translateY(50vh);
   transition: 1s ease-out ;
   transition-delay: 4s;
 }
 
 .text3.show{
   opacity: 1;
-  transform: translateY(50vh);
+  transform: translateY(48vh);
 }
 
 .explanation3{
@@ -511,7 +548,7 @@ ul li ul.dropdown-menu{
   left: 29%;
   opacity: 0;
   scale: 1;
-  transform: translateY(2vh);
+  transform: translateY(8vh);
   transition: 0.5s ease;
   transition-delay: 1s;
   
@@ -522,7 +559,7 @@ ul li ul.dropdown-menu{
 }
 
 .falseBtn.show{
-  transform: translateY(0);
+  transform: translateY(6vh);
   opacity: 1;
   animation: click 0.5s ease 2.4s forwards;
 
@@ -557,8 +594,8 @@ ul li ul.dropdown-menu{
   width: 65vh;
   height: 5vh;
   top: 30%;
-  transform: translateY(2vh);
-  right: 25%;
+  transform: translateY(8vh);
+  right: 27%;
   border: solid 5px #E7E1D1;
   box-shadow: 0 0 0 1px #313131;
   border-radius: 5px;
@@ -569,7 +606,7 @@ ul li ul.dropdown-menu{
 }
 
 .falseTimeLine.show{
-  transform: translateY(0);
+  transform: translateY(6vh);
   opacity: 1;
 
   .thumb{
@@ -613,7 +650,7 @@ ul li ul.dropdown-menu{
   font-size: 2.2vh;
   text-align: center;
   opacity: 0;
-  transform: translateY(10vh);
+  transform: translateY(14vh);
   transition: 1s ease-out ;
   transition-delay: 3.6s;
   line-height: 170%;
@@ -625,7 +662,7 @@ ul li ul.dropdown-menu{
 
 .text5.show{
   opacity: 1;
-  transform: translateY(8vh);
+  transform: translateY(12vh);
 }
 
 

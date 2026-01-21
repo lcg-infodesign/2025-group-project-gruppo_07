@@ -23,35 +23,48 @@ document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .poin
 
 
 
-  const buttons = document.querySelectorAll('.SlideBtn, .skipBtn'); 
-  const body = document.body;
-  const end = document.querySelector('.ending') 
-  const closedContainer = document.querySelector('.no_scroll') 
-  buttons.forEach(btn => { btn.addEventListener('click', e => { e.preventDefault(); // blocca l'anchor nativo 
-  const targetSelector = btn.getAttribute('href'); 
-  const arrivo = document.querySelector(targetSelector); 
-  if (!arrivo) return; 
-  // scroll smooth 
-  arrivo.scrollIntoView({ behavior: 'smooth' }); 
-  if (arrivo.classList.contains('ending')) {
-        closedContainer.style.overflow = 'auto';
+const buttons = document.querySelectorAll('.SlideBtn, .skipBtn, .UpperSlide');
+const closedContainer = document.querySelector('.no_scroll');
+const ending = document.querySelector('.ending');
+
+// IntersectionObserver
+const observer2 = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+        closedContainer.style.overflowY = 'auto';
 
         buttons.forEach(b => {
-        b.style.opacity = '0';
-        b.style.pointerEvents = 'none';
-      });
-        
+          b.style.opacity = '0';
+          b.style.pointerEvents = 'none';
+        });
+
+        observer2.unobserve(entry.target);
       }
+    });
+  },
+  {  
+    threshold: 0.6           
+  }
+);
 
+if (ending) observer2.observe(ending);
 
-}); }); 
+// Click handler
+buttons.forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+
+    const targetSelector = btn.getAttribute('href');
+    const arrivo = document.querySelector(targetSelector);
+    if (!arrivo) return;
+
+    arrivo.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
 
   
-  
-  
-
-
-
 
 
 
@@ -119,150 +132,6 @@ function setup(){
   //new p5(sketch, 'general_view')
   new p5(sketch1, 'time_view')
 }
-
-
-
-/*let sketch = function(p){
-  p.createContainerCanvas = function(container){
-    let w = container.width
-    let h = container.height
-    let canvas = p.createCanvas(w, h)
-    canvas.parent(container)
-  }
-  p.setup = function(){
-    let container = p.select('#general_view')
-    p.createContainerCanvas(container)
-   
-  
-   // Posizioni
-  customPositions = {
-    "britain": { x: (p.width * 0.63) + 150, y: p.height * 0.63 },
-    "france": { x: (p.width * 0.44) + 150, y: p.height * 0.72 },
-    "spain": { x: (p.width * 0.42) + 150, y: p.height * 0.35 },
-    "portugal": { x: (p.width * 0.60) + 150, y: p.height * 0.30 },
-    "germany": { x: (p.width * 0.75) + 150, y: p.height * 0.40 },
-    "belgium": { x: (p.width * 0.78) + 150, y: p.height * 0.65 },
-    "netherlands": { x: (p.width * 0.56) + 150, y: p.height * 0.88 },
-    "italy": { x: (p.width * 0.32) + 150, y: p.height * 0.55 }
-  };
-  const contractionFactor = 0.88;
-
-  // Creo cluster
-  let colonizers = Array.from(colonizerGroups.keys());
-  colonizers.forEach((colonizer, i) => {
-    let pos = customPositions[colonizer];
-    
-    // Applica contrazione verso il centro
-    let dx = pos.x - width / 2;
-    let dy = pos.y - height / 2;
-    let x = width / 2 + dx * contractionFactor;
-    let y = height / 2 + dy * contractionFactor;
-
-    let colr = clusterColorsByName[colonizer] || "#ffffff";
-    let rad = costumRadius[colonizer].r;
-
-    clusters.push(new Cluster(x, y, rad, colonizerGroups.get(colonizer), colonizer, colr));
-  });
-
-  }
-
-  p.draw = function(){
-    p.clear();
-  for(let cl of clusters){
-    cl.update();
-    cl.show();
-  }
-  }
-class Cluster {
-  constructor(x, y, r, dataArray, name, colr){
-    this.x = x;
-    this.y = y;
-    this.r = r;
-    this.name = name;
-    this.colr = colr;
-    this.data = dataArray;
-    this.sphere = [];
-    
-    let endYears = this.data.map(d => d.endYear);
-    this.minEnd = min(...endYears);
-    this.maxEnd = max(...endYears);
-
-    this.createBubbles();
-  }
-
-  createBubbles(){
-    for(let rec of this.data){
-      let br = map(rec.duration, 0, max(...this.data.map(d=>d.duration)), 5, 36);
-      let angle = random(0, TWO_PI);
-      let radius = random(0, this.r - br);
-      let x = this.x + cos(angle) * radius;
-      let y = this.y + sin(angle) * radius;
-
-      this.sphere.push({
-        x, y, r: br, v: createVector(0,0), 
-        endYear: rec.endYear,
-        startYear: rec.startYear  
-      });
-    }
-  }
-
-  update(){
-    
-    
-    for(let s of this.sphere){
-      // Forza interna verso centro del cluster
-      let dInternal = createVector(this.x - s.x, this.y - s.y);
-      dInternal.mult(0.01);
-      s.v.add(dInternal);
-    }
-
-    // Collisioni tra sfere
-    for(let i = 0; i < this.sphere.length; i++){
-      for(let j = i + 1; j < this.sphere.length; j++){
-        let A = this.sphere[i];
-        let B = this.sphere[j];
-
-        let dx = B.x - A.x;
-        let dy = B.y - A.y;
-        let distAB = sqrt(dx*dx + dy*dy);
-        let minDist = A.r + B.r + 2;
-
-        if(distAB < minDist){
-          let overlap = (minDist - distAB) * 0.05;
-          let ang = atan2(dy, dx);
-
-          A.v.x -= cos(ang) * overlap;
-          A.v.y -= sin(ang) * overlap;
-          B.v.x += cos(ang) * overlap;
-          B.v.y += sin(ang) * overlap;
-        }
-      }
-    }
-
-    // Aggiorno posizioni
-    for(let s of this.sphere){
-      s.x += s.v.x;
-      s.y += s.v.y;
-      s.v.mult(0.88);
-    }
-  }
-
-  show(){
-    for(let s of this.sphere){
-      p.fill(this.colr);
-        p.noStroke();
-        p.circle(s.x,s.y,s.r);
-    }
-
-  }
-
-}
-}
-*/
-
-
-
-
 
 
 let sketch1 = function(p){
@@ -483,6 +352,7 @@ if (savedSliderPosition) {
   
 
     hoveredSphere = null;
+    p.cursor('default');
 
 for (let cl of localClusters) {
   for (let s of cl.sphere) {
@@ -517,7 +387,7 @@ for (let cl of localClusters) {
   
   
   p.stroke("#313131");
-  p.fill("#e7e1d18b");
+  p.fill("#e7e1d1ff");
 
   p.textSize(14);
   let textW = p.textWidth(s.country);
@@ -533,7 +403,7 @@ for (let cl of localClusters) {
 //targhette per i nomi delle colonie
   p.rect(p.mouseX + 10, p.mouseY - boxH - 5, boxW, boxH, 5);
   
-  if (distToClusterCenter > cl.r && sliderVal < tStart || sliderVal > tEnd){
+  if (sliderVal < tStart || sliderVal > tEnd){
   
   p.push()
   p.noStroke()
@@ -564,7 +434,6 @@ for (let cl of localClusters) {
   p.pop()
   }
   
-
 
 
     }
