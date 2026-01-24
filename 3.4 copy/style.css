@@ -990,8 +990,8 @@ input[type="range"]:hover{
 
 .scaleBoxes {
   display: flex;
-  gap: 1rem; /* increase gap so spacing looks balanced relative to different sphere sizes */
-  align-items: center; /* center so arrow line aligns with sphere centers */
+  gap: 0.8rem; /* reduced gap to bring intermediate spheres closer */
+  align-items: flex-end; /* align spheres to bottom */
   border-left: 1px solid #313131; /* border starts where spheres start */
   padding-left: 1rem; /* same as #legenda ul to align borders */
   margin-left: 0;
@@ -1002,24 +1002,11 @@ input[type="range"]:hover{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* keep spheres vertically centered relative to the arrow */
+  justify-content: flex-end; /* push sphere to bottom of container */
   position: relative;
   height: 4rem; /* adjust if you want more/less space */
   box-sizing: border-box;
-}
-
-.scaleArrow {
-  width: 6rem; /* slightly wider to bring the line endpoints closer to sphere edges */
-  height: auto;
-  display: block;
-}
-
-.scaleArrow line {
-  stroke: #4d4d4d;
-}
-
-.scaleArrow polygon {
-  fill: #4d4d4d;
+  padding-bottom: 1.5rem; /* space for labels */
 }
 
 .scaleSphere {
@@ -1039,10 +1026,35 @@ input[type="range"]:hover{
   height: 36px;
 }
 
+.scaleSphere.intermediate
+{
+  background-color: #4d4d4d;
+  opacity: 0.6 ;
+}
+
+.scaleLabelArrow {
+  width: 5rem;
+  height: auto;
+  display: block;
+  margin: -0.5rem auto 0;
+  margin-left: 3.5rem; /* slight right nudge for better centering */
+  position: relative;
+  z-index: 5;
+}
+
+.scaleLabelArrow line {
+  stroke: #4d4d4d;
+}
+
+.scaleLabelArrow polygon {
+  fill: #4d4d4d;
+}
+
 .scaleLabel {
   font-size: 0.9em;
   white-space: nowrap;
   margin: 0; /* reset — we position labels absolutely */
+  margin-left: 0.5rem; /* slight left nudge for better centering */
   text-align: center;
   position: absolute;
   bottom: -0.4rem; /* nudge labels slightly lower */

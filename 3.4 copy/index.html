@@ -181,23 +181,30 @@
       <div class="scaleBoxes">
         <div class="scaleItem">
           <span class="scaleSphere small"></span>
-          <p class="scaleLabel small">min</p>
+          <p class="scaleLabel small">1 year</p>
         </div>
         <div class="scaleItem">
-          <!-- Arrow connecting small and large spheres -->
-          <svg class="scaleArrow" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- extend the line closer to edges so the perceived distance to sphere edges is even -->
-            <line x1="2" y1="12" x2="118" y2="12" stroke="#4d4d4d" stroke-width="1pt" stroke-linecap="round" />
-            <!-- small arrow head at the right end -->
-            <polygon points="118,12 110,6 110,18" fill="#4d4d4d" />
-          </svg>
+          <span class="scaleSphere intermediate" style="width: 15px; height: 15px;"></span>
+          <p class="scaleLabel medium">&nbsp;</p>
+        </div>
+        <div class="scaleItem">
+          <span class="scaleSphere intermediate" style="width: 22px; height: 22px;"></span>
+          <p class="scaleLabel medium">&nbsp;</p>
+        </div>
+        <div class="scaleItem">
+          <span class="scaleSphere intermediate" style="width: 30px; height: 30px;"></span>
           <p class="scaleLabel medium">&nbsp;</p>
         </div>
         <div class="scaleItem">
           <span class="scaleSphere large"></span>
-          <p class="scaleLabel large">max</p>
+          <p class="scaleLabel large">513 years</p>
         </div>
       </div>
+      <!-- Arrow between scale labels -->
+      <svg class="scaleLabelArrow" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <line x1="2" y1="12" x2="118" y2="12" stroke="#4d4d4d" stroke-width="1pt" stroke-linecap="round" />
+        <polygon points="118,12 110,6 110,18" fill="#4d4d4d" />
+      </svg>
     </div>
     </div>
   </div>
