@@ -1465,7 +1465,7 @@ footer {
             margin-bottom: 0px;
             background-color: #313131;
             border-top: 1px solid #E7E1D1;
-            padding: 20px 60px;
+            padding: 2rem 4vw;
             width: 100%;
             overflow-x: hidden;
 
@@ -1487,16 +1487,16 @@ footer {
         .footer-header::after {
           content: "";
           position: absolute;
-          left: -60px;
+          left: -4vw;
           bottom: 0;
-          width: calc(100% + 120px);
+          width: calc(100% + 8vw);
           height: 1px;
           background-color: #313131;
 }
 
         .course-title {
             font-family: "benton-modern-display", serif;
-            font-size: 3.5vh;
+            font-size: 2.2rem;
             font-weight: 400;
             color: #E7E1D1;
             margin-bottom: 12px;
@@ -1505,7 +1505,7 @@ footer {
         }
 
         .course-info {
-            font-size: 1.3vh;
+            font-size: 0.9rem;
             color: #E7E1D1;
             letter-spacing: 0.05em;
             font-weight: 500;
@@ -1514,14 +1514,15 @@ footer {
         /* CONTENUTO PRINCIPALE */
        .footer-content {
         display: grid;
-        grid-template-columns: minmax(260px, 420px) minmax(220px, 360px) 160px;
-        gap: 240px;
-        margin-bottom: 40px;
+        grid-template-columns: 1.5fr 1.5fr 1.5fr;
+        gap: 4rem;
+        margin-bottom: 3rem;
         align-items: start;
+        justify-items: flex-left;
       }
 
         .footer-section h3 {
-            font-size: 1.2vh;
+            font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
@@ -1537,13 +1538,13 @@ footer {
         }
 
         .footer-section li {
-            font-size: 1.4vh;
+            font-size: 0.85rem;
             line-height: 1.9;
             color: #E7E1D1;
         }
 
         .footer-section p {
-            font-size: 1.4vh;
+            font-size: 0.85rem;
             line-height: 1.9;
             color: #E7E1D1;
         }
@@ -1556,20 +1557,21 @@ footer {
 
         /* LOGOS */
         .footer-logos {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    align-items: flex-start;
-    justify-content: flex-end;
-    margin-top: 40px;
-    padding: 0;
-    border: none;
-    max-width: 100%;
-}
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+            justify-content: center;
+            align-self: center;
+            margin-top: 0px;
+            padding: 0;
+            border: none;
+            max-width: 100%;
+        }
 
         .logo-placeholder {
-            width: 140px;
-            height: 70px;
+            width: 8rem;
+            aspect-ratio: 2/1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1587,7 +1589,7 @@ footer {
 
         /* FOOTER BOTTOM */
         .footer-bottom {
-            font-size: 1.2vh;
+            font-size: 0.75rem;
             color: #E7E1D1;
             text-align: left;
             border-top: 1px solid #E7E1D1;
