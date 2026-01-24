@@ -1,6 +1,8 @@
 // =========================================================
 // VARIABILI GLOBALI E CONFIGURAZIONE INIZIALE
 // =========================================================
+//layout del canvas per mettere il footer
+let c;
 
 // Tabelle dei dati CSV
 let table, table3;
@@ -99,7 +101,9 @@ function preload() {
 // SETUP
 // =========================================================
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  //createCanvas(windowWidth, windowHeight);
+  c = createCanvas(windowWidth, windowHeight);
+  c.parent("canvas-container");
   
   // Leggi i parametri URL
   let urlParams = new URLSearchParams(window.location.search);
