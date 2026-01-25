@@ -375,7 +375,7 @@ for (let cl of localClusters) {
     let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
     let tEnd   = p.map(s.endYear, globalMinEnd,   globalMaxEnd,   0.15, 0.95);
 
-
+    p.text(forceSlider.value(), sliderX, sliderY+50)
     
      
 
@@ -563,7 +563,8 @@ if (hoverAlpha > 1) {
   /*p.fill(49,49,49, hoverAlpha)
   p.noStroke()*/
   p.beginClip()
-  p.rect(sliderX + sliderW * 0.7, sliderY - 58, sliderW*0.2, 50, 3)
+  p.rect(sliderX + sliderW * 0.1153, sliderY - 58, sliderW*0.175, 50, 3)
+  p.rect(sliderX + sliderW * 0.5486, sliderY - 30, sliderW*0.1213, 50, 3)
   p.endClip()
 
   p.translate(sliderX, sliderY - 30 + hoverOffset - graphHeight / 2); 
@@ -588,8 +589,12 @@ if (hoverAlpha > 1) {
   p.pop()
   p.push()
   p.fill(255, 255, 255, hoverAlpha2)
-  p.circle(sliderX + sliderW*0.7, sliderY - 22 + hoverOffset, 10 )
-  p.circle(sliderX + sliderW*0.9, sliderY - 40 + hoverOffset, 10 )
+  //primo picco
+  p.circle(sliderX + sliderW*0.1153, sliderY - 10 + hoverOffset, 10 )
+  p.circle(sliderX + sliderW*0.2886, sliderY - 20 + hoverOffset, 10 )
+  //secondo picco
+  p.circle(sliderX + sliderW*0.5486, sliderY - 27 + hoverOffset, 10 )
+  p.circle(sliderX + sliderW*0.6699, sliderY - 22 + hoverOffset, 10 )
   p.pop()
 
 }
