@@ -355,6 +355,11 @@ if (savedSliderPosition) {
     p.cursor('default');
 
 for (let cl of localClusters) {
+
+   let centerDist = p.dist(p.mouseX, p.mouseY, cl.x, cl.y);
+   if(centerDist < cl.r/12){
+    p.cursor('pointer')
+   }
   for (let s of cl.sphere) {
 
     let d = p.dist(p.mouseX, p.mouseY, s.x, s.y);
