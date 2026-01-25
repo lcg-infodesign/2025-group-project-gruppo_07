@@ -179,6 +179,7 @@ ul li ul.dropdown-menu{
   display: block;
 }
 
+/*contenitore per lo slideshow*/
 .no_scroll{
   height: 100vh;
   overflow-x: hidden;
@@ -823,7 +824,6 @@ ul li ul.dropdown-menu{
   left: 38%;
   cursor: pointer;
   border: solid 0.2px #313131;
-  border-radius: 10px;
   padding: 0.2vh 1vh 0.2vh 1vh;
   transition: 0.2s ease;
   z-index: 20;
@@ -882,7 +882,6 @@ input[type="range"] {
   cursor: pointer;
   background: transparent; 
   border: 1px solid #313131; 
-  border-radius: 5px; 
   box-shadow: none; 
   position: relative;
 }
@@ -892,7 +891,6 @@ input[type="range"] {
   cursor: pointer;
   background: transparent; 
   border: 1px solid #313131; 
-  border-radius: 5px; 
   box-shadow: none; 
   position: relative;
 }

@@ -2,7 +2,7 @@
 
 //javascript
 
-//Prova animazione javascript    
+//Animazioni quando si entra in vista   
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -19,20 +19,23 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .pointer3, .text3, .falseBtn,.falseTimeLine, .text4, .text5, .sl1, .sl2, .sl3, .sl4, .ending').forEach(el => observer.observe(el));
 
 
-//prova per lo scroll
+//SLIDESHOW
 
 
-
+//botton/ancore per scendere/salire
 const buttons = document.querySelectorAll('.SlideBtn, .skipBtn, .UpperSlide');
+//div che racchiude tutte le sezioni
 const closedContainer = document.querySelector('.no_scroll');
+//pagina del grafico
 const ending = document.querySelector('.ending');
 
-// IntersectionObserver
+//inizio cose che si possono rimuovere
 const observer2 = new IntersectionObserver(
-  entries => {
+  entries => { 
     entries.forEach(entry => {
       if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
         closedContainer.style.overflowY = 'auto';
+        
 
         buttons.forEach(b => {
           b.style.opacity = '0';
@@ -48,9 +51,9 @@ const observer2 = new IntersectionObserver(
   }
 );
 
-if (ending) observer2.observe(ending);
+if (ending) observer2.observe(ending);//fine cose da rimuovere
 
-// Click handler
+// interazione coi bottoni
 buttons.forEach(btn => {
   btn.addEventListener('click', e => {
     e.preventDefault();
@@ -63,7 +66,7 @@ buttons.forEach(btn => {
   });
 });
 
-
+//fine javascript classico
   
 
 
@@ -616,7 +619,7 @@ p.rectMode(p.CENTER)
 p.stroke("#313131")
 p.strokeWeight(0.5)
 p.noFill()
-p.rect(sliderX + p.width * 0.43, sliderY+10, dateWidth, 30, 5);
+p.rect(sliderX + p.width * 0.43, sliderY+10, dateWidth, 30);
 
 p.push()
 p.noStroke()
