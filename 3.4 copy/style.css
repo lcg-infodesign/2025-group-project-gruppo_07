@@ -165,7 +165,6 @@ ul li ul.dropdown-menu{
   border-right: solid 0.2px  #313131;
   border-left: solid 0.2px  #313131;
   border-bottom: solid 0.2px  #313131;
-  border-radius: 0 0 5px 5px;
   background-color: #E7E1D1;
   position: absolute;
   z-index: 200;
@@ -804,8 +803,8 @@ ul li ul.dropdown-menu{
 }*/
 #playBtn{
   position: absolute;
-  bottom: 4.5%;
-  left: 38%;
+  bottom: 4.3%;
+  left: 35%;
   
   width: 0;      
   height: 0;
@@ -821,8 +820,8 @@ ul li ul.dropdown-menu{
 
 #playIcon{
   position: absolute;
-  bottom: 4%;
-  left: 38%;
+  bottom: 4.1%;
+  left: 35%;
   cursor: pointer;
   border: solid 0.2px #313131;
   padding: 0.2vh 1vh 0.2vh 1vh;
@@ -867,6 +866,46 @@ ul li ul.dropdown-menu{
   opacity: 1;
 }
 
+#speedBtn{
+  position: absolute;
+  bottom: 4.3%;
+  left: 39%;
+  
+  width: 0;      
+  height: 0;
+
+  opacity: 0;        
+  z-index: 0;
+  cursor: pointer;
+  transition: 0.5s ease;
+  pointer-events: none;
+
+  
+}
+
+#speedIcon{
+  position: absolute;
+  bottom: 4.1%;
+  left: 39%;
+  cursor: pointer;
+  border: solid 0.2px #313131;
+  padding: 0.6vh 1.5vh 0.6vh 1.5vh;
+  transition: 0.2s ease;
+  z-index: 20;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #3131318c;
+}
+
+#speedIcon:hover{
+  background-color: #4d4d4d;
+  color: #E7E1D1;
+}
+
+#speedBtn:checked + #speedIcon{
+   background-color: #313131;
+   color: #E7E1D1;
+}
 
 input[type="range"] {
 

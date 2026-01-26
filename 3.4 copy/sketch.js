@@ -146,7 +146,9 @@ let sketch1 = function(p){
   let globalMinEnd   = Infinity;
   let globalMaxEnd   = -Infinity;
   let playCheckBox;
+  let speedCheckBox;
   let isPlaying = false;
+  let isSpeeding = false;
   let hoveredSphere = null;  
   let sliderHover = false;
   let sliderX = 0;
@@ -270,6 +272,10 @@ let sketch1 = function(p){
   isPlaying = playCheckBox.checked()
 });
 
+speedCheckBox = p.select('#speedBtn');
+speedCheckBox.changed(()=> {
+  isSpeeding = speedCheckBox.checked()
+})
  
 
 
@@ -343,6 +349,19 @@ if (savedSliderPosition) {
   } else {
     isPlaying = false;
     playCheckBox.checked(false);
+  }
+}
+
+if (isPlaying && isSpeeding){
+  let val = forceSlider.value()
+  if(val < 100){
+    forceSlider.value(val + 0.1);
+    p.updateSliderGradient();
+  } else{
+    isPlaying = false;
+    playCheckBox.checked(false)
+    isSpeeding = false;
+    speedCheckBox.checked(false)
   }
 }
 
