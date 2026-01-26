@@ -29,7 +29,7 @@ h1{
   display: flex;
   justify-content: center;
   padding-top: 2% ;
-  background-color: rgba(231, 225, 209, 0.8); /* leggermente trasparente */
+  background-color: rgba(231, 225, 209); /* leggermente trasparente */
   backdrop-filter: blur(6px); /* effetto vetro */
   z-index: 100;
   
@@ -1326,7 +1326,7 @@ fine-grained positioning not needed: labels follow their spheres
 
 
 
-/*  DATA AND METHODOLOGY PAGE    */
+/*  DATA AND METHODOLOGY pagina   */
 
 
 body[data-page="data-page"] {
@@ -1363,7 +1363,8 @@ body[data-page="data-page"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: rgba(231, 225, 209, 0.8);
+  backdrop-filter: blur(6px);
   text-align: center;
   font-size: 1.05rem;
   line-height: 1.7;
