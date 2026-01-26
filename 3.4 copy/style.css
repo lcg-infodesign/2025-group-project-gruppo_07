@@ -1071,7 +1071,7 @@ input[type="range"]:hover{
 fine-grained positioning not needed: labels follow their spheres 
 }*/
 
-/* CONTENITORE */
+/* PAGINA TEAM */
 .team {
   padding: 500px 0;
   position: relative;
@@ -1107,14 +1107,14 @@ fine-grained positioning not needed: labels follow their spheres
     overflow: hidden;
     
     /* BILANCIARE L'ALTEZZA DEL MENU */
-    padding-top: 80px; /* Spinge il centro visivo verso il basso */
+    padding-top: 150px; /* Spinge il centro visivo verso il basso */
 }
 
         .dotted-ring {
  
     position: absolute;
-    width: 700px;
-    height: 700px;
+    width: 750px;
+    height: 750px;
     top: 48%;
     left: 54%;
     transform: translate(-50%, -50%);

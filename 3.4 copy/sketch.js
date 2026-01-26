@@ -409,7 +409,7 @@ for (let cl of localClusters) {
   
 
 //targhette per i nomi delle colonie
-  p.rect(p.mouseX + 10, p.mouseY - boxH - 5, boxW, boxH, 5);
+  p.rect(p.mouseX + 10, p.mouseY - boxH - 5, boxW, boxH, 0);
   
   if (sliderVal < tStart || sliderVal > tEnd){
   
@@ -770,7 +770,7 @@ p.mousePressed = function () {
     }
 
     // Click sul nome colonizzatore
-    if (cl.nameAlpha > 2) {
+      /*if (cl.nameAlpha > 2) {
       let textX = cl.x;
       let textY = cl.y - 25;
       let textWidth = p.textWidth(cl.name.toUpperCase());
@@ -787,7 +787,7 @@ p.mousePressed = function () {
         window.location.href = pageUrl;
         return;
       }
-    }
+    }*/
   }
 };
 
