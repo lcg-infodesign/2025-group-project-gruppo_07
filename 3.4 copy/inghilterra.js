@@ -491,13 +491,13 @@ function drawScrollbar(){
   
   // Posizione e dimensioni della scrollbar
   scrollbarX = chartX + chartWidth + 15;
-  scrollbarY = chartY;
-  scrollbarWidth = 12;
-  scrollbarHeight = scrollHeight;
+  scrollbarY = chartY + (scrollHeight - scrollHeight * 0.8) / 2;
+  scrollbarWidth = 8;
+  scrollbarHeight = scrollHeight * 0.8;
   
   // Calcola l'altezza del thumb in proporzione
-  scrollThumbHeight = (scrollHeight / totalHeight) * scrollbarHeight;
-  scrollThumbHeight = Math.max(scrollThumbHeight, 20); // Minimo 20px
+  scrollThumbHeight = (scrollbarHeight / totalHeight) * scrollbarHeight;
+  scrollThumbHeight = Math.max(scrollThumbHeight, 15); // Minimo 15px
   
   // Calcola la posizione del thumb basato su yOffset
   let scrollRatio = maxScroll > 0 ? (-yOffset) / maxScroll : 0;
@@ -526,25 +526,25 @@ function drawSideInfo(){
   push();
   let sideX = windowWidth * 0.04;
   
-  // Calcola la posizione del bottone toggle
-  let toggleY = chartY + scrollHeight - 20;
-  
-  // Il testo deve essere totpx sopra il bottone
-  let topY = toggleY - 220;
+  // ===== OFFSET DEL BLOCCO: modifica questi valori per spostare tutto insieme =====
+  let blockOffsetX = 0;        // Offset orizzontale (in pixel)
+  let blockOffsetY = chartY + 310;   // Offset verticale (in pixel)
+  // =================================================================================
   
   let columnWidth = 350;
   let estimatedLineHeight = 22;
 
   // Titolo colonizzatore
+  let titleY = blockOffsetY;
   fill(currentColor);
   textFont("Montserrat");
   textSize(32);
   textStyle(BOLD);
   textAlign(LEFT, TOP);
-  text(colonizerTitle, sideX, topY - 70);
+  text(colonizerTitle, sideX + blockOffsetX, titleY);
 
   // Paragrafo
-  let descY = topY - 15;
+  let descY = titleY + 50;
   fill(60);
   textFont("Montserrat");
   textSize(16);
@@ -561,28 +561,21 @@ function drawSideInfo(){
   // Linea verticale
   stroke(currentColor);
   strokeWeight(3);
-  line(sideX - 15, descY, sideX - 15, descY + lineLength - 10);
+  line(sideX + blockOffsetX - 15, descY, sideX + blockOffsetX - 15, descY + lineLength - 10);
   noStroke();
   
-  text(paragraphText, sideX, descY, columnWidth);
+  text(paragraphText, sideX + blockOffsetX, descY, columnWidth);
   
   // Posiziona link
   if (sourceLinkElement) {
     sourceLinkElement.show();
-    sourceLinkElement.position(sideX, descY + totalTextHeight + 5);
+    sourceLinkElement.position(sideX + blockOffsetX, descY + totalTextHeight + 5);
   }
 
-  // Posiziona toggle in alto a destra (area libera)
+  // Posiziona toggle sotto il paragrafo con spazio
   if(toggleSlider) {
-    let tw = 150;
-    let th = 30;
-    let rightMargin = 20;
-    let topMargin = chartY + 20;
-    
-    let left = Math.max(8, windowWidth - tw - rightMargin);
-    let top = topMargin;
-
-    toggleSlider.position(left, top);
+    let toggleY = descY + lineLength + 20;
+    toggleSlider.position(sideX + blockOffsetX, toggleY);
   }
   
   pop();
