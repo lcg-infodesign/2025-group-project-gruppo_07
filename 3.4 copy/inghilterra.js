@@ -66,6 +66,13 @@ let isAnimating = false;
 let toggleSlider;
 
 // =========================================================
+// VARIABILI PER SCROLLBAR
+// =========================================================
+let scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight;
+let scrollThumbHeight, scrollThumbY;
+let isDraggingScrollbar = false;
+
+// =========================================================
 // FUNZIONE HELPER: SPLIT PARAGRAPH AND SOURCE
 // =========================================================
 function splitParagraphAndSource(fullText) {
@@ -308,6 +315,11 @@ function createToggleSlider() {
 function draw() {
   clear();
 
+  // Validazione: ricarica coloniesLayer se nullo
+  if(!coloniesLayer) {
+    coloniesLayer = createGraphics(windowWidth, colonies.length * currentRowHeight + 200);
+  }
+
   // Animazione smooth del row height
   if(isAnimating) {
     animationProgress += 0.016; // ~1 secondo a 60fps
@@ -324,6 +336,10 @@ function draw() {
     // Ridimensiona il buffer durante l'animazione
     let newHeight = colonies.length * currentRowHeight + 200;
     coloniesLayer.resizeCanvas(windowWidth, newHeight);
+    
+    // Aggiusta yOffset se ha superato i limiti durante l'animazione
+    let totalHeight = colonies.length * currentRowHeight;
+    yOffset = constrain(yOffset, -Math.max(totalHeight - scrollHeight, 0), 0);
   }
 
   drawTimeline();
@@ -459,6 +475,48 @@ function drawColoniesLayer(){
   }
 
   image(coloniesLayer, 0, chartY);
+  
+  drawScrollbar();
+}
+
+// =========================================================
+// SCROLLBAR
+// =========================================================
+function drawScrollbar(){
+  let totalHeight = colonies.length * currentRowHeight;
+  let maxScroll = Math.max(totalHeight - scrollHeight, 0);
+  
+  // Se non c'è scroll necessario, non disegna la scrollbar
+  if(maxScroll <= 0) return;
+  
+  // Posizione e dimensioni della scrollbar
+  scrollbarX = chartX + chartWidth + 15;
+  scrollbarY = chartY;
+  scrollbarWidth = 12;
+  scrollbarHeight = scrollHeight;
+  
+  // Calcola l'altezza del thumb in proporzione
+  scrollThumbHeight = (scrollHeight / totalHeight) * scrollbarHeight;
+  scrollThumbHeight = Math.max(scrollThumbHeight, 20); // Minimo 20px
+  
+  // Calcola la posizione del thumb basato su yOffset
+  let scrollRatio = maxScroll > 0 ? (-yOffset) / maxScroll : 0;
+  scrollThumbY = scrollbarY + (scrollbarHeight - scrollThumbHeight) * scrollRatio;
+  
+  // Disegna background della scrollbar
+  push();
+  stroke(200);
+  strokeWeight(1);
+  fill(245);
+  rect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight, 2);
+  
+  // Disegna il thumb della scrollbar con stile simile al toggle
+  stroke(49, 49, 49); // #313131
+  strokeWeight(1);
+  fill(49, 49, 49); // #313131
+  rect(scrollbarX + 1, scrollThumbY, scrollbarWidth - 2, scrollThumbHeight, 2);
+  
+  pop();
 }
 
 // =========================================================
@@ -594,6 +652,28 @@ function mousePressed(){
   let my = mouseY;
   let clickedSomething = false;
 
+  // Check click sulla scrollbar
+  if(scrollbarX && mx >= scrollbarX && mx <= scrollbarX + scrollbarWidth && 
+     my >= scrollbarY && my <= scrollbarY + scrollbarHeight) {
+    if(my >= scrollThumbY && my <= scrollThumbY + scrollThumbHeight) {
+      // Click sul thumb della scrollbar
+      isDraggingScrollbar = true;
+      document.body.style.cursor = 'grab';
+      return; // Non fare altro
+    } else if(my < scrollThumbY) {
+      // Click sopra il thumb - scroll up
+      yOffset += scrollHeight * 0.3;
+    } else {
+      // Click sotto il thumb - scroll down
+      yOffset -= scrollHeight * 0.3;
+    }
+    
+    let totalHeight = colonies.length * currentRowHeight;
+    let maxScroll = Math.max(totalHeight - scrollHeight, 0);
+    yOffset = constrain(yOffset, -maxScroll, 0);
+    return;
+  }
+
   // Check se ho cliccato sul bottone Wikipedia
   if(clickedCountry || selectedCountry) {
     let currentCountry = clickedCountry || selectedCountry;
@@ -666,18 +746,56 @@ function mousePressed(){
 }
 
 // =========================================================
-// MOUSE WHEEL
+// MOUSE DRAGGED
+// =========================================================
+function mouseDragged(){
+  if(isDraggingScrollbar) {
+    document.body.style.cursor = 'grabbing';
+    let totalHeight = colonies.length * currentRowHeight;
+    let maxScroll = Math.max(totalHeight - scrollHeight, 0);
+    
+    if(maxScroll <= 0) return false;
+    
+    // Calcola il delta del movimento del mouse
+    let deltaY = mouseY - pmouseY;
+    
+    // Converte il movimento del mouse al movimento dello scroll
+    let scrollRatio = maxScroll / (scrollbarHeight - scrollThumbHeight);
+    yOffset -= deltaY * scrollRatio;
+    
+    // Applica i vincoli
+    yOffset = constrain(yOffset, -maxScroll, 0);
+    
+    return false;
+  }
+}
+
+// =========================================================
+// MOUSE RELEASED
+// =========================================================
+function mouseReleased(){
+  isDraggingScrollbar = false;
+  document.body.style.cursor = 'default';
+}
+
 // =========================================================
 function mouseWheel(event){
-  let totalHeight = colonies.length * currentRowHeight;
+  // Disabilita scroll durante l'animazione di zoom
+  if(isAnimating) {
+    return false;
+  }
   
-  // Disabilita scroll se tutto è visibile in compact
-  if(isCompactView && totalHeight < scrollHeight) {
+  let totalHeight = colonies.length * currentRowHeight;
+  let maxScroll = Math.max(totalHeight - scrollHeight, 0);
+  
+  // Disabilita scroll se tutto è visibile
+  if(maxScroll <= 0) {
+    yOffset = 0;
     return false;
   }
 
   yOffset -= event.delta;
-  yOffset = constrain(yOffset, -colonies.length * currentRowHeight + scrollHeight, 0);
+  yOffset = constrain(yOffset, -maxScroll, 0);
   return false;
 }
 
@@ -686,5 +804,12 @@ function mouseWheel(event){
 // =========================================================
 function windowResized(){ 
   resizeCanvas(windowWidth, windowHeight);
-  coloniesLayer.resizeCanvas(windowWidth, colonies.length * currentRowHeight + 200);
+  if(coloniesLayer) {
+    coloniesLayer.resizeCanvas(windowWidth, colonies.length * currentRowHeight + 200);
+  }
+  // Reset scroll e animazione al resize
+  scrollHeight = windowHeight * 0.77;
+  yOffset = 0;
+  isAnimating = false;
+  animationProgress = 1;
 }
