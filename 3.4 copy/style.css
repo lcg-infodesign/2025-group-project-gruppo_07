@@ -29,7 +29,7 @@ h1{
   display: flex;
   justify-content: center;
   padding-top: 2% ;
-  background-color: rgba(231, 225, 209, 0.8); /* leggermente trasparente */
+  background-color: rgba(231, 225, 209); /* leggermente trasparente */
   backdrop-filter: blur(6px); /* effetto vetro */
   z-index: 100;
   
@@ -73,47 +73,48 @@ h1{
     text-decoration: none; 
     color: #313131; 
     font-size: 14px;
-    padding: 0.2em 3em 0.2em 3em;
+    padding: 0.2em 3em 1.5em 3em; 
     transition: 0.5s ease;
     border-radius: 5px; 
     user-select: none;
-}
-
-.list1:hover {
-    border: none;
-    border-radius: 0;
-  
-    padding: 0.2em 3em 0.1em 3em;
-    
-}
-
-
-.navbar a.active {
-    color: #313131;
-    text-decoration: none; 
-    border: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important; 
-    border-bottom: solid 1px #313131 !important; 
-    padding: 0.2em 3em 0.1em 3em; 
+    display: inline-block; 
 }
 
 .list1::after {
-  content: '';
-  position: absolute;
-  width: 0; 
- height: 1px; 
- left: 0;
- bottom: 0; 
- background-color: #313131; 
- transition: width 0.3s ease-out; 
+    content: '';
+    position: absolute;
+    width: 0; 
+    height: 1px; 
+    left: 0;
+    bottom: 5px; 
+    background-color: #313131; 
+    transition: width 0.3s ease-out; 
 }
 
 .list1:hover::after {
     width: 100%;
-    height: 1px; 
+}
+
+.navbar a.active {
+    color: #313131;
+    text-decoration: none; 
+    border: none !important; 
+    box-shadow: none !important;
+}
+
+.navbar a.active::after {
+    content: '';
+    position: absolute;
     left: 0;
-    bottom: 0; 
+    right: 0;
+    bottom: 5px; 
+    height: 1px;
+    background-color: #313131;
+    width: 100%; 
+}
+
+.list1:hover, .navbar a.active {
+    padding: 0.2em 3em 1.2em 3em !important;
 }
 
 .navbar li.dropdown {
@@ -164,7 +165,6 @@ ul li ul.dropdown-menu{
   border-right: solid 0.2px  #313131;
   border-left: solid 0.2px  #313131;
   border-bottom: solid 0.2px  #313131;
-  border-radius: 0 0 5px 5px;
   background-color: #E7E1D1;
   position: absolute;
   z-index: 200;
@@ -179,6 +179,7 @@ ul li ul.dropdown-menu{
   display: block;
 }
 
+/*contenitore per lo slideshow*/
 .no_scroll{
   height: 100vh;
   overflow-x: hidden;
@@ -802,8 +803,8 @@ ul li ul.dropdown-menu{
 }*/
 #playBtn{
   position: absolute;
-  bottom: 4.5%;
-  left: 38%;
+  bottom: 4.3%;
+  left: 35%;
   
   width: 0;      
   height: 0;
@@ -819,11 +820,10 @@ ul li ul.dropdown-menu{
 
 #playIcon{
   position: absolute;
-  bottom: 4%;
-  left: 38%;
+  bottom: 4.1%;
+  left: 35%;
   cursor: pointer;
   border: solid 0.2px #313131;
-  border-radius: 10px;
   padding: 0.2vh 1vh 0.2vh 1vh;
   transition: 0.2s ease;
   z-index: 20;
@@ -866,6 +866,46 @@ ul li ul.dropdown-menu{
   opacity: 1;
 }
 
+#speedBtn{
+  position: absolute;
+  bottom: 4.3%;
+  left: 39%;
+  
+  width: 0;      
+  height: 0;
+
+  opacity: 0;        
+  z-index: 0;
+  cursor: pointer;
+  transition: 0.5s ease;
+  pointer-events: none;
+
+  
+}
+
+#speedIcon{
+  position: absolute;
+  bottom: 4.1%;
+  left: 39%;
+  cursor: pointer;
+  border: solid 0.2px #313131;
+  padding: 0.6vh 1.5vh 0.6vh 1.5vh;
+  transition: 0.2s ease;
+  z-index: 20;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #3131318c;
+}
+
+#speedIcon:hover{
+  background-color: #4d4d4d;
+  color: #E7E1D1;
+}
+
+#speedBtn:checked + #speedIcon{
+   background-color: #313131;
+   color: #E7E1D1;
+}
 
 input[type="range"] {
 
@@ -882,7 +922,6 @@ input[type="range"] {
   cursor: pointer;
   background: transparent; 
   border: 1px solid #313131; 
-  border-radius: 5px; 
   box-shadow: none; 
   position: relative;
 }
@@ -892,7 +931,6 @@ input[type="range"] {
   cursor: pointer;
   background: transparent; 
   border: 1px solid #313131; 
-  border-radius: 5px; 
   box-shadow: none; 
   position: relative;
 }
@@ -1073,7 +1111,7 @@ input[type="range"]:hover{
 fine-grained positioning not needed: labels follow their spheres 
 }*/
 
-/* CONTENITORE */
+/* PAGINA TEAM */
 .team {
   padding: 500px 0;
   position: relative;
@@ -1109,14 +1147,14 @@ fine-grained positioning not needed: labels follow their spheres
     overflow: hidden;
     
     /* BILANCIARE L'ALTEZZA DEL MENU */
-    padding-top: 80px; /* Spinge il centro visivo verso il basso */
+    padding-top: 150px; /* Spinge il centro visivo verso il basso */
 }
 
         .dotted-ring {
  
     position: absolute;
-    width: 700px;
-    height: 700px;
+    width: 750px;
+    height: 750px;
     top: 48%;
     left: 54%;
     transform: translate(-50%, -50%);
@@ -1201,22 +1239,24 @@ fine-grained positioning not needed: labels follow their spheres
     opacity: 0;
 }
 
-/* Quando vai sopra col mouse: MOSTRA P */
+
 .bubble:hover p {
     opacity: 1;
 }
 
-.bubble-container:hover .bubble {
-    opacity: 0.2; /* Tutte diventano trasparenti */
+.bubble-container:has(.bubble:hover) .bubble:not(:hover) {
+    opacity: 0.2;
 }
 .bubble:hover {
-    opacity: 1 !important; /* Forza visibilità */
+    opacity: 1 !important; 
     transform: scale(1.5);
     z-index: 10;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     border-radius: 50%;
 }
-
+.dotted-ring {
+    pointer-events: none;
+}
 
         /* posizionamento e colori superfici */
 
@@ -1286,7 +1326,7 @@ fine-grained positioning not needed: labels follow their spheres
 
 
 
-/*  DATA AND METHODOLOGY PAGE    */
+/*  DATA AND METHODOLOGY pagina   */
 
 
 body[data-page="data-page"] {
@@ -1323,7 +1363,8 @@ body[data-page="data-page"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: rgba(231, 225, 209, 0.8);
+  backdrop-filter: blur(6px);
   text-align: center;
   font-size: 1.05rem;
   line-height: 1.7;

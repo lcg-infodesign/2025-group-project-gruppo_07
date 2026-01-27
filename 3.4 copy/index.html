@@ -45,7 +45,7 @@
     </div>
 
     
-    <div class="no_scroll">
+    <div class="no_scroll"> <!--contenitore per lo slide show-->
 
     <div id="title_page">
       <h1 id="title">The Bubble of Colonialism</h1>
@@ -122,7 +122,7 @@
 </div>
 
     
-
+<!--fino a qui si può spostare in un'altro html-->
 
   <div id="container">
    <!--<input type="checkbox" id="cb1"/>
@@ -130,12 +130,21 @@
       <span id="generalBtn">VIEW GENERAL</span>
     </label>
     <div id="general_view" class="general_view"></div>-->
+
+    <!--bottone play-->
     <div id="time_view" class="ending">
       <input type="checkbox" id="playBtn"/>
       <label for="playBtn" id="playIcon">
         <svg id="playSvg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg>
         <span id="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/></svg></span>
       </label>
+      
+      <!--bottone 2x-->
+      <input type="checkbox" id="speedBtn"/>
+      <label for="speedBtn" id="speedIcon">
+        2x
+      </label>
+      
     </div>
 
     <!-- Legenda -->
@@ -208,63 +217,6 @@
     </div>
     </div>
   </div>
-
-  
-
-
-
-  <footer>
-        <!-- Header -->
-        <div class="footer-header">
-            <h1 class="course-title">Computer Graphics Studio for Information Design</h1>
-            <p class="course-info">A.Y. 2025/2026 • Bachelor's Degree in Communication Design</p>
-        </div>
-
-        <!-- Main Content -->
-<div class="footer-content">
-    <!-- Project -->
-    <div class="footer-section">
-        <h3>Project by</h3>
-        <ul>
-            <li>Simone Busato</li>
-            <li>Martina De Boni</li>
-            <li>Nina De Michele</li>
-            <li>Filippo Carlo Esposito</li>
-            <li>Silvia Nicosia</li>
-            <li>Carla Maria Parisi</li>
-            <li>Matilde Pinnarello</li>
-        </ul>
-        <p>© [CC-BY 4.0] The authors</p>
-    </div>
-
-    <!-- Faculty -->
-    <div class="footer-section">
-        <h3>Faculty</h3>
-        <ul>
-            <li>Michele Mauri</li>
-            <li>Davide Conficconi</li>
-        </ul>
-        <h3 style="margin-top: 24px;">Teaching Assistants</h3>
-        <ul>
-            <li>Alessandra Facchin</li>
-            <li>Alessandro Nazzari</li>
-        </ul>
-    </div>
-
-    <!-- LOGOS (ora terza colonna) -->
-    <div class="footer-logos">
-        <div class="logo-placeholder"><img src="./assets/logopoli.png"></div>
-        <div class="logo-placeholder"><img src="./assets/logodensity.png"></div>
-        <div class="logo-placeholder"><img src="./assets/logoNECST.png"></div>
-    </div>
-  </div>
-  <div id="sketch"></div> <!-- anchor per lo sketch, spostato prima del footer -->
-
-    <!-- Copyright -->
-    <div class="footer-bottom">
-      <p>© 2025 Computer Graphics Studio for Information Design. All rights reserved.</p>
-    </div>
-  </footer>
   </div>
 
   <script src="sketch.js"></script>
