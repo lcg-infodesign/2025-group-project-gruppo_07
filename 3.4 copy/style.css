@@ -218,16 +218,26 @@ ul li ul.dropdown-menu{
   animation: fadeIn2 0.8s ease-out 1.1s forwards ;
 }
 
-.SlideBtn{
+.SlideBtn {
   position: absolute;
-  left: 46%;
+  left: 46%; 
   bottom: 20%;
-  width: 0;
-  height: 0;
+  /* Flexbox per allineare testo e icona */
+  display: flex;
+  flex-direction: column; /* Testo sopra, freccia sotto */
+  align-items: center;    /* Centra orizzontalmente */
+  justify-content: center;
+  gap: 5px;               /* Spazio tra testo e freccia */
+  
+  width: auto;            /* dimensione contenitore */
+  height: auto;
   border: none;
   background-color: transparent;
-  animation: 
-  fadeIn3 0.8s ease-out 3s forwards,
+  text-decoration: none;  /* Rimuove la linea dai link */
+  cursor: pointer;        /* Fa apparire la manina */
+  z-index: 50;            /* Assicura che sia cliccabile */
+
+  animation: fadeIn3 0.8s ease-out 4s forwards; /* animazione originale */
 }
 
 .SlideBtn svg {
@@ -235,22 +245,51 @@ ul li ul.dropdown-menu{
   stroke-width: 0.5;
   width: 10vh;
   height: 10vh;
-  opacity: 0;
-  position: absolute;
-  bottom: 20%;
-
+  opacity: 0; /* Mantengo l'opacità a 0 per le animazioni successive */
+  
+  /* Reset del posizionamento per funzionare col Flexbox */
+  position: relative; 
+  bottom: auto;
+  display: block;
 }
 
-.UpperSlide{
+/* Nuovo stile per il testo "NEXT" */
+.btn-label {
+  font-family: "montserrat", sans-serif;
+  font-size: 1.6vh;      /* Dimensione proporzionale all'altezza schermo */
+  font-weight: 350;      /* Un po' più grassetto per leggibilità */
+  color: #313131;        /* Lo stesso grigio scuro del sito */
+  letter-spacing: 0.2em; /* Spaziatura elegante */
+  text-transform: uppercase;
+  margin-bottom: -1vh;   /* Avvicina un po' il testo alla freccia */
+  
+  /* Animazione di entrata coerente con il resto */
+  opacity: 0;
+  /*animation: fadeIn 0.8s ease-out 3.5s forwards; */ 
+}
+
+.UpperSlide {
   position: absolute;
   left: 46%;
   top: 20%;
-  width: 0;
-  height: 0;
+  
+  /* Flexbox settings */
+  display: flex;
+  flex-direction: column; /* Metto gli elementi in colonna */
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  
+  /* Rimuovo width/height 0 */
+  width: auto;
+  height: auto;
   border: none;
   background-color: transparent;
-  animation: 
-  fadeIn3 0.8s ease-out 3s forwards,
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 50;
+
+  animation: fadeIn3 0.8s ease-out 4s forwards;
 }
 
 .UpperSlide svg {
@@ -259,10 +298,13 @@ ul li ul.dropdown-menu{
   width: 10vh;
   height: 10vh;
   opacity: 0;
-  position: absolute;
-  top: 20%;
-  rotate: 180deg;
-
+  
+  /* Reset posizionamento */
+  position: relative;
+  top: auto;
+  display: block;
+  
+  rotate: 180deg; /* Mantengo la rotazione originale */
 }
 
 #u1{
@@ -283,6 +325,20 @@ ul li ul.dropdown-menu{
     fadeIn3 0.8s ease-out 3s forwards,
     bounce 1s ease-in-out 3.8s infinite alternate;
 }
+
+/* Sincronizzazione Testo Slide 1 e 2 (Ritardo 3s come le frecce) */
+.sl1.show .btn-label,
+.sl2.show .btn-label {
+  animation: fadeIn 0.8s ease-out 3s forwards;
+}
+
+/* Sincronizzazione Testo Slide 3 e 4 (Ritardo 6s come le frecce) */
+.sl3.show .btn-label,
+.sl4.show .btn-label {
+  animation: fadeIn 0.8s ease-out 6s forwards;
+}
+
+
 
 @keyframes fadeIn{
   to{
