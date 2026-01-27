@@ -216,77 +216,89 @@ function setup() {
 // TOGGLE SLIDER CREATION
 // =========================================================
 function createToggleSlider() {
+  // Minimal, single-color toggle inspired by the timeline in sketch.js
+  // Use a sober dark grey as single color (timeline uses '#313131')
+  let primary = '#313131';
+
   toggleSlider = createDiv('');
+  toggleSlider.id('view-toggle');
   toggleSlider.style('position', 'absolute');
-  toggleSlider.style('width', '200px');
-  toggleSlider.style('height', '40px');
-  toggleSlider.style('border-radius', '5px');
-  toggleSlider.style('background-color', '#e0e0e0');
+  toggleSlider.style('height', '30px');
+  toggleSlider.style('border-radius', '0px');
+  toggleSlider.style('background-color', 'transparent');
+  toggleSlider.style('border', '1px solid #313131');
+  toggleSlider.style('box-shadow', 'none');
   toggleSlider.style('cursor', 'pointer');
+  toggleSlider.style('transition', 'none');
+  toggleSlider.style('padding', '0');
+  toggleSlider.style('font-family', 'Montserrat, sans-serif');
+  toggleSlider.style('z-index', '1000');
   toggleSlider.style('display', 'flex');
   toggleSlider.style('align-items', 'center');
-  toggleSlider.style('padding', '0');
+  toggleSlider.style('justify-content', 'space-between');
   toggleSlider.style('overflow', 'hidden');
-  toggleSlider.style('font-family', 'Montserrat, sans-serif');
-  toggleSlider.style('font-size', '11px');
-  toggleSlider.style('font-weight', 'bold');
-  toggleSlider.style('user-select', 'none');
-  toggleSlider.style('z-index', '1000');
-  
-  // Slider interno colorato
-  let slider = createDiv('');
-  slider.id('slider-inner');
-  slider.style('position', 'absolute');
-  slider.style('width', '100px');
-  slider.style('height', '40px');
-  slider.style('border-radius', '5px');
-  slider.style('background-color', `rgb(${currentColor[0]}, ${currentColor[1]}, ${currentColor[2]})`);
-  slider.style('transition', 'left 1s cubic-bezier(0.65, 0, 0.35, 1)');
-  slider.style('left', isCompactView ? '0px' : '100px');
-  slider.parent(toggleSlider);
+  toggleSlider.style('padding', '4px');
 
-  // Label sinistra (ZOOM-IN)
-  let labelLeft = createDiv('ZOOM-IN');
-  labelLeft.id('label-left');
-  labelLeft.style('position', 'absolute');
-  labelLeft.style('left', '0');
-  labelLeft.style('width', '100px');
-  labelLeft.style('text-align', 'center');
-  labelLeft.style('line-height', '40px');
-  labelLeft.style('color', isCompactView ? 'white' : '#666');
-  labelLeft.style('transition', 'color 0.3s');
-  labelLeft.style('z-index', '2');
-  labelLeft.style('pointer-events', 'none');
-  labelLeft.parent(toggleSlider);
+  // Width: fixed width regardless of state
+  toggleSlider.style('width', '150px');
 
-  // Label destra (ZOOM-OUT)
-  let labelRight = createDiv('ZOOM-OUT');
-  labelRight.id('label-right');
-  labelRight.style('position', 'absolute');
-  labelRight.style('right', '0');
-  labelRight.style('width', '100px');
-  labelRight.style('text-align', 'center');
-  labelRight.style('line-height', '40px');
-  labelRight.style('color', isCompactView ? '#666' : 'white');
-  labelRight.style('transition', 'color 0.3s');
-  labelRight.style('z-index', '2');
-  labelRight.style('pointer-events', 'none');
-  labelRight.parent(toggleSlider);
+  // Label text (centered with flexbox parent)
+  let label = createDiv(isCompactView ? 'COLLAPSED' : 'EXTENDED');
+  label.id('toggle-label');
+  label.parent(toggleSlider);
+  label.style('position', 'relative');
+  label.style('z-index', '1');
+  label.style('color', '#313131');
+  label.style('font-weight', '600');
+  label.style('letter-spacing', '0.6px');
+  label.style('font-size', '11px');
+  label.style('pointer-events', 'none');
+  label.style('white-space', 'nowrap');
+  label.style('line-height', '30px');
+  label.style('text-align', 'center');
+  label.style('flex', '1');
 
-  // Click handler
+  // Knob: square with same border-radius as container, slides inside pill
+  let knob = createDiv('');
+  knob.id('toggle-knob');
+  knob.parent(toggleSlider);
+  knob.style('position', 'absolute');
+  knob.style('width', '22px');
+  knob.style('height', '22px');
+  knob.style('border-radius', '0px');
+  knob.style('background-color', '#313131');
+  knob.style('border', 'solid 2px #E7E1D1');
+  knob.style('box-shadow', '0 0 0 1px #313131');
+  knob.style('top', '4px');
+  knob.style('transition', 'left 0.28s cubic-bezier(0.22, 1, 0.36, 1)');
+  knob.style('cursor', 'pointer');
+
+  // Knob initial position: left for collapsed, right for extended
+  knob.style('left', isCompactView ? '4px' : 'calc(100% - 28px)');
+
+  // Click handler: toggle state, animate knob and width, keep timeline behavior
   toggleSlider.mousePressed(() => {
+    // Trigger squeeze animation
+    toggleSlider.style('animation', 'none');
+    // Trigger reflow to restart animation
+    void toggleSlider.elt.offsetWidth;
+    toggleSlider.style('animation', 'toggleSqueeze 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)');
+    
     isCompactView = !isCompactView;
     targetRowHeight = isCompactView ? 8 : 25;
     isAnimating = true;
     animationProgress = 0;
-    
-    // Salva preferenza
     localStorage.setItem('viewMode', isCompactView ? 'compact' : 'expanded');
-    
-    // Aggiorna UI del toggle
-    select('#slider-inner').style('left', isCompactView ? '0px' : '100px');
-    select('#label-left').style('color', isCompactView ? 'white' : '#666');
-    select('#label-right').style('color', isCompactView ? '#666' : 'white');
+
+    if(isCompactView){
+      knob.style('left', '4px');
+      select('#toggle-label').html('COLLAPSED');
+      select('#toggle-label').style('font-size', '10px');
+    } else {
+      knob.style('left', 'calc(100% - 28px)');
+      select('#toggle-label').html('EXTENDED');
+      select('#toggle-label').style('font-size', '11px');
+    }
   });
 }
 
@@ -454,7 +466,7 @@ function drawColoniesLayer(){
 // =========================================================
 function drawSideInfo(){
   push();
-  let sideX = windowWidth * 0.06;
+  let sideX = windowWidth * 0.04;
   
   // Calcola la posizione del bottone toggle
   let toggleY = chartY + scrollHeight - 20;
@@ -502,9 +514,17 @@ function drawSideInfo(){
     sourceLinkElement.position(sideX, descY + totalTextHeight + 5);
   }
 
-  // Posiziona toggle slider alla base del grafico
+  // Posiziona toggle in alto a destra (area libera)
   if(toggleSlider) {
-    toggleSlider.position(sideX, toggleY);
+    let tw = 150;
+    let th = 30;
+    let rightMargin = 20;
+    let topMargin = chartY + 20;
+    
+    let left = Math.max(8, windowWidth - tw - rightMargin);
+    let top = topMargin;
+
+    toggleSlider.position(left, top);
   }
   
   pop();
