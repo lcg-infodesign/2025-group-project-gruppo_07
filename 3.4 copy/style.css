@@ -876,7 +876,7 @@ ul li ul.dropdown-menu{
 
 #playIcon{
   position: absolute;
-  bottom: 4.1%;
+  bottom: 3%;
   left: 35%;
   cursor: pointer;
   border: solid 0.2px #313131;
@@ -924,8 +924,8 @@ ul li ul.dropdown-menu{
 
 #speedBtn{
   position: absolute;
-  bottom: 4.3%;
-  left: 39%;
+  bottom: 3%;
+  left: 38%;
   
   width: 0;      
   height: 0;
@@ -941,8 +941,8 @@ ul li ul.dropdown-menu{
 
 #speedIcon{
   position: absolute;
-  bottom: 4.1%;
-  left: 39%;
+  bottom: 3%;
+  left: 38%;
   cursor: pointer;
   border: solid 0.2px #313131;
   padding: 0.6vh 1.5vh 0.6vh 1.5vh;
@@ -1762,3 +1762,48 @@ footer {
             margin-bottom: 0px;
             margin-right: 8vw;
         }
+
+ 
+#time_view {
+    position: relative;
+}
+
+.stats-wrapper {
+    position: absolute; 
+    bottom: 25px;
+    right: 40px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    z-index: 1000;
+}
+
+.stat-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.stat-label {
+    font-family: 'montserrat', sans-serif;
+    font-size: 10px;
+    color: #4d4d4d;
+    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+}
+
+.stat-box-value {
+    border: 1px solid #313131;
+    padding: 6px 14px;
+    font-family: 'montserrat', sans-serif;
+    font-size: 18px; 
+    font-weight: bold;
+    color: #313131;
+    background-color: #E7E1D1; 
+    text-align: center;
+    min-width: 55px;
+}
+
+#counter-colonies {
+    min-width: 70px; 
+}
