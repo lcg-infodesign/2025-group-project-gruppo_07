@@ -79,11 +79,11 @@
      
     <div class="explanation3" id="Slide2">
       <a href="#title_page" class="UpperSlide sl3" id="u2">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg><span class="btn-label">BACK</span>
+        <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg><span class="btn-label">BACK</span>
       </a>
       <div class="falseBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg>
-        <span class="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/></svg></span>
+        <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="#FFFFFF"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg>
+        <span class="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="#FFFFFF"><path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/></svg></span>
       </div>
       <div class="falseTimeLine">
         <span class="progress"></span>
@@ -91,7 +91,6 @@
       </div>
       <p class="text5"> The website illustrates the phenomenon of colonialism over the period between 1450 and 2000. 
         Thanks to an <span id="conclusionItalic">interactive timeline</span>, users can thoroughly explore the historical evolution of colonialism and analyze the correlations between major colonial events and their temporal context.
-        <br>In this way, the user is able to visually grasp the moments of peaks and declines in colonization.
 </p>
        
      
@@ -111,7 +110,7 @@
       <span class="pointer"></span>
       <span class="pointer2"></span>
       <span class="pointer3"></span>
-      <p class="text3"> while the abstract dots represent the <span id="conclusionItalic">colonized countries</span>, <br>whose size is linked to the <span id="conclusionItalic">duration of their colonization</span>.
+      <p class="text3"> while the smaller spheres represent the <span id="conclusionItalic">colonized countries</span>, <br>whose size is linked to the <span id="conclusionItalic">duration of their colonization</span>.
 </p>
      
   
@@ -134,23 +133,33 @@
 
     <!--bottone play-->
     <div id="time_view" class="ending">
+      
+      <div class="stats-wrapper">
+        <div class="stat-group">
+          <span class="stat-label">YEAR</span>
+          <div id="year-display" class="stat-box-value">1433</div>
+        </div>
+        
+        <div class="stat-group">
+          <span class="stat-label">TOT. COLONIES</span>
+          <div id="counter-colonies" class="stat-box-value">0</div>
+        </div>
+      </div>
+
       <input type="checkbox" id="playBtn"/>
       <label for="playBtn" id="playIcon">
         <svg id="playSvg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg>
         <span id="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/></svg></span>
       </label>
       
-      <!--bottone 2x-->
       <input type="checkbox" id="speedBtn"/>
-      <label for="speedBtn" id="speedIcon">
-        2x
-      </label>
+      <label for="speedBtn" id="speedIcon">2x</label>
       
     </div>
 
     <!-- Legenda -->
     <div id="legenda">
-    <h1>Colonial Empires</h1>
+    <h1 class="legenda">Colonial Empires</h1>
     <ul>
       <li>
         <span class="legendSphere"></span>
@@ -187,7 +196,7 @@
     </ul>
 
     <div id="sizeScale">
-      <h1>Duration of a colony</h1>
+      <h1 class="legenda">Duration of a colony</h1>
       <div class="scaleBoxes">
         <div class="scaleItem">
           <span class="scaleSphere small"></span>
@@ -215,6 +224,20 @@
         <line x1="2" y1="12" x2="118" y2="12" stroke="#4d4d4d" stroke-width="1pt" stroke-linecap="round" />
         <polygon points="118,12 110,6 110,18" fill="#4d4d4d" />
       </svg>
+    </div>
+
+    <div id="status">
+      <h1 class="legenda">Status</h1>
+        <ul>
+          <li>
+            <span class="statusSphere notColonized"></span>
+            Not Colonized
+          </li>
+          <li>
+            <span class="statusSphere decolonized"></span>
+            Decolonized
+          </li>
+        </ul>
     </div>
     </div>
   </div>
@@ -288,5 +311,7 @@
 
       });
 </script>
+
+
   </body>
 </html>

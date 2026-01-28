@@ -10,14 +10,14 @@ let sketch = function(p){
 let colors = ["#81201A", "#4D4871", "#C49A00", "#99AB59",
               "#8799BD", "#CA5D84", "#D97963", "#7EC1AF"];
 let clusters = [];
-let minSize = 3;
-let maxSize = 30;
+let minSize = 8;
+let maxSize = 35;
 let noiseScale = 0.005; 
 let clusterStrength = 0.03;
 let repulsionStrength = 7.0; 
 let clusterRepulsion = 200; // distanza minima tra i cluster
-let minPallini = 3; // numero minimo di pallini per cluster
-let maxPallini = 68; // numero massimo di pallini per cluster
+let minPallini = 10; // numero minimo di pallini per cluster
+let maxPallini = 60; // numero massimo di pallini per cluster
 
 p.containerCanvas = function(container){
   let w = container.width

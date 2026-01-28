@@ -243,8 +243,8 @@ ul li ul.dropdown-menu{
 .SlideBtn svg {
   fill: #313131;
   stroke-width: 0.5;
-  width: 10vh;
-  height: 10vh;
+  width: 6vh;
+  height: 6vh;
   opacity: 0; /* Mantengo l'opacità a 0 per le animazioni successive */
   
   /* Reset del posizionamento per funzionare col Flexbox */
@@ -256,7 +256,7 @@ ul li ul.dropdown-menu{
 /* Nuovo stile per il testo "NEXT" */
 .btn-label {
   font-family: "montserrat", sans-serif;
-  font-size: 1.6vh;      /* Dimensione proporzionale all'altezza schermo */
+  font-size: 1.4vh;      /* Dimensione proporzionale all'altezza schermo */
   font-weight: 350;      /* Un po' più grassetto per leggibilità */
   color: #313131;        /* Lo stesso grigio scuro del sito */
   letter-spacing: 0.2em; /* Spaziatura elegante */
@@ -295,8 +295,8 @@ ul li ul.dropdown-menu{
 .UpperSlide svg {
   fill: #313131;
   stroke-width: 0.5;
-  width: 10vh;
-  height: 10vh;
+  width: 6vh;
+  height: 6vh;
   opacity: 0;
   
   /* Reset posizionamento */
@@ -316,7 +316,7 @@ ul li ul.dropdown-menu{
 #u3{
   position: absolute;
   left: 46%;
-  top: 10%;
+  top: 20%;
 }
 
 
@@ -391,7 +391,7 @@ ul li ul.dropdown-menu{
 #s4{
   position: absolute;
   left: 46%;
-  bottom: 17%;
+  bottom: 10%;
 }
 
 .sl4.show svg{
@@ -478,17 +478,17 @@ ul li ul.dropdown-menu{
 
 .text2{
   color: #313131;
-  width: 50vw;
+  width: 100vw;
   font-size: 2.2vh;
   text-align: center;
   opacity: 0;
-  transform: translateY(28vh);
+  transform: translateY(38vh);
   transition: 1s ease-out ;
   transition-delay: 2s;
 }
 .text2.show{
   opacity: 1;
-  transform: translateY(26vh);
+  transform: translateY(36vh);
 
 }
 
@@ -504,20 +504,20 @@ ul li ul.dropdown-menu{
   border-radius: 50%;
   border: solid 4px #81201A;
   left: 48%;
-  transform: translateY(41vh) scale(0);
+  transform: translateY(46vh) scale(0);
   transition: transform 0.5s ease-out 1s;
 }
 
 .pointer.show {
-  transform: translateY(41vh) scale(1);
+  transform: translateY(46vh) scale(1);
   animation: bounceScale 0.5s ease-out 1.4s;
 }
 
 @keyframes bounceScale {
-  0%   { transform: translateY(41vh) scale(1); }
-  60%  { transform: translateY(41vh) scale(1.2); }
-  80%  { transform: translateY(41vh) scale(0.9); }
-  100% { transform: translateY(41vh) scale(1); }
+  0%   { transform: translateY(46vh) scale(1); }
+  60%  { transform: translateY(46vh) scale(1.2); }
+  80%  { transform: translateY(46vh) scale(0.9); }
+  100% { transform: translateY(46vh) scale(1); }
 }
 
 .pointer2 {
@@ -528,19 +528,19 @@ ul li ul.dropdown-menu{
   border-radius: 50%;
   background-color: #81201A;
   left: 90%;
-  transform: translateY(60vh);
+  transform: translateY(65vh);
   transition: 0.5s ease-out 3s;
   
 }
 
 .pointer2.show {
-  transform: translateY(41vh);
+  transform: translateY(46vh);
   left: 43%;
   opacity: 1;
   animation: bounceLeft 1s ease 3.49s forwards;
 }
 @keyframes bounceLeft {
-  to{ left: 44%; transform: translateY(41vh);}
+  to{ left: 44%; transform: translateY(46vh);}
 }
 
 .pointer3 {
@@ -551,19 +551,19 @@ ul li ul.dropdown-menu{
   border-radius: 50%;
   background-color: #81201A;
   left: 10%;
-  transform: translateY(60vh);
+  transform: translateY(65vh);
   transition: 0.5s ease-out 3s;
   
 }
 
 .pointer3.show {
-  transform: translateY(41vh);
+  transform: translateY(46vh);
   left: 51%;
   opacity: 1;
   animation: bounceRight 1s ease 3.49s forwards;
 }
 @keyframes bounceRight {
-  to{ left: 50%; transform: translateY(41vh);}
+  to{ left: 50%; transform: translateY(46vh);}
 }
 
 .text3{
@@ -604,7 +604,6 @@ ul li ul.dropdown-menu{
   width: fit-content;
   height: fit-content;
   border: solid 0.5px #313131;
-  border-radius: 10px;
   padding: 0.5em 1em 0.5em 1em;
   top: 30%;
   left: 29%;
@@ -627,7 +626,7 @@ ul li ul.dropdown-menu{
 
   .pauseIcon{
   position: absolute;
-  left: 29%;
+  left: 25%;
   
 }
 
@@ -660,7 +659,6 @@ ul li ul.dropdown-menu{
   right: 27%;
   border: solid 5px #E7E1D1;
   box-shadow: 0 0 0 1px #313131;
-  border-radius: 5px;
   z-index: 1;
   opacity: 0;
   transition: 0.5s ease;
@@ -859,7 +857,7 @@ ul li ul.dropdown-menu{
 }*/
 #playBtn{
   position: absolute;
-  bottom: 4.3%;
+  bottom: 4%;
   left: 35%;
   
   width: 0;      
@@ -876,7 +874,7 @@ ul li ul.dropdown-menu{
 
 #playIcon{
   position: absolute;
-  bottom: 4.1%;
+  bottom: 3.4%;
   left: 35%;
   cursor: pointer;
   border: solid 0.2px #313131;
@@ -924,8 +922,8 @@ ul li ul.dropdown-menu{
 
 #speedBtn{
   position: absolute;
-  bottom: 4.3%;
-  left: 39%;
+  bottom: 3%;
+  left: 38%;
   
   width: 0;      
   height: 0;
@@ -941,8 +939,8 @@ ul li ul.dropdown-menu{
 
 #speedIcon{
   position: absolute;
-  bottom: 4.1%;
-  left: 39%;
+  bottom: 3.4%;
+  left: 38%;
   cursor: pointer;
   border: solid 0.2px #313131;
   padding: 0.6vh 1.5vh 0.6vh 1.5vh;
@@ -1033,6 +1031,11 @@ input[type="range"]:hover{
    }
 }
 
+h1.legenda{ 
+  font-family: "benton-modern-display", serif;
+  font-weight: 400;
+  font-style: italic;
+}
 #legenda{
   position: absolute;
   bottom: 8%;
@@ -1041,17 +1044,27 @@ input[type="range"]:hover{
   height: fit-content;
   padding: 1vh;  /* Ridotto da 2vh */
   font-size: 0.85em;  /* Aggiungi questa riga per ridurre il testo */
+  display: flex;
+  flex-direction: column;
 }
 
-#legenda ul{
+#legenda h1 {
+  grid-column: 1 / -1; /* h1 spans both columns */
+}
+
+#legenda ul {
   list-style: none;
   margin: 0; /* reset browser default */
   padding-left: 1rem; /* align content with .scaleBoxes */
   border-left: solid 1px #313131;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two equal columns */
+  gap: 0.2rem 1rem; /* vertical and horizontal gap */
+  column-gap: 2rem;
 }
+
 #legenda ul li{
-  margin-bottom: 0.3vh;
-  
+  margin-bottom: 0.2vh;
 }
 
 .legendSphere {
@@ -1159,6 +1172,53 @@ input[type="range"]:hover{
   bottom: -0.4rem; /* nudge labels slightly lower */
   left: 50%;
   transform: translateX(-50%);
+}
+
+
+#status {
+  margin-top: 3vh;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#status h1 {
+  text-align: left;
+  margin: 0 0 0.5rem 0;
+  margin-bottom: 2vh;
+}
+
+#status ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 1rem;
+  border-left: solid 1px #313131;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two equal columns */
+  gap: 0.2rem 1rem;
+}
+
+#status ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.2vh;
+}
+
+.statusSphere {
+  display: inline-block;
+  width: 1.5vh;
+  height: 1.5vh;
+  border-radius: 50%;
+  margin-right: 1.5vh;
+  flex-shrink: 0;
+}
+
+.statusSphere.notColonized {
+  background-color: #B8B8B8;
+}
+
+.statusSphere.decolonized {
+  background-color: #4d4d4d;
 }
 
 /*.scaleLabel.small,
@@ -1382,7 +1442,7 @@ fine-grained positioning not needed: labels follow their spheres
 
 
 
-/*  DATA AND METHODOLOGY pagina   */
+/*  DATA AND METHODOLOGY PAGE    */
 
 
 body[data-page="data-page"] {
@@ -1698,4 +1758,50 @@ footer {
             padding-top: 40px;
             line-height: 1.8;
             margin-bottom: 0px;
+            margin-right: 8vw;
         }
+
+ 
+#time_view {
+    position: relative;
+}
+
+.stats-wrapper {
+    position: absolute; 
+    bottom: 30px;
+    right: 100px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    z-index: 1000;
+}
+
+.stat-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.stat-label {
+    font-family: 'montserrat', sans-serif;
+    font-size: 10px;
+    color: #4d4d4d;
+    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+}
+
+.stat-box-value {
+    border: 1px solid #313131;
+    padding: 6px 16px;
+    font-family: 'montserrat', sans-serif;
+    font-size: 18px; 
+    font-weight: bold;
+    color: #313131;
+    background-color: #E7E1D1; 
+    text-align: center;
+    min-width: 55px;
+}
+
+#counter-colonies {
+    min-width: 70px; 
+}
