@@ -874,7 +874,7 @@ ul li ul.dropdown-menu{
 
 #playIcon{
   position: absolute;
-  bottom: 3.4%;
+  bottom: 3.7%;
   left: 35%;
   cursor: pointer;
   border: solid 0.0125rem #313131;
@@ -939,7 +939,7 @@ ul li ul.dropdown-menu{
 
 #speedIcon{
   position: absolute;
-  bottom: 3.4%;
+  bottom: 3.7%;
   left: 38%;
   cursor: pointer;
   border: solid 0.0125rem #313131;
@@ -1747,6 +1747,11 @@ footer {
             max-width: 90%;
             max-height: 90%;
             object-fit: contain;
+        }
+
+        #poli img {
+          max-width: 110%;
+          max-height: 110%;
         }
 
         /* FOOTER BOTTOM */
