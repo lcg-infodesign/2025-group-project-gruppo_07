@@ -1,4 +1,5 @@
 
+
 //javascript
 
 //Animazioni quando si entra in vista   
@@ -15,7 +16,8 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 
-document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .pointer3, .text3, .falseBtn,.falseTimeLine, .text4, .text5, .sl1, .sl2, .sl3, .sl4, .ending, .explanation4, .text6, .sl5').forEach(el => observer.observe(el));
+document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .pointer3, .text3, .falseBtn,.falseTimeLine, .text4, .text5, .sl1, .sl2, .sl3, .sl4, .sl5, .scale-container, .text6, .ending').forEach(el => observer.observe(el));
+
 
 //SLIDESHOW
 
@@ -32,7 +34,7 @@ const observer2 = new IntersectionObserver(
   entries => { 
     entries.forEach(entry => {
       if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
-        closedContainer.style.overflowY = 'auto';
+        //closedContainer.style.overflowY = 'auto';
         
 
         buttons.forEach(b => {
@@ -199,7 +201,7 @@ let sketch1 = function(p){
   },
   {
     start: 1945,
-    end: 1975,
+    end: 2000,
     dates: "1945-2000",
     title: "Postcolonial Era",
     text: "After World War II, European dominance declined as decolonization reshaped global structures. Economic weakness, independence movements, and shifting international norms led to the dissolution of most colonial empires. Beginning with India in 1947, the process spread across Asia and Africa and continued into the late twentieth century. By 2000, nearly all colonies had gained sovereignty, yet new forms of economic and political dependence—often termed neo-colonialism—continued to influence global relations.",
@@ -464,6 +466,9 @@ sliderY = r.top  - p.canvas.getBoundingClientRect().top;
 sliderW = r.width;
 sliderH = r.height;
 
+
+
+
 // Detect hover
 if (
   p.mouseX >= sliderX &&
@@ -514,12 +519,12 @@ if (hoverAlpha > 1) {
   p.strokeWeight(1)
   
   
-  let firstX = p.map(colonne[0][0], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
+  let firstX = p.map(colonne[0][0], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0, sliderW * 1);
   let firstY = p.map(colonne[1][0], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
   p.curveVertex(firstX, firstY); 
   
   for (let i = 0; i < colonne[0].length; i+= 40) {
-    let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
+    let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0, sliderW * 1);
     let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
 
     p.curveVertex(x, y); 
@@ -527,7 +532,7 @@ if (hoverAlpha > 1) {
   
   
   let lastIndex = colonne[0].length - 1;
-  let lastX = p.map(colonne[0][lastIndex], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
+  let lastX = p.map(colonne[0][lastIndex], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0, sliderW * 1);
   let lastY = p.map(colonne[1][lastIndex], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
   p.curveVertex(lastX, lastY); // Punto di controllo finale
 
@@ -551,7 +556,7 @@ if (hoverAlpha > 1) {
   p.curveVertex(firstX, firstY); 
   
   for (let i = 0; i < colonne[0].length; i+= 40) {
-    let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
+    let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0, sliderW * 1);
     let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.96, graphHeight * 0.05);
 
     p.curveVertex(x, y); 
@@ -579,10 +584,10 @@ if (hoverAlpha > 1) {
   // evidenziazione linea del grafico
   p.push()
   p.beginClip()
-  p.rect(sliderX + sliderW * 0.1846, sliderY - 58, sliderW*0.100, 50)
-  p.rect(sliderX + sliderW * 0.5486, sliderY - 30, sliderW*0.1213, 50)
-  p.rect(sliderX + sliderW * 0.7739, sliderY- 58, sliderW*0.0589, 50)
-  p.rect(sliderX +sliderW*0.8865, sliderY-58, sliderW*0.0520 + 10, 60)
+  p.rect(sliderX + sliderW * 0.1628, sliderY - 58, sliderW*0.1108, 50)
+  p.rect(sliderX + sliderW * 0.5446, sliderY - 30, sliderW*0.1213, 50)
+  p.rect(sliderX + sliderW * 0.7810, sliderY- 58, sliderW*0.0635, 50)
+  p.rect(sliderX +sliderW*0.8991, sliderY-50, sliderW*0.1009 + 50, 60)
   p.endClip()
 
   p.translate(sliderX, sliderY - 30 + hoverOffset - graphHeight / 2); 
@@ -594,13 +599,14 @@ if (hoverAlpha > 1) {
   p.curveVertex(firstX, firstY); 
   
   for (let i = 0; i < colonne[0].length; i+= 40) {
-    let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
+    let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0, sliderW * 1);
     let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight *0.96, graphHeight * 0.05);
 
     p.curveVertex(x, y); 
   }
 
   p.curveVertex(lastX, lastY); 
+  p.curveVertex(lastX, lastY);
   
 
   p.endShape(); 
@@ -609,18 +615,18 @@ if (hoverAlpha > 1) {
   p.push()
   p.fill(49, 49, 49, hoverAlpha2)
   //primo picco
-  p.circle(sliderX + sliderW*0.1846, sliderY - 15 + hoverOffset, 12 )
-  p.circle(sliderX + sliderW*0.2886, sliderY - 20 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.1628, sliderY - 15 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.2736, sliderY - 20 + hoverOffset, 12 )
   //secondo picco
-  p.circle(sliderX + sliderW*0.5486, sliderY - 27 + hoverOffset, 12 )
-  p.circle(sliderX + sliderW*0.6699, sliderY - 22 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.5446, sliderY - 27 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.6719, sliderY - 25 + hoverOffset, 12 )
   //terzo picco
-  p.circle(sliderX + sliderW*0.7739, sliderY - 33 + hoverOffset, 12 )
-  p.circle(sliderX + sliderW*0.8328, sliderY - 50 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.7810, sliderY - 33 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.8445, sliderY - 50 + hoverOffset, 12 )
 
   //quarto picco
-  p.circle(sliderX + sliderW*0.8865, sliderY - 45 + hoverOffset, 12 )
-  p.circle(sliderX + sliderW*0.9404, sliderY - 10 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.8991, sliderY - 45 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*1, sliderY - 10 + hoverOffset, 12 )
   p.pop()
 
 }
@@ -628,7 +634,7 @@ if (hoverAlpha > 1) {
 //data 
 
 // --- NUOVA LOGICA COUNTER E ANNO ---
-let currentYear = Math.round(p.map(forceSlider.value(), 0, 100, 1433, 2010));
+let currentYear = Math.round(p.map(forceSlider.value(), 0, 100, 1450, 2000));
 
 let activeCount = 0;
 for (let cl of localClusters) {
@@ -853,7 +859,7 @@ update() {
   for (let s of this.sphere) { 
   let entryProgress = p.constrain(sliderVal / 100, 0, 1); 
   // Timeline globale corretta 
-  let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85); 
+  let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.0218, 0.9709); 
   let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.15, 0.95); 
   if (entryProgress < tStart) { 
     let angle = p.atan2(s.y - outerCluster.y, s.x - outerCluster.x); 

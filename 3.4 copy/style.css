@@ -616,7 +616,7 @@ ul li ul.dropdown-menu{
   margin-top: 25px;
 }
 
-.explanation4.show .scale-container {
+.scale-container.show {
   opacity: 1;
   transform: translateY(0);
 }
@@ -703,6 +703,8 @@ ul li ul.dropdown-menu{
   opacity: 0;
   animation: showing 3s ease 3.8s forwards;
 }
+
+.text6
 
 .text6.show {
   opacity: 1;
