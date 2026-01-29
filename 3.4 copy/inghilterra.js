@@ -16,6 +16,9 @@ let minYear = 1450, maxYear = 2000;
 // Scroll verticale e altezza dell'area visibile del grafico
 let yOffset = 0;
 let scrollHeight;
+let navbarHeight = 0; // Altezza dinamica della navbar
+let distanzaDallaNavbar = 0; // Distanza dal navbar in valori relativi (0 = nessuno spazio, 1 = altezza navbar, 0.5 = metà navbar, ecc.)
+let topOffset = 0; // Spazio totale dal top per posizionare gli elementi (navbarHeight + distanza)
 
 // Stati di selezione delle colonie
 let clickedCountry = null;
@@ -108,8 +111,22 @@ function preload() {
 // SETUP
 // =========================================================
 function setup() {
-  //createCanvas(windowWidth, windowHeight);
-  c = createCanvas(windowWidth, windowHeight);
+  // Calcola altezza della navbar
+  let headerElement = document.getElementById('header');
+  navbarHeight = headerElement ? headerElement.offsetHeight : 80;
+  
+  // Calcola il top offset totale per tutti gli elementi
+  topOffset = navbarHeight + (navbarHeight * distanzaDallaNavbar);
+  
+  // Applica margin-top al canvas-container usando la distanza relativa
+  let canvasContainer = document.getElementById('canvas-container');
+  if(canvasContainer) {
+    canvasContainer.style.marginTop = topOffset + 'px';
+  }
+  
+  // Crea canvas con altezza ridotta considerando la distanza
+  let totalTopSpace = topOffset;
+  c = createCanvas(windowWidth, windowHeight - totalTopSpace);
   c.parent("canvas-container");
   
   // Leggi i parametri URL
@@ -216,7 +233,7 @@ function setup() {
 
   // Crea buffer grafico
   coloniesLayer = createGraphics(windowWidth, colonies.length * 30 + 200);
-  scrollHeight = windowHeight * 0.77;
+  scrollHeight = (windowHeight - topOffset) * 0.77;
 }
 
 // =========================================================
@@ -627,7 +644,7 @@ function drawColonyInfo(){
       end = colEndYear[index],
       duration = colDuration[index];
 
-  let infoX = 80, infoY = windowHeight * 0.1;
+  let infoX = 80, infoY = topOffset + 20;
   
   push();
   fill(currentColor);
@@ -705,7 +722,7 @@ function mousePressed(){
     let index = colCountries.indexOf(currentCountry);
     
     if(index !== -1) {
-      let infoX = 80, infoY = windowHeight * 0.1;
+      let infoX = 80, infoY = topOffset + 20;
       let lineSpacing = 25, startY = infoY + 50;
       let buttonY = startY + lineSpacing * 3.5;
       
@@ -828,12 +845,26 @@ function mouseWheel(event){
 // WINDOW RESIZED
 // =========================================================
 function windowResized(){ 
-  resizeCanvas(windowWidth, windowHeight);
+  // Ricalcola altezza navbar in caso di resize
+  let headerElement = document.getElementById('header');
+  navbarHeight = headerElement ? headerElement.offsetHeight : 80;
+  
+  // Calcola il top offset totale
+  topOffset = navbarHeight + (navbarHeight * distanzaDallaNavbar);
+  
+  // Aggiorna margin-top del canvas-container
+  let canvasContainer = document.getElementById('canvas-container');
+  if(canvasContainer) {
+    canvasContainer.style.marginTop = topOffset + 'px';
+  }
+  
+  let canvasHeight = windowHeight - topOffset;
+  resizeCanvas(windowWidth, canvasHeight);
   if(coloniesLayer) {
     coloniesLayer.resizeCanvas(windowWidth, colonies.length * currentRowHeight + 200);
   }
   // Reset scroll e animazione al resize
-  scrollHeight = windowHeight * 0.77;
+  scrollHeight = canvasHeight * 0.77;
   yOffset = 0;
   isAnimating = false;
   animationProgress = 1;
