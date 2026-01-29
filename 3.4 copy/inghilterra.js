@@ -17,7 +17,7 @@ let minYear = 1450, maxYear = 2000;
 let yOffset = 0;
 let scrollHeight;
 let navbarHeight = 0; // Altezza dinamica della navbar
-let distanzaDallaNavbar = 0; // Distanza dal navbar in valori relativi (0 = nessuno spazio, 1 = altezza navbar, 0.5 = metà navbar, ecc.)
+let distanzaDallaNavbar = -0.5; // Distanza dal navbar in valori relativi (0 = nessuno spazio, 1 = altezza navbar, 0.5 = metà navbar, ecc.)
 let topOffset = 0; // Spazio totale dal top per posizionare gli elementi (navbarHeight + distanza)
 
 // Stati di selezione delle colonie
