@@ -78,7 +78,7 @@
     </div>
      
     <div class="explanation3" id="Slide2">
-      <a href="#title_page" class="UpperSlide sl3" id="u2">
+      <a href="#Slide1" class="UpperSlide sl3" id="u2">
         <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg><span class="btn-label">BACK</span>
       </a>
       <div class="falseBtn">
@@ -103,7 +103,7 @@
    
 
     <div class="explanation2" id="Slide3">
-      <a href="#title_page" class="UpperSlide sl4" id="u3">
+      <a href="#Slide2" class="UpperSlide sl4" id="u3">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg><span class="btn-label">BACK</span>
       </a>
       <p class="text2"> Each static bubble represents a <span id="conclusionItalic">colonialist nation</span></p>
@@ -112,13 +112,49 @@
       <span class="pointer3"></span>
       <p class="text3"> while the smaller spheres represent the <span id="conclusionItalic">colonized countries</span>, <br>whose size is linked to the <span id="conclusionItalic">duration of their colonization</span>.
 </p>
-     
-  
-      <a href="#time_view" class="SlideBtn sl4" id="s4">
-        <span class="btn-label">EXPLORE</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
+   
+<a href="#Slide4" class="SlideBtn sl4" id="s4">
+        <span class="btn-label">NEXT</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
       </a>
-  
+   
+   
     </div>
+
+<div class="explanation4" id="Slide4">
+  <a href="#Slide3" class="UpperSlide sl5" id="u4">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
+    <span class="btn-label">BACK</span>
+  </a>
+
+  <p class="text6">
+    The intensity of the <span id="conclusionItalic">bubbles' grey shading</span>
+  </p>
+  <div class="scale-container">
+    <div class="scale-dots">
+      <span class="dot d1"></span>
+      <span class="dot d2"></span>
+      <span class="dot d3"></span>
+      <span class="dot d4"></span>
+      <span class="dot d5"></span>
+    </div>
+    <div class="scale-labels">
+      <span>1 year</span>
+      <svg class="arrow-svg" viewBox="0 0 100 20">
+        <line x1="0" y1="10" x2="95" y2="10" stroke="#313131" stroke-width="1" />
+        <polygon points="95,10 88,7 88,13" fill="#313131" />
+      </svg>
+      <span>513 years</span>
+    </div>
+  </div>
+  <p class="text6 delay-text">
+    depends on the duration of its colonization: <span id="conclusionItalic">the darker the grey,</span> <br>the longer that country has been colonized.</span>
+  </p>
+  <a href="#time_view" class="SlideBtn sl5" id="s5">
+    <span class="btn-label">EXPLORE</span>
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
+  </a>
+
+</div>
 </div>
 
     
@@ -254,7 +290,7 @@
     document.addEventListener('keydown', (e) => {
       
       // I nomi esatti degli ID delle sezioni (prese dall HTML)
-      const slideIds = ['title_page', 'Slide1', 'Slide2', 'Slide3'];
+      const slideIds = ['title_page', 'Slide1', 'Slide2', 'Slide3','Slide4' ];
       let activeSlide = null;
 
       // Cerca quale slide è al centro dello schermo

@@ -1,5 +1,4 @@
 
-
 //javascript
 
 //Animazioni quando si entra in vista   
@@ -16,8 +15,7 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 
-document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .pointer3, .text3, .falseBtn,.falseTimeLine, .text4, .text5, .sl1, .sl2, .sl3, .sl4, .ending').forEach(el => observer.observe(el));
-
+document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .pointer3, .text3, .falseBtn,.falseTimeLine, .text4, .text5, .sl1, .sl2, .sl3, .sl4, .ending, .explanation4, .text6, .sl5').forEach(el => observer.observe(el));
 
 //SLIDESHOW
 

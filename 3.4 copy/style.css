@@ -307,19 +307,6 @@ ul li ul.dropdown-menu{
   rotate: 180deg; /* Mantengo la rotazione originale */
 }
 
-#u1{
-  position: absolute;
-  left: 46%;
-  top: 20%;
-}
-
-#u3{
-  position: absolute;
-  left: 46%;
-  top: 20%;
-}
-
-
 .sl1.show svg{
   animation: 
     fadeIn3 0.8s ease-out 3s forwards,
@@ -360,26 +347,12 @@ ul li ul.dropdown-menu{
   to { transform: translateY(2vh); }
 }
 
-#s2{
-  position: absolute;
-  left: 46%;
-  bottom: 10%;
-}
-
-
 
 .sl2.show svg{
   animation: 
     fadeIn3 0.8s ease-out 3s forwards,
     bounce 1s ease-in-out 3.8s infinite alternate;
 }
-
-#s3{
-  position: absolute;
-  left: 46%;
-  bottom: 10%;
-}
-
 
 
 .sl3.show svg{
@@ -388,11 +361,6 @@ ul li ul.dropdown-menu{
     bounce 1s ease-in-out 6.8s infinite alternate;
 }
 
-#s4{
-  position: absolute;
-  left: 46%;
-  bottom: 10%;
-}
 
 .sl4.show svg{
   animation: 
@@ -442,8 +410,6 @@ ul li ul.dropdown-menu{
   align-items: center;
   position: relative;
 }
-
-
 
 .text{
   color: #313131;
@@ -593,9 +559,111 @@ ul li ul.dropdown-menu{
   
 }
 
-.text3 span#conclusionItalic{
-  /*font-style: italic;*/
+/* STILE SLIDE 4 CORRETTO */
+
+.explanation4 {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;     
+  gap: 3vh;                
+}
+
+.text6 {
+  color: #313131;
+  width: 60vw;             
+  font-size: 2.2vh;
+  text-align: center;
+  line-height: 170%;
+  
+  /* Animazione */
+  opacity: 0;
+  transform: translateY(3vh); 
+  transition: 1s ease-out;
+  transition-delay: 1s;       
+  
+  
+  margin: 0;
+  position: relative;
+  z-index: 2; 
+}
+
+.text6.show {
+  opacity: 1;
+  transform: translateY(0);   
+}
+
+.text6.delay-text {
+  transition-delay: 2.5s;     
+}
+
+#conclusionItalic {
   font-weight: bold;
+}
+
+/* Container della scala nella Slide 4 */
+.scale-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 1s ease-out 1.8s; 
+  margin-top: 25px;
+}
+
+.explanation4.show .scale-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Allineamento pallini */
+.scale-dots {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Stile comune pallini */
+.dot {
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Dimensioni e colori crescenti */
+.d1 { width: 10px; height: 10px; background-color: #999; }
+.d2 { width: 16px; height: 16px; background-color: #888; }
+.d3 { width: 24px; height: 24px; background-color: #777; }
+.d4 { width: 34px; height: 34px; background-color: #555; }
+.d5 { width: 48px; height: 48px; background-color: #313131; }
+
+/* Labels e Freccia */
+.scale-labels {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #313131;
+}
+
+.arrow-svg {
+  width: 120px;
+  height: 20px;
+}
+
+
+#s5 {
+  position: absolute;
+  left: 46%;
+  bottom: 10%;
+}
+
+@keyframes bounceRight {
+  to{ left: 50%; transform: translateY(46vh);}
 }
 
 .falseBtn{
@@ -619,25 +687,42 @@ ul li ul.dropdown-menu{
   fill: #313131;
 }
 
-.falseBtn.show{
+.falseBtn.show {
   transform: translateY(6vh);
   opacity: 1;
-  animation: click 0.5s ease 2.4s forwards;
+  animation: click 3s ease 3.8s forwards;
+}
 
-  .pauseIcon{
+.falseBtn.show .pauseIcon {
   position: absolute;
   left: 25%;
-  
 }
 
- .pauseIcon svg{
+.falseBtn.show .pauseIcon svg {
   fill: #E7E1D1;
   opacity: 0;
-  animation: showing 0.1s ease 2.6s forwards;
-}
+  animation: showing 3s ease 3.8s forwards;
 }
 
+.text6.show {
+  opacity: 1;
+  transform: translateY(2vh);
+}
 
+.text6 span#explanationItalic {
+  font-weight: bold;
+}
+
+.sl5.show svg {
+  animation: 
+    fadeIn3 3s ease-out 3s forwards,
+    bounce 1s ease-in-out 3.8s infinite alternate;
+}
+
+/* Fa apparire il testo "BACK" e "EXPLORE" insieme alle frecce */
+.sl5.show .btn-label {
+  animation: fadeIn 3s ease-out 3s forwards;
+}
 
 @keyframes click{
   0%{scale: 1; background-color: #E7E1D1;}
@@ -647,6 +732,66 @@ ul li ul.dropdown-menu{
 
 @keyframes showing{
   to{opacity: 1;}
+}
+
+/* Standardizzazione Pulsanti Navigazione */
+
+/* Base comune per i pulsanti */
+.SlideBtn, .UpperSlide {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  opacity: 0; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  text-decoration: none;
+  z-index: 50;
+
+}
+
+/*l'animazione parte solo quando la slide ha la classe .show */
+.show .SlideBtn, 
+.show .UpperSlide {
+  animation: fadeIn3 0.8s ease-out 3.8s forwards; /* 3.8s è il ritardo che hai scelto */
+}
+
+/* Gestione SVG e Label */
+.show .btn-label {
+  animation: fadeIn 0.8s ease-out 3.8s forwards;
+}
+
+.show .SlideBtn svg, 
+.show .UpperSlide svg {
+  animation: 
+    fadeIn3 0.8s ease-out 3.8s forwards, 
+    bounce 1s ease-in-out 4.6s infinite alternate; /* Il rimbalzo parte dopo la comparsa */
+}
+
+/* etichette  leggibili */
+.btn-label {
+  font-family: "montserrat", sans-serif;
+  font-size: 1.4vh;
+  font-weight: 350;
+  color: #313131;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: -1vh;
+  opacity: 0;
+}
+
+.show .btn-label {
+  animation: fadeIn 3s ease-out 3.8s forwards;
+}
+
+.show .SlideBtn svg, 
+.show .UpperSlide svg {
+  opacity: 0;
+  animation: 
+    fadeIn3 3s ease-out 3.8s forwards, /* Appare insieme al testo del bottone */
+    bounce 1s ease-in-out 4.6s infinite alternate; /* Inizia a rimbalzare dopo */
 }
 
 
@@ -665,11 +810,12 @@ ul li ul.dropdown-menu{
   transition-delay: 1s;
 }
 
-.falseTimeLine.show{
+.falseTimeLine.show {
   transform: translateY(6vh);
   opacity: 1;
+}
 
-  .thumb{
+.falseTimeLine.show .thumb {
   position: absolute;
   width: 5vh;
   height: 5vh;
@@ -678,20 +824,18 @@ ul li ul.dropdown-menu{
   border: solid 5px #E7E1D1;
   box-shadow: 0 0 0 1px #313131;
   border-radius: 50%;
-  scale: 1.4 1.4;
+  scale: 1.4;
   z-index: 3;
   animation: thumbMove 1.5s ease 3s forwards;
 }
 
-.progress{
+.falseTimeLine.show .progress {
   display: inline-block;
   width: 2vh;
   height: 5vh;
   background-color: #313131;
   z-index: 2;
   animation: progression 1.5s ease 3.01s forwards;
-}
-
 }
 
 
