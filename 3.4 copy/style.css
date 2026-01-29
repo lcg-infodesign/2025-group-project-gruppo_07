@@ -612,29 +612,28 @@ ul li ul.dropdown-menu{
   gap: 15px;
   opacity: 0;
   transform: translateY(20px);
-  transition: 1s ease-out 1.8s; 
-  margin-top: 25px;
+  transition: all 1s ease-out; 
+  margin-top: 30px;
 }
 
-.scale-container.show {
+.explanation4.show .scale-container {
   opacity: 1;
   transform: translateY(0);
+  transition-delay: 1.8s; /* Appare dopo il primo testo */
 }
 
-/* Allineamento pallini */
+/* Stile dei pallini */
 .scale-dots {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-/* Stile comune pallini */
 .dot {
   border-radius: 50%;
   display: inline-block;
 }
 
-/* Dimensioni e colori crescenti */
 .d1 { width: 10px; height: 10px; background-color: #999; }
 .d2 { width: 16px; height: 16px; background-color: #888; }
 .d3 { width: 24px; height: 24px; background-color: #777; }
@@ -813,25 +812,7 @@ ul li ul.dropdown-menu{
 
 }
 
-/*l'animazione parte solo quando la slide ha la classe .show */
-.show .SlideBtn, 
-.show .UpperSlide {
-  animation: fadeIn3 0.8s ease-out 3.8s forwards; 
-}
-
-/* Gestione SVG e Label */
-.show .btn-label {
-  animation: fadeIn 0.8s ease-out 3.8s forwards;
-}
-
-.show .SlideBtn svg, 
-.show .UpperSlide svg {
-  animation: 
-    fadeIn3 0.8s ease-out 3.8s forwards, 
-    bounce 1s ease-in-out 4.6s infinite alternate; /* Il rimbalzo parte dopo la comparsa */
-}
-
-/* etichette  leggibili */
+/* Stato iniziale comune per tutte le etichette */
 .btn-label {
   font-family: "montserrat", sans-serif;
   font-size: 1.4vh;
@@ -843,16 +824,24 @@ ul li ul.dropdown-menu{
   opacity: 0;
 }
 
+/* Comparsa delle etichette (BACK, NEXT, EXPLORE) quando la slide è attiva */
 .show .btn-label {
-  animation: fadeIn 3s ease-out 3.8s forwards;
+  animation: fadeIn 0.8s ease-out 3.8s forwards;
 }
 
+/* Comparsa STATICA per tutte le frecce SVG (rimangono ferme) */
 .show .SlideBtn svg, 
 .show .UpperSlide svg {
   opacity: 0;
+  animation: fadeIn3 0.8s ease-out 3.8s forwards;
+}
+
+/* Effetto BOUNCE: applicato SOLO agli elementi con classe .bounce-effect */
+/* Sovrascrive l'animazione precedente aggiungendo il movimento */
+.show .bounce-effect svg {
   animation: 
-    fadeIn3 3s ease-out 3.8s forwards, /* Appare insieme al testo del bottone */
-    bounce 1s ease-in-out 4.6s infinite alternate; /* Inizia a rimbalzare dopo */
+    fadeIn3 0.8s ease-out 3.8s forwards, 
+    bounce 1s ease-in-out 4.6s infinite alternate !important;
 }
 
 
