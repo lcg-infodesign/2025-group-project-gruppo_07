@@ -16,6 +16,9 @@ let minYear = 1450, maxYear = 2000;
 // Scroll verticale e altezza dell'area visibile del grafico
 let yOffset = 0;
 let scrollHeight;
+let navbarHeight = 0; // Altezza dinamica della navbar
+let distanzaDallaNavbar = -0.5; // Distanza dal navbar in valori relativi (0 = nessuno spazio, 1 = altezza navbar, 0.5 = metà navbar, ecc.)
+let topOffset = 0; // Spazio totale dal top per posizionare gli elementi (navbarHeight + distanza)
 
 // Stati di selezione delle colonie
 let clickedCountry = null;
@@ -108,8 +111,22 @@ function preload() {
 // SETUP
 // =========================================================
 function setup() {
-  //createCanvas(windowWidth, windowHeight);
-  c = createCanvas(windowWidth, windowHeight);
+  // Calcola altezza della navbar
+  let headerElement = document.getElementById('header');
+  navbarHeight = headerElement ? headerElement.offsetHeight : 80;
+  
+  // Calcola il top offset totale per tutti gli elementi
+  topOffset = navbarHeight + (navbarHeight * distanzaDallaNavbar);
+  
+  // Applica margin-top al canvas-container usando la distanza relativa
+  let canvasContainer = document.getElementById('canvas-container');
+  if(canvasContainer) {
+    canvasContainer.style.marginTop = topOffset + 'px';
+  }
+  
+  // Crea canvas con altezza ridotta considerando la distanza
+  let totalTopSpace = topOffset;
+  c = createCanvas(windowWidth, windowHeight - totalTopSpace);
   c.parent("canvas-container");
   
   // Leggi i parametri URL
@@ -216,7 +233,7 @@ function setup() {
 
   // Crea buffer grafico
   coloniesLayer = createGraphics(windowWidth, colonies.length * 30 + 200);
-  scrollHeight = windowHeight * 0.77;
+  scrollHeight = (windowHeight - topOffset) * 0.77;
 }
 
 // =========================================================
@@ -415,8 +432,16 @@ function drawColoniesLayer(){
     let op = fadeOpacity[country];
 
     // Spessore dinamico
-    let normalStroke = isCompactView ? 5 : 1.2;
-    let selectedStroke = isCompactView ? 7 : 6;
+    let normalStroke = isCompactView ? 5 : 2.2;
+    let selectedStroke = isCompactView ? 7 : 4.5;
+
+    // Bande leggere solo in vista estesa
+    if(!isCompactView && i % 2 === 0) {
+      let bandY = yPos - currentRowHeight * 0.5;
+      coloniesLayer.noStroke();
+      coloniesLayer.fill(49, 49, 49, 8);
+      coloniesLayer.rect(chartX, bandY, chartWidth, currentRowHeight);
+    }
 
     // Barra selezionata
     if(isClicked || isSelected){
@@ -428,8 +453,8 @@ function drawColoniesLayer(){
       // Pallini solo in vista espansa
       if(!isCompactView) {
         coloniesLayer.fill(currentColor[0], currentColor[1], currentColor[2], op);
-        coloniesLayer.circle(xStart, yPos, 12);
-        coloniesLayer.circle(xEnd, yPos, 12);
+        coloniesLayer.circle(xStart, yPos, 10);
+        coloniesLayer.circle(xEnd, yPos, 10);
       }
 
       // Anni sempre visibili
@@ -450,31 +475,55 @@ function drawColoniesLayer(){
       // Pallini solo in vista espansa
       if(!isCompactView) {
         coloniesLayer.fill(255, op);
-        coloniesLayer.circle(xStart, yPos, 8);
-        coloniesLayer.circle(xEnd, yPos, 8);
+        coloniesLayer.circle(xStart, yPos, 6);
+        coloniesLayer.circle(xEnd, yPos, 6);
       }
     }
 
-    // Nome paese: solo se espanso O se selezionato in compact
+  }
+
+  if(chartWidth > 0 && scrollHeight > 0) {
+    push();
+    drawingContext.save();
+    drawingContext.beginPath();
+    drawingContext.rect(chartX, chartY, chartWidth, scrollHeight);
+    drawingContext.clip();
+    image(coloniesLayer, 0, chartY);
+    drawingContext.restore();
+    pop();
+  } else {
+    image(coloniesLayer, 0, chartY);
+  }
+
+  push();
+  textFont("Montserrat", 11);
+  textAlign(RIGHT, CENTER);
+
+  for(let p of timelinePositions){
+    if(p.yPos + 10 < 0 || p.yPos - 10 > scrollHeight) continue;
+
+    let isClicked = (p.country === clickedCountry);
+    let isSelected = (p.country === selectedCountry);
+
     if(!isCompactView || (isCompactView && (isClicked || isSelected))) {
-      coloniesLayer.noStroke(); 
-      coloniesLayer.textAlign(RIGHT, CENTER);
-      
-      if(country === clickedCountry || country === selectedCountry){
-        coloniesLayer.textSize(14);
-        coloniesLayer.fill(currentColor[0], currentColor[1], currentColor[2], op);
-        coloniesLayer.textStyle(BOLD);
+      let op = (fadeOpacity[p.country] === undefined) ? 255 : fadeOpacity[p.country];
+
+      noStroke();
+      if(isClicked || isSelected){
+        textSize(14);
+        fill(currentColor[0], currentColor[1], currentColor[2], op);
+        textStyle(BOLD);
       } else {
-        coloniesLayer.textSize(11);
-        coloniesLayer.fill(80, 80, 80, op);
-        coloniesLayer.textStyle(NORMAL);
+        textSize(11);
+        fill(80, 80, 80, op);
+        textStyle(NORMAL);
       }
-      
-      coloniesLayer.text(country.toUpperCase(), chartX - 15, yPos); 
+
+      text(p.country.toUpperCase(), chartX - 15, chartY + p.yPos);
     }
   }
 
-  image(coloniesLayer, 0, chartY);
+  pop();
   
   drawScrollbar();
 }
@@ -491,13 +540,13 @@ function drawScrollbar(){
   
   // Posizione e dimensioni della scrollbar
   scrollbarX = chartX + chartWidth + 15;
-  scrollbarY = chartY;
-  scrollbarWidth = 12;
-  scrollbarHeight = scrollHeight;
+  scrollbarY = chartY + (scrollHeight - scrollHeight * 0.8) / 2;
+  scrollbarWidth = 8;
+  scrollbarHeight = scrollHeight * 0.8;
   
   // Calcola l'altezza del thumb in proporzione
-  scrollThumbHeight = (scrollHeight / totalHeight) * scrollbarHeight;
-  scrollThumbHeight = Math.max(scrollThumbHeight, 20); // Minimo 20px
+  scrollThumbHeight = (scrollbarHeight / totalHeight) * scrollbarHeight;
+  scrollThumbHeight = Math.max(scrollThumbHeight, 15); // Minimo 15px
   
   // Calcola la posizione del thumb basato su yOffset
   let scrollRatio = maxScroll > 0 ? (-yOffset) / maxScroll : 0;
@@ -526,25 +575,25 @@ function drawSideInfo(){
   push();
   let sideX = windowWidth * 0.04;
   
-  // Calcola la posizione del bottone toggle
-  let toggleY = chartY + scrollHeight - 20;
-  
-  // Il testo deve essere totpx sopra il bottone
-  let topY = toggleY - 220;
+  // ===== OFFSET DEL BLOCCO: modifica questi valori per spostare tutto insieme =====
+  let blockOffsetX = 0;        // Offset orizzontale (in pixel)
+  let blockOffsetY = chartY + 310;   // Offset verticale (in pixel)
+  // =================================================================================
   
   let columnWidth = 350;
   let estimatedLineHeight = 22;
 
   // Titolo colonizzatore
+  let titleY = blockOffsetY;
   fill(currentColor);
   textFont("Montserrat");
   textSize(32);
   textStyle(BOLD);
   textAlign(LEFT, TOP);
-  text(colonizerTitle, sideX, topY - 70);
+  text(colonizerTitle, sideX + blockOffsetX, titleY);
 
   // Paragrafo
-  let descY = topY - 15;
+  let descY = titleY + 50;
   fill(60);
   textFont("Montserrat");
   textSize(16);
@@ -561,28 +610,21 @@ function drawSideInfo(){
   // Linea verticale
   stroke(currentColor);
   strokeWeight(3);
-  line(sideX - 15, descY, sideX - 15, descY + lineLength - 10);
+  line(sideX + blockOffsetX - 15, descY, sideX + blockOffsetX - 15, descY + lineLength - 10);
   noStroke();
   
-  text(paragraphText, sideX, descY, columnWidth);
+  text(paragraphText, sideX + blockOffsetX, descY, columnWidth);
   
   // Posiziona link
   if (sourceLinkElement) {
     sourceLinkElement.show();
-    sourceLinkElement.position(sideX, descY + totalTextHeight + 5);
+    sourceLinkElement.position(sideX + blockOffsetX, descY + totalTextHeight + 5);
   }
 
-  // Posiziona toggle in alto a destra (area libera)
+  // Posiziona toggle sotto il paragrafo con spazio
   if(toggleSlider) {
-    let tw = 150;
-    let th = 30;
-    let rightMargin = 20;
-    let topMargin = chartY + 20;
-    
-    let left = Math.max(8, windowWidth - tw - rightMargin);
-    let top = topMargin;
-
-    toggleSlider.position(left, top);
+    let toggleY = descY + lineLength + 20;
+    toggleSlider.position(sideX + blockOffsetX, toggleY);
   }
   
   pop();
@@ -602,7 +644,7 @@ function drawColonyInfo(){
       end = colEndYear[index],
       duration = colDuration[index];
 
-  let infoX = 80, infoY = windowHeight * 0.1;
+  let infoX = 80, infoY = topOffset + 20;
   
   push();
   fill(currentColor);
@@ -680,7 +722,7 @@ function mousePressed(){
     let index = colCountries.indexOf(currentCountry);
     
     if(index !== -1) {
-      let infoX = 80, infoY = windowHeight * 0.1;
+      let infoX = 80, infoY = topOffset + 20;
       let lineSpacing = 25, startY = infoY + 50;
       let buttonY = startY + lineSpacing * 3.5;
       
@@ -803,12 +845,26 @@ function mouseWheel(event){
 // WINDOW RESIZED
 // =========================================================
 function windowResized(){ 
-  resizeCanvas(windowWidth, windowHeight);
+  // Ricalcola altezza navbar in caso di resize
+  let headerElement = document.getElementById('header');
+  navbarHeight = headerElement ? headerElement.offsetHeight : 80;
+  
+  // Calcola il top offset totale
+  topOffset = navbarHeight + (navbarHeight * distanzaDallaNavbar);
+  
+  // Aggiorna margin-top del canvas-container
+  let canvasContainer = document.getElementById('canvas-container');
+  if(canvasContainer) {
+    canvasContainer.style.marginTop = topOffset + 'px';
+  }
+  
+  let canvasHeight = windowHeight - topOffset;
+  resizeCanvas(windowWidth, canvasHeight);
   if(coloniesLayer) {
     coloniesLayer.resizeCanvas(windowWidth, colonies.length * currentRowHeight + 200);
   }
   // Reset scroll e animazione al resize
-  scrollHeight = windowHeight * 0.77;
+  scrollHeight = canvasHeight * 0.77;
   yOffset = 0;
   isAnimating = false;
   animationProgress = 1;

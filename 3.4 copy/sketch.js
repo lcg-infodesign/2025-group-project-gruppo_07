@@ -159,64 +159,56 @@ let sketch1 = function(p){
 
   let paragraphs = [
   {
-    start: 1500,
+    start: 1540,
     end: 1600,
-    title: "1500–1600: The Dawn of European Expansion",
-    text: "During the sixteenth century, European powers began to extend their reach across the globe. Spain and Portugal led this early phase of colonization after the voyages of Columbus (1492) and Vasco da Gama (1498). Their maritime empires established control over the Americas, coastal Africa, and parts of Asia, creating the first global trading networks. Although colonization was significant, most of the world—particularly in Asia and Africa—remained independent.",
+    dates: "1540-1600",
+    title: "Early Overseas Expansion",
+    text: "In the sixteenth century, European powers began extending their presence across the oceans. Spain and Portugal established early maritime empires following the voyages of Columbus and Vasco da Gama, linking Europe with the Americas, Africa, and Asia. These routes created the first global trading systems and marked the beginning of sustained European activity beyond the continent.",
     alpha: 0,
     yOffset: 20,
     titleAlpha: 0,     
-    titleOffset: 40
+    titleOffset: 40,
+    datesAlpha: 0,
+    datesOffset: 50
   },
   {
     start: 1750,
     end: 1820,
-    title: "1750–1820: Expansion of Maritime Empires",
-    text: "By the late eighteenth century, colonial empires became central to global economics and politics. Britain, France, and the Netherlands built vast networks of colonies linked by maritime trade. The Seven Years’ War (1756–1763) confirmed Britain’s dominance in India and North America, while Spain and Portugal’s American empires began to weaken. This period saw a substantial increase in the number of territories under European rule, as colonial economies fueled industrial growth at home.",
+    dates: "1750-1820",
+    title: "Commercial Empires Growth",
+    text: "By the late eighteenth century, colonial empires had become central to global trade and power. Britain, France, and the Netherlands expanded their maritime networks, while Spain and Portugal declined. Conflicts such as the Seven Years’ War confirmed British dominance in India and North America. Colonial economies increasingly supplied raw materials for industrial growth, reinforcing the connection between empire and commerce.",
     alpha: 0,
     yOffset: 20,
     titleAlpha: 0,     
-    titleOffset: 40
+    titleOffset: 40,
+    datesAlpha: 0,
+    datesOffset: 50
   },
   {
     start: 1880,
     end: 1914,
-    title: "1880–1914: The Peak of Global Colonization",
-    text: "The decades before World War I marked the absolute height of imperial expansion. Industrialization, nationalism, and competition among European powers drove the Scramble for Africa (1884–1885) and the annexation of territories in Asia and the Pacific. By 1914, over four-fifths of the world’s land area was controlled or dominated by colonial powers, with Britain and France leading global empires that spanned every continent. This period represents the maximum global extent of colonial domination in human history.",
+    dates: "1880-1914",
+    title: "Peak of Imperialism",
+    text: "The decades before World War I represented the peak of European imperial power. Driven by industrialization, nationalism, and competition, European states pursued territorial control in Africa, Asia, and the Pacific. The Scramble for Africa and the spread of colonial administration extended European authority over much of the world, creating vast empires that defined global politics by 1914.",
     alpha: 0,
     yOffset: 20,
     titleAlpha: 0,     
-    titleOffset: 40
-  },
-  {
-    start: 1918,
-    end: 1939,
-    title: "1918–1939: Stagnation and Rising Nationalism",
-    text: "After World War I, European empires reached their greatest territorial extent but began to weaken internally. Germany lost its colonies under the Treaty of Versailles (1919), and Britain and France assumed control of new League of Nations mandates. Despite apparent stability, nationalist and independence movements emerged in India, the Middle East, and Africa. The colonial world remained vast—about two-thirds of the global population lived under imperial rule—but cracks in the system were becoming visible.",
-    alpha: 0,
-    yOffset: 20,
-    titleAlpha: 0,     
-    titleOffset: 40
+    titleOffset: 40,
+    datesAlpha: 0,
+    datesOffset: 50
   },
   {
     start: 1945,
     end: 1975,
-    title: "1945–1975: The Era of Decolonization",
-    text: "The aftermath of World War II brought the most dramatic decline in global colonization. European powers were economically and militarily exhausted, and colonial subjects demanded independence. The process began with India in 1947 and spread rapidly across Asia and Africa. The United Nations, Cold War politics, and global public opinion accelerated the dismantling of empires. By the mid-1970s, most colonies had gained sovereignty, marking the end of the classical colonial era.",
+    dates: "1945-2000",
+    title: "Postcolonial Era",
+    text: "After World War II, European dominance declined as decolonization reshaped global structures. Economic weakness, independence movements, and shifting international norms led to the dissolution of most colonial empires. Beginning with India in 1947, the process spread across Asia and Africa and continued into the late twentieth century. By 2000, nearly all colonies had gained sovereignty, yet new forms of economic and political dependence—often termed neo-colonialism—continued to influence global relations.",
     alpha: 0,
     yOffset: 20,
     titleAlpha: 0,     
-    titleOffset: 40
-  },
-  {
-    start: 1980,
-    end: 2000,
-    title: "1980–2000: The Postcolonial World",
-    text: "By the late twentieth century, almost all former colonies had achieved independence. Portugal’s withdrawal from Africa (1975), Zimbabwe’s independence (1980), and the return of Hong Kong to China (1997) symbolized the close of five centuries of European expansion. Only a few dependent territories remained under European control. Formal colonialism disappeared, but new forms of economic and political influence—sometimes called neo-colonialism—continued to shape global relations.",
-    alpha: 0,
-    yOffset: 20,
-    titleAlpha: 0,     
-    titleOffset: 40
+    titleOffset: 40,
+    datesAlpha: 0,
+    datesOffset: 50
   }
 ];
 
@@ -517,17 +509,18 @@ if (hoverAlpha > 1) {
 
   p.curveTightness(-0.2);
   p.beginShape();
-  p.fill(186, 186, 186, hoverAlpha)
-  p.noStroke()
+  p.fill(231, 225, 209, hoverAlpha2)
+  p.stroke("#313131")
+  p.strokeWeight(1)
   
   
   let firstX = p.map(colonne[0][0], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-  let firstY = p.map(colonne[1][0], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+  let firstY = p.map(colonne[1][0], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
   p.curveVertex(firstX, firstY); 
   
   for (let i = 0; i < colonne[0].length; i+= 40) {
     let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
 
     p.curveVertex(x, y); 
   }
@@ -535,7 +528,7 @@ if (hoverAlpha > 1) {
   
   let lastIndex = colonne[0].length - 1;
   let lastX = p.map(colonne[0][lastIndex], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-  let lastY = p.map(colonne[1][lastIndex], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+  let lastY = p.map(colonne[1][lastIndex], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
   p.curveVertex(lastX, lastY); // Punto di controllo finale
 
   
@@ -559,7 +552,7 @@ if (hoverAlpha > 1) {
   
   for (let i = 0; i < colonne[0].length; i+= 40) {
     let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.96, graphHeight * 0.05);
 
     p.curveVertex(x, y); 
 
@@ -575,8 +568,8 @@ if (hoverAlpha > 1) {
   p.endClip()
 
   let progressWidth = p.map(forceSlider.value(), 0, 100, 0, sliderW);
-  p.fill(49,49,49, hoverAlpha)
-  p.rect(sliderX, sliderY - 58, progressWidth, 50)
+  p.fill(49,49,49, hoverAlpha2)
+  p.rect(sliderX, sliderY - 58, progressWidth, 60)
   
   p.pop()
 
@@ -585,41 +578,49 @@ if (hoverAlpha > 1) {
   p.push()
   // evidenziazione linea del grafico
   p.push()
-  /*p.fill(49,49,49, hoverAlpha)
-  p.noStroke()*/
   p.beginClip()
-  p.rect(sliderX + sliderW * 0.1153, sliderY - 58, sliderW*0.175, 50, 3)
-  p.rect(sliderX + sliderW * 0.5486, sliderY - 30, sliderW*0.1213, 50, 3)
+  p.rect(sliderX + sliderW * 0.1846, sliderY - 58, sliderW*0.100, 50)
+  p.rect(sliderX + sliderW * 0.5486, sliderY - 30, sliderW*0.1213, 50)
+  p.rect(sliderX + sliderW * 0.7739, sliderY- 58, sliderW*0.0589, 50)
+  p.rect(sliderX +sliderW*0.8865, sliderY-58, sliderW*0.0520 + 10, 60)
   p.endClip()
 
   p.translate(sliderX, sliderY - 30 + hoverOffset - graphHeight / 2); 
   p.beginShape();
-  p.stroke(255, 255, 255, hoverAlpha2)
-  p.strokeWeight(3)
+  p.stroke(49, 49, 49, hoverAlpha2)
+  p.strokeWeight(4)
   p.noFill()
   
   p.curveVertex(firstX, firstY); 
   
   for (let i = 0; i < colonne[0].length; i+= 40) {
     let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight *0.96, graphHeight * 0.05);
 
     p.curveVertex(x, y); 
   }
 
   p.curveVertex(lastX, lastY); 
+  
 
   p.endShape(); 
   p.pop()
   p.pop()
   p.push()
-  p.fill(255, 255, 255, hoverAlpha2)
+  p.fill(49, 49, 49, hoverAlpha2)
   //primo picco
-  p.circle(sliderX + sliderW*0.1153, sliderY - 10 + hoverOffset, 10 )
-  p.circle(sliderX + sliderW*0.2886, sliderY - 20 + hoverOffset, 10 )
+  p.circle(sliderX + sliderW*0.1846, sliderY - 15 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.2886, sliderY - 20 + hoverOffset, 12 )
   //secondo picco
-  p.circle(sliderX + sliderW*0.5486, sliderY - 27 + hoverOffset, 10 )
-  p.circle(sliderX + sliderW*0.6699, sliderY - 22 + hoverOffset, 10 )
+  p.circle(sliderX + sliderW*0.5486, sliderY - 27 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.6699, sliderY - 22 + hoverOffset, 12 )
+  //terzo picco
+  p.circle(sliderX + sliderW*0.7739, sliderY - 33 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.8328, sliderY - 50 + hoverOffset, 12 )
+
+  //quarto picco
+  p.circle(sliderX + sliderW*0.8865, sliderY - 45 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.9404, sliderY - 10 + hoverOffset, 12 )
   p.pop()
 
 }
@@ -655,7 +656,7 @@ for (let pg of paragraphs) {
   let targetAlpha = inRange ? 255 : 0;
   let targetOffset = inRange ? 0 : 30;
 
-  pg.alpha   = p.lerp(pg.alpha, targetAlpha, 0.08);
+  pg.alpha = p.lerp(pg.alpha, targetAlpha, 0.08);
   pg.yOffset = p.lerp(pg.yOffset, targetOffset, 0.08);
 
   
@@ -664,6 +665,13 @@ for (let pg of paragraphs) {
 
   pg.titleAlpha  = p.lerp(pg.titleAlpha, titleTarget, 0.1);
   pg.titleOffset = p.lerp(pg.titleOffset, titleOffsetTarget, 0.1);
+
+  let datesTarget = inRange ? 255: 0;
+  let datesOffsetTarget = inRange ? 0: 50;
+
+  pg.datesAlpha = p.lerp(pg.datesAlpha, datesTarget, 0.12)
+  pg.datesOffset = p.lerp(pg.datesOffset, datesOffsetTarget, 0.12)
+
 }
 
 p.push()
@@ -675,10 +683,24 @@ p.strokeWeight(1)
 //paragrafi
 
 let baseX = p.width * 0.10;
-let baseY = p.height * 0.2;
+let baseY = p.height * 0.18;
 let boxW  = 350;
 
 for (let pg of paragraphs) {
+
+  //DATE
+  if(pg.datesAlpha > 1){
+    p.push()
+    p.noStroke();
+    p.fill(49,49,49, pg.datesAlpha);
+    p.textFont("montserrat");
+    p.textSize(14);
+    p.textStyle(p.BOLD);
+    p.textAlign(p.LEFT, p.TOP);
+
+    p.text(pg.dates, baseX,(baseY + pg.datesOffset) - 30, boxW)
+    p.pop()
+  }
 
   // TITOLO
   if (pg.titleAlpha > 1) {
@@ -686,16 +708,11 @@ for (let pg of paragraphs) {
     p.noStroke();
     p.fill(49, 49, 49, pg.titleAlpha);
     p.textFont("benton-modern-display");
-    p.textSize(22);
+    p.textSize(26);
     p.textStyle(p.BOLD);
     p.textAlign(p.LEFT, p.TOP);
 
-    p.text(
-      pg.title,
-      baseX,
-      (baseY + pg.titleOffset) - 30 ,
-      boxW
-    );
+    p.text(pg.title,baseX,(baseY+ 20+ pg.titleOffset) - 30 ,boxW);
     p.pop();
   }
 
@@ -710,17 +727,12 @@ for (let pg of paragraphs) {
     p.textAlign(p.LEFT, p.TOP);
 
     p.text(
-      pg.text,
-      baseX,
-      baseY + 28 + pg.yOffset,
-      boxW,
-      190
-    );
+      pg.text, baseX, baseY + 28 + pg.yOffset, boxW, 190);
 
   p.push()
   p.noStroke()
   p.fill(49, 49, 49, pg.alpha);
-      p.rect(baseX - 10, baseY + 28 + pg.yOffset, 1, 170)
+      p.rect(baseX - 10, baseY + 28 + pg.yOffset, 1, 150)
   p.pop()
     p.pop();
   }
