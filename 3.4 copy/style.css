@@ -1303,7 +1303,7 @@ fine-grained positioning not needed: labels follow their spheres
             justify-content: center;
             align-items: center;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Ombra leggera */
+            /*box-shadow: 0 4px 10px rgba(0,0,0,0.1);  Ombra leggera */
             transition: all 0.3s ease; /* Animazione fluida */
             cursor: pointer;
         }
@@ -1312,7 +1312,7 @@ fine-grained positioning not needed: labels follow their spheres
         .bubble:hover {
             transform: scale(1.5); /* Ingrandisce */
             z-index: 10; /* Porta in primo piano */
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            /*box-shadow: 0 8px 20px rgba(0,0,0,0.2);*/
         }
 
 /* Testo dentro le bolle */
@@ -1367,7 +1367,7 @@ fine-grained positioning not needed: labels follow their spheres
     opacity: 1 !important; 
     transform: scale(1.5);
     z-index: 10;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    /*box-shadow: 0 8px 20px rgba(0,0,0,0.2);*/
     border-radius: 50%;
 }
 .dotted-ring {
@@ -1378,66 +1378,79 @@ fine-grained positioning not needed: labels follow their spheres
 
         /* 1. Bolla Gialla */
         .b-yellow {
-            width: 10.625rem;
-            height: 10.625rem;
-            background-color: #E3BC47;
-            top: 20%;
-            left: 10%;
+            width: 170px;
+            height: 170px;
+            background-color: #C49A00;
+            /*top: 20%;
+            left: 10%;*/
+            top: 65%;
+            left: 40%;
         }
 
         /* 2. Bolla Verde chiaro (in alto) */
         .b-green-light {
-            width: 10.625rem;
-            height: 10.625rem;
+            width: 170px;
+            height: 170px;
             background-color: #99AB59;
-            top: 10%;
+            /*top: 10%;
+            left: 40%;*/
+            top: 37%;
             left: 40%;
         }
 
         /* 3. Bolla Rosa (destra) */
         .b-pink {
-            width: 10.625rem;
-            height: 10.625rem;
+            width: 170px;
+            height: 170px;
             background-color: #CA5D84;
-            top: 20%;
-            left: 70%;
+            /*top: 20%;
+            left: 70%;*/
+            top: 10%;
+            left: 40%;
         }
 
         /* 4. Bolla Verde acqua (centro) */
         .b-teal {
-            width: 10.625rem;
-            height: 10.625rem;
+            width: 170px;
+            height: 170px;
             background-color: #8799BD;
-            top: 37%;
-            left: 40%;
+            /*top: 37%;
+            left: 40%;*/
+            top: 20%;
+            left: 10%;
         }
 
         /* 5. Bolla viola (basso destra) */
         .b-terra {
-            width: 10.625rem;
-            height: 10.625rem;
-            background-color: #7b769f;
+            width: 170px;
+            height: 170px;
+            background-color: #4D4871;
             top: 50%;
             left: 70%;
         }
 
         /* 6. Bolla AZZURRA (basso centro) */
         .b-purple {
-            width: 10.625rem;
-            height: 10.625rem;
-            background-color: #7EC1AF;
-            top: 65%;
-            left: 40%;
+            width: 170px;
+            height: 170px;
+            background-color: #81201A;
+            /*top: 65%;
+            left: 40%;*/
+            top: 50%;
+            left: 10%;
         }
 
         /* 7. Bolla Rosa pesca (basso sinistra) */
         .b-peach {
-            width: 10.625rem;
-            height: 10.625rem;
+            width: 170px;
+            height: 170px;
             background-color: #D97963;
-            top: 50%;
-            left: 10%;
+            /*top: 50%;
+            left: 10%;*/
+            top: 20%;
+            left: 70%;
         }
+
 
 
 
