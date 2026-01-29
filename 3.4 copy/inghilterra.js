@@ -246,6 +246,7 @@ function createToggleSlider() {
 
   toggleSlider = createDiv('');
   toggleSlider.id('view-toggle');
+  toggleSlider.parent('canvas-container');
   toggleSlider.style('position', 'absolute');
   toggleSlider.style('height', '30px');
   toggleSlider.style('border-radius', '0px');
@@ -540,9 +541,9 @@ function drawScrollbar(){
   
   // Posizione e dimensioni della scrollbar
   scrollbarX = chartX + chartWidth + 15;
-  scrollbarY = chartY + (scrollHeight - scrollHeight * 0.8) / 2;
+  scrollbarY = chartY;
   scrollbarWidth = 8;
-  scrollbarHeight = scrollHeight * 0.8;
+  scrollbarHeight = scrollHeight;
   
   // Calcola l'altezza del thumb in proporzione
   scrollThumbHeight = (scrollbarHeight / totalHeight) * scrollbarHeight;
@@ -552,18 +553,18 @@ function drawScrollbar(){
   let scrollRatio = maxScroll > 0 ? (-yOffset) / maxScroll : 0;
   scrollThumbY = scrollbarY + (scrollbarHeight - scrollThumbHeight) * scrollRatio;
   
-  // Disegna background della scrollbar
+  // Disegna background della scrollbar (più grande)
   push();
-  stroke(200);
+  stroke(49, 49, 49); // #313131 - stesso colore del thumb
   strokeWeight(1);
-  fill(245);
-  rect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight, 2);
+  fill(255, 0); // Trasparente
+  rect(scrollbarX - 3, scrollbarY - 3, scrollbarWidth + 6, scrollbarHeight + 6);
   
-  // Disegna il thumb della scrollbar con stile simile al toggle
+  // Disegna il thumb della scrollbar con stile spigoloso e trasparente
   stroke(49, 49, 49); // #313131
   strokeWeight(1);
-  fill(49, 49, 49); // #313131
-  rect(scrollbarX + 1, scrollThumbY, scrollbarWidth - 2, scrollThumbHeight, 2);
+  fill(49, 49, 49); 
+  rect(scrollbarX + 1, scrollThumbY, scrollbarWidth - 2, scrollThumbHeight);
   
   pop();
 }
@@ -586,11 +587,11 @@ function drawSideInfo(){
   // Titolo colonizzatore
   let titleY = blockOffsetY;
   fill(currentColor);
-  textFont("Montserrat");
-  textSize(32);
-  textStyle(BOLD);
+  textFont("benton-modern-display");
+  textSize(45);
+  textStyle(NORMAL);
   textAlign(LEFT, TOP);
-  text(colonizerTitle, sideX + blockOffsetX, titleY);
+  text(colonizerTitle, sideX + blockOffsetX, titleY -13);
 
   // Paragrafo
   let descY = titleY + 50;
@@ -621,9 +622,14 @@ function drawSideInfo(){
     sourceLinkElement.position(sideX + blockOffsetX, descY + totalTextHeight + 5);
   }
 
-  // Posiziona toggle sotto il paragrafo con spazio
+  // Posiziona toggle allineato al margine inferiore del grafico
   if(toggleSlider) {
-    let toggleY = descY + lineLength + 20;
+    let toggleHeight = 30;
+    if (toggleSlider.elt) {
+      let rect = toggleSlider.elt.getBoundingClientRect();
+      toggleHeight = rect.height || toggleSlider.elt.offsetHeight || 30;
+    }
+    let toggleY = chartY + scrollHeight - toggleHeight;
     toggleSlider.position(sideX + blockOffsetX, toggleY);
   }
   
@@ -633,58 +639,97 @@ function drawSideInfo(){
 // =========================================================
 // COLONY INFO
 // =========================================================
-function drawColonyInfo(){
-  if(!clickedCountry && !selectedCountry) return;
-  
+// =========================================================
+// COLONY INFO (SPAZIATURA OTTIMIZZATA)
+// =========================================================
+function drawColonyInfo() {
+  if (!clickedCountry && !selectedCountry) return;
+
   let currentCountry = clickedCountry || selectedCountry;
   let index = colCountries.indexOf(currentCountry);
-  if(index === -1) return;
+  if (index === -1) return;
 
   let start = colStartYear[index],
       end = colEndYear[index],
       duration = colDuration[index];
 
   let infoX = 80, infoY = topOffset + 20;
-  
+
   push();
-  fill(currentColor);
   textFont("Montserrat");
-  textSize(26);
+
+  // === Titolo del Paese ===
+  fill(currentColor);
+  textSize(28);
   textStyle(BOLD);
   textAlign(LEFT, TOP);
   text(currentCountry, infoX, infoY);
 
-  fill(40);
-  textFont("Montserrat");
-  textSize(16);
-  textStyle(NORMAL);
-  let lineSpacing = 25, startY = infoY + 50;
-  text(`• Beginning of colonization: ${int(start)}`, infoX, startY);
-  text(`• End of colonization: ${int(end)}`, infoX, startY + lineSpacing);
-  text(`• Colonization duration: ${nf(duration, 0, 1)} years`, infoX, startY + lineSpacing * 2);
+  // === BLOCCO INFORMAZIONI TEMPORALI ===
+  let blockY = infoY + 65;
+  let leftBlockX = infoX;
+  let rightBlockX = infoX + 220;
 
-  // Pulsante Wikipedia
+  // --- "duration" label ---
+  fill("#313131");
+  textSize(14);
+  textStyle(NORMAL);
+  text("duration", leftBlockX, blockY-15);
+
+  // --- Valore durata (spazio ridotto) ---
+  textSize(36);
+  textStyle(NORMAL);
+  fill(currentColor);
+  text(`${int(duration)} yr.`, leftBlockX, blockY + 3);
+
+  // --- Linea verticale di separazione ---
+  stroke("#313131");
+  strokeWeight(1);
+  line(rightBlockX - 75, blockY - 5, rightBlockX - 75, blockY + 50);
   noStroke();
+
+  // --- Beginning / End ---
+  fill("#313131");
+  textSize(14);
+  textStyle(NORMAL);
+  text(`start of colonization:`, rightBlockX - 35, blockY);
+  text(`end of colonization:`, rightBlockX - 35, blockY + 25);
+
+  // --- Anni evidenziati ---
+  textStyle(BOLD);
+  fill("#313131");
+  text(`${int(start)}`, rightBlockX + 130, blockY);
+  text(`${int(end)}`, rightBlockX + 130, blockY + 25);
+
+  // === BOTTONE WIKIPEDIA (ORIGINALE, NON MODIFICATO) ===
+  let lineSpacing = 25;
+  let startY = infoY + 45;
   let buttonY = startY + lineSpacing * 3.5;
-  
-  // Cambia colore se il mouse è sopra
-  if(mouseX >= infoX && mouseX <= infoX + 250 && 
-     mouseY >= buttonY && mouseY <= buttonY + 30) {
+
+  noStroke();
+  if (
+    mouseX >= infoX &&
+    mouseX <= infoX + 250 &&
+    mouseY >= buttonY &&
+    mouseY <= buttonY + 30
+  ) {
     fill(currentColor[0] * 0.8, currentColor[1] * 0.8, currentColor[2] * 0.8);
     cursor(HAND);
   } else {
     fill(currentColor);
     cursor(ARROW);
   }
-  
-  rect(infoX, buttonY, 250, 30, 5);
+
+  rect(infoX, buttonY, 250, 30);
   fill(255);
   textSize(12);
   textAlign(CENTER, CENTER);
+  textStyle(NORMAL);
   text("MORE INFORMATION ON WIKIPEDIA", infoX + 125, buttonY + 15);
-  
+
   pop();
 }
+
 
 // =========================================================
 // MOUSE PRESSED
