@@ -113,15 +113,30 @@
       <p class="text3"> while the smaller spheres represent the <span id="conclusionItalic">colonized countries</span>, <br>whose size is linked to the <span id="conclusionItalic">duration of their colonization</span>.
 </p>
    
-<a href="#Slide4" class="SlideBtn sl4" id="s4">
+<a href="#Slide3b" class="SlideBtn sl4" id="s4">
         <span class="btn-label">NEXT</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
       </a>
    
    
     </div>
 
+    <div class="explanation5" id="Slide3b">
+      <a href="#Slide3" class="UpperSlide sl6" id="u3b">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg><span class="btn-label">BACK</span>
+      </a>
+      
+      <video id="demo-video" class="demo-video" autoplay muted playsinline loop>
+        <source src="assets/animazione-veramente-finale.mov" type="video/quicktime">
+        Your browser does not support the video tag.
+      </video>
+      
+      <a href="#Slide4" class="SlideBtn sl6" id="s4b">
+        <span class="btn-label">NEXT</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
+      </a>
+    </div>
+
 <div class="explanation4" id="Slide4">
-  <a href="#Slide3" class="UpperSlide sl5" id="u4">
+  <a href="#Slide3b" class="UpperSlide sl5" id="u4">
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
     <span class="btn-label">BACK</span>
   </a>
@@ -290,7 +305,7 @@
     document.addEventListener('keydown', (e) => {
       
       // I nomi esatti degli ID delle sezioni (prese dall HTML)
-      const slideIds = ['title_page', 'Slide1', 'Slide2', 'Slide3','Slide4' ];
+      const slideIds = ['title_page', 'Slide1', 'Slide2', 'Slide3', 'Slide3b', 'Slide4' ];
       let activeSlide = null;
 
       // Cerca quale slide è al centro dello schermo
@@ -325,7 +340,50 @@
           prevBtn.click();    // Clicca il bottone
         }
       }
-    });
+      });
+  });
+</script>
+
+<script>
+  /* Autoplay video quando la slide 3b diventa visibile */
+  document.addEventListener("DOMContentLoaded", () => {
+    const slide3b = document.getElementById('Slide3b');
+    const demoVideo = document.getElementById('demo-video');
+    
+    if (slide3b && demoVideo) {
+      // Imposta gli attributi necessari per l'autoplay
+      demoVideo.muted = true;
+      demoVideo.loop = false;
+      
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Quando la slide diventa visibile, riproduci il video
+            demoVideo.currentTime = 0; // Ricomincia dal primo frame
+            const playPromise = demoVideo.play();
+            
+            if (playPromise !== undefined) {
+              playPromise
+                .then(() => {
+                  console.log('Video autoplay started successfully');
+                })
+                .catch(error => {
+                  console.log('Autoplay prevented:', error);
+                  // Fallback: mostra un bottone play
+                  demoVideo.controls = true;
+                });
+            }
+          } else {
+            // Quando la slide non è visibile, metti in pausa il video
+            demoVideo.pause();
+          }
+        });
+      }, {
+        threshold: 0.5
+      });
+      
+      videoObserver.observe(slide3b);
+    }
   });
 </script>
 
@@ -335,9 +393,7 @@
         const page = document.body.dataset.page;
 
         // Rimuove eventuali active
-        document.querySelectorAll(".navbar a").forEach(a => a.classList.remove("active"));
-
-        if (page === "home") {
+        document.querySelectorAll(".navbar a").forEach(a => a.classList.remove("active"));        if (page === "home") {
           document.getElementById("nav-home").classList.add("active");
         }
 
