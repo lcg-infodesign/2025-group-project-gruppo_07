@@ -586,11 +586,11 @@ function drawSideInfo(){
   // Titolo colonizzatore
   let titleY = blockOffsetY;
   fill(currentColor);
-  textFont("Montserrat");
-  textSize(32);
-  textStyle(BOLD);
+  textFont("benton-modern-display");
+  textSize(45);
+  textStyle(NORMAL);
   textAlign(LEFT, TOP);
-  text(colonizerTitle, sideX + blockOffsetX, titleY);
+  text(colonizerTitle, sideX + blockOffsetX, titleY -13);
 
   // Paragrafo
   let descY = titleY + 50;
@@ -633,58 +633,97 @@ function drawSideInfo(){
 // =========================================================
 // COLONY INFO
 // =========================================================
-function drawColonyInfo(){
-  if(!clickedCountry && !selectedCountry) return;
-  
+// =========================================================
+// COLONY INFO (SPAZIATURA OTTIMIZZATA)
+// =========================================================
+function drawColonyInfo() {
+  if (!clickedCountry && !selectedCountry) return;
+
   let currentCountry = clickedCountry || selectedCountry;
   let index = colCountries.indexOf(currentCountry);
-  if(index === -1) return;
+  if (index === -1) return;
 
   let start = colStartYear[index],
       end = colEndYear[index],
       duration = colDuration[index];
 
   let infoX = 80, infoY = topOffset + 20;
-  
+
   push();
-  fill(currentColor);
   textFont("Montserrat");
-  textSize(26);
+
+  // === Titolo del Paese ===
+  fill(currentColor);
+  textSize(28);
   textStyle(BOLD);
   textAlign(LEFT, TOP);
   text(currentCountry, infoX, infoY);
 
-  fill(40);
-  textFont("Montserrat");
-  textSize(16);
-  textStyle(NORMAL);
-  let lineSpacing = 25, startY = infoY + 50;
-  text(`• Beginning of colonization: ${int(start)}`, infoX, startY);
-  text(`• End of colonization: ${int(end)}`, infoX, startY + lineSpacing);
-  text(`• Colonization duration: ${nf(duration, 0, 1)} years`, infoX, startY + lineSpacing * 2);
+  // === BLOCCO INFORMAZIONI TEMPORALI ===
+  let blockY = infoY + 65;
+  let leftBlockX = infoX;
+  let rightBlockX = infoX + 220;
 
-  // Pulsante Wikipedia
+  // --- "duration" label ---
+  fill("#313131");
+  textSize(14);
+  textStyle(NORMAL);
+  text("duration", leftBlockX, blockY-15);
+
+  // --- Valore durata (spazio ridotto) ---
+  textSize(36);
+  textStyle(NORMAL);
+  fill(currentColor);
+  text(`${int(duration)} yr.`, leftBlockX, blockY + 3);
+
+  // --- Linea verticale di separazione ---
+  stroke("#313131");
+  strokeWeight(1);
+  line(rightBlockX - 75, blockY - 5, rightBlockX - 75, blockY + 50);
   noStroke();
+
+  // --- Beginning / End ---
+  fill("#313131");
+  textSize(14);
+  textStyle(NORMAL);
+  text(`start of colonization:`, rightBlockX - 35, blockY);
+  text(`end of colonization:`, rightBlockX - 35, blockY + 25);
+
+  // --- Anni evidenziati ---
+  textStyle(BOLD);
+  fill("#313131");
+  text(`${int(start)}`, rightBlockX + 130, blockY);
+  text(`${int(end)}`, rightBlockX + 130, blockY + 25);
+
+  // === BOTTONE WIKIPEDIA (ORIGINALE, NON MODIFICATO) ===
+  let lineSpacing = 25;
+  let startY = infoY + 45;
   let buttonY = startY + lineSpacing * 3.5;
-  
-  // Cambia colore se il mouse è sopra
-  if(mouseX >= infoX && mouseX <= infoX + 250 && 
-     mouseY >= buttonY && mouseY <= buttonY + 30) {
+
+  noStroke();
+  if (
+    mouseX >= infoX &&
+    mouseX <= infoX + 250 &&
+    mouseY >= buttonY &&
+    mouseY <= buttonY + 30
+  ) {
     fill(currentColor[0] * 0.8, currentColor[1] * 0.8, currentColor[2] * 0.8);
     cursor(HAND);
   } else {
     fill(currentColor);
     cursor(ARROW);
   }
-  
-  rect(infoX, buttonY, 250, 30, 5);
+
+  rect(infoX, buttonY, 250, 30);
   fill(255);
   textSize(12);
   textAlign(CENTER, CENTER);
+  textStyle(NORMAL);
   text("MORE INFORMATION ON WIKIPEDIA", infoX + 125, buttonY + 15);
-  
+
   pop();
 }
+
 
 // =========================================================
 // MOUSE PRESSED
