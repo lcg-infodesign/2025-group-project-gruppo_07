@@ -161,9 +161,9 @@ let sketch1 = function(p){
 
   let paragraphs = [
   {
-    start: 1500,
+    start: 1540,
     end: 1600,
-    title: "1500–1600: The Dawn of European Expansion",
+    title: "1540–1600: The Dawn of European Expansion",
     text: "During the sixteenth century, European powers began to extend their reach across the globe. Spain and Portugal led this early phase of colonization after the voyages of Columbus (1492) and Vasco da Gama (1498). Their maritime empires established control over the Americas, coastal Africa, and parts of Asia, creating the first global trading networks. Although colonization was significant, most of the world—particularly in Asia and Africa—remained independent.",
     alpha: 0,
     yOffset: 20,
@@ -519,17 +519,18 @@ if (hoverAlpha > 1) {
 
   p.curveTightness(-0.2);
   p.beginShape();
-  p.fill(186, 186, 186, hoverAlpha)
-  p.noStroke()
+  p.fill(231, 225, 209, hoverAlpha2)
+  p.stroke("#313131")
+  p.strokeWeight(1)
   
   
   let firstX = p.map(colonne[0][0], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-  let firstY = p.map(colonne[1][0], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+  let firstY = p.map(colonne[1][0], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
   p.curveVertex(firstX, firstY); 
   
   for (let i = 0; i < colonne[0].length; i+= 40) {
     let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
 
     p.curveVertex(x, y); 
   }
@@ -537,7 +538,7 @@ if (hoverAlpha > 1) {
   
   let lastIndex = colonne[0].length - 1;
   let lastX = p.map(colonne[0][lastIndex], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-  let lastY = p.map(colonne[1][lastIndex], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+  let lastY = p.map(colonne[1][lastIndex], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight, graphHeight * 0.05);
   p.curveVertex(lastX, lastY); // Punto di controllo finale
 
   
@@ -561,7 +562,7 @@ if (hoverAlpha > 1) {
   
   for (let i = 0; i < colonne[0].length; i+= 40) {
     let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.96, graphHeight * 0.05);
 
     p.curveVertex(x, y); 
 
@@ -577,8 +578,8 @@ if (hoverAlpha > 1) {
   p.endClip()
 
   let progressWidth = p.map(forceSlider.value(), 0, 100, 0, sliderW);
-  p.fill(49,49,49, hoverAlpha)
-  p.rect(sliderX, sliderY - 58, progressWidth, 50)
+  p.fill(49,49,49, hoverAlpha2)
+  p.rect(sliderX, sliderY - 58, progressWidth, 60)
   
   p.pop()
 
@@ -590,21 +591,21 @@ if (hoverAlpha > 1) {
   /*p.fill(49,49,49, hoverAlpha)
   p.noStroke()*/
   p.beginClip()
-  p.rect(sliderX + sliderW * 0.1153, sliderY - 58, sliderW*0.175, 50, 3)
+  p.rect(sliderX + sliderW * 0.1846, sliderY - 58, sliderW*0.100, 50, 3)
   p.rect(sliderX + sliderW * 0.5486, sliderY - 30, sliderW*0.1213, 50, 3)
   p.endClip()
 
   p.translate(sliderX, sliderY - 30 + hoverOffset - graphHeight / 2); 
   p.beginShape();
-  p.stroke(255, 255, 255, hoverAlpha2)
-  p.strokeWeight(3)
+  p.stroke(49, 49, 49, hoverAlpha2)
+  p.strokeWeight(4)
   p.noFill()
   
   p.curveVertex(firstX, firstY); 
   
   for (let i = 0; i < colonne[0].length; i+= 40) {
     let x = p.map(colonne[0][i], p.min(...colonne[0]), p.max(...colonne[0]), sliderW * 0.05, sliderW * 0.95);
-    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight*0.95, graphHeight * 0.05);
+    let y = p.map(colonne[1][i], p.min(...colonne[1]), p.max(...colonne[1]), graphHeight *0.96, graphHeight * 0.05);
 
     p.curveVertex(x, y); 
   }
@@ -615,13 +616,13 @@ if (hoverAlpha > 1) {
   p.pop()
   p.pop()
   p.push()
-  p.fill(255, 255, 255, hoverAlpha2)
+  p.fill(49, 49, 49, hoverAlpha2)
   //primo picco
-  p.circle(sliderX + sliderW*0.1153, sliderY - 10 + hoverOffset, 10 )
-  p.circle(sliderX + sliderW*0.2886, sliderY - 20 + hoverOffset, 10 )
+  p.circle(sliderX + sliderW*0.1846, sliderY - 15 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.2886, sliderY - 20 + hoverOffset, 12 )
   //secondo picco
-  p.circle(sliderX + sliderW*0.5486, sliderY - 27 + hoverOffset, 10 )
-  p.circle(sliderX + sliderW*0.6699, sliderY - 22 + hoverOffset, 10 )
+  p.circle(sliderX + sliderW*0.5486, sliderY - 27 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.6699, sliderY - 22 + hoverOffset, 12 )
   p.pop()
 
 }
