@@ -36,7 +36,7 @@ h1{
 }
 .navbar {
     display: inline-block;
-    padding: 8px 15px;
+  padding: 0.5rem 0.9375rem;
     /*border-radius: 50px;*/
     background-color: #E7E1D1;
     opacity: 0;
@@ -56,7 +56,7 @@ h1{
 }
 
 .navbar li {
-    border-right: 1px solid #313131;
+  border-right: 0.0625rem solid #313131;
     padding: 0 3vw;
 }
 
@@ -72,10 +72,10 @@ h1{
     position: relative;
     text-decoration: none; 
     color: #313131; 
-    font-size: 14px;
+  font-size: 0.875rem;
     padding: 0.2em 3em 1.5em 3em; 
     transition: 0.5s ease;
-    border-radius: 5px; 
+  border-radius: 0.3125rem; 
     user-select: none;
     display: inline-block; 
 }
@@ -84,9 +84,9 @@ h1{
     content: '';
     position: absolute;
     width: 0; 
-    height: 1px; 
+  height: 0.0625rem; 
     left: 0;
-    bottom: 5px; 
+  bottom: 0.3125rem; 
     background-color: #313131; 
     transition: width 0.3s ease-out; 
 }
@@ -107,8 +107,8 @@ h1{
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 5px; 
-    height: 1px;
+  bottom: 0.3125rem; 
+  height: 0.0625rem;
     background-color: #313131;
     width: 100%; 
 }
@@ -129,17 +129,17 @@ ul li ul.dropdown-menu li{
 ul li ul.dropdown-menu li a {
     display: inline-block; 
     text-decoration: none; 
-    padding: 10px;       
+  padding: 0.625rem;       
     text-align: center;    
     color: #313131;
     padding-bottom: 1em;
-    border-bottom: solid 1px #313131;
+  border-bottom: solid 0.0625rem #313131;
     transition: 0.2s ease;
 }
 
 ul li ul.dropdown-menu li a:hover {
     display: inline-block; 
-    padding:10px 2em 10px 2em;       
+  padding: 0.625rem 2em 0.625rem 2em;       
     text-align: center;    
     color: #313131;
     padding-bottom: 1em;
@@ -162,15 +162,15 @@ ul li ul.dropdown-menu li a:hover {
 
 ul li ul.dropdown-menu{
   width: 73%;
-  border-right: solid 0.2px  #313131;
-  border-left: solid 0.2px  #313131;
-  border-bottom: solid 0.2px  #313131;
+  border-right: solid 0.0125rem  #313131;
+  border-left: solid 0.0125rem  #313131;
+  border-bottom: solid 0.0125rem  #313131;
   background-color: #E7E1D1;
   position: absolute;
   z-index: 200;
   display: none;
   color: #000000;
-  padding-top: 10px;
+  padding-top: 0.625rem;
   transition: 0.3s ease;
   
 }
@@ -227,7 +227,7 @@ ul li ul.dropdown-menu{
   flex-direction: column; /* Testo sopra, freccia sotto */
   align-items: center;    /* Centra orizzontalmente */
   justify-content: center;
-  gap: 5px;               /* Spazio tra testo e freccia */
+  gap: 0.3125rem;         /* Spazio tra testo e freccia */
   
   width: auto;            /* dimensione contenitore */
   height: auto;
@@ -278,7 +278,7 @@ ul li ul.dropdown-menu{
   flex-direction: column; /* Metto gli elementi in colonna */
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 0.3125rem;
   
   /* Rimuovo width/height 0 */
   width: auto;
@@ -405,8 +405,8 @@ ul li ul.dropdown-menu{
   position: absolute;
   bottom: 10%;
   right: 12%;
-  border: solid 0.5px #313131;
-  border-radius: 2px;
+  border: solid 0.03125rem #313131;
+  border-radius: 0.125rem;
   background-color: #E7E1D1;
   padding: 1vh;
   text-decoration: none;
@@ -502,7 +502,7 @@ ul li ul.dropdown-menu{
   width: 2vh;
   height: 2vh;
   border-radius: 50%;
-  border: solid 4px #81201A;
+  border: solid 0.25rem #81201A;
   left: 48%;
   transform: translateY(46vh) scale(0);
   transition: transform 0.5s ease-out 1s;
@@ -877,7 +877,7 @@ ul li ul.dropdown-menu{
   bottom: 3.4%;
   left: 35%;
   cursor: pointer;
-  border: solid 0.2px #313131;
+  border: solid 0.0125rem #313131;
   padding: 0.2vh 1vh 0.2vh 1vh;
   transition: 0.2s ease;
   z-index: 20;
@@ -942,7 +942,7 @@ ul li ul.dropdown-menu{
   bottom: 3.4%;
   left: 38%;
   cursor: pointer;
-  border: solid 0.2px #313131;
+  border: solid 0.0125rem #313131;
   padding: 0.6vh 1.5vh 0.6vh 1.5vh;
   transition: 0.2s ease;
   z-index: 20;
@@ -966,35 +966,35 @@ input[type="range"] {
   -webkit-appearance: none;
   appearance: none; 
   width: 65%; 
-  height: 20px; 
+  height: 1.25rem; 
   background: transparent; 
-  margin: 10px 0; 
+  margin: 0.625rem 0; 
  
   &::-webkit-slider-runnable-track {
   width: 100%;
-  height: 30px; 
+  height: 1.875rem; 
   cursor: pointer;
   background: transparent; 
-  border: 1px solid #313131; 
+  border: 0.0625rem solid #313131; 
   box-shadow: none; 
   position: relative;
 }
 &::-moz-range-track {
   width: 100%;
-  height: 30px; 
+  height: 1.875rem; 
   cursor: pointer;
   background: transparent; 
-  border: 1px solid #313131; 
+  border: 0.0625rem solid #313131; 
   box-shadow: none; 
   position: relative;
 }
 &::-webkit-slider-thumb {
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
   border-radius: 50%;
   background-color: #313131; 
-  border: solid 2px #E7E1D1; 
+  border: solid 0.125rem #E7E1D1; 
   box-shadow: 0 0 0 1px #313131; 
   cursor: pointer;
   scale: 2 2;
@@ -1006,11 +1006,11 @@ input[type="range"] {
 }
 &::-moz-range-thumb {
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
   border-radius: 50%;
   background-color: #313131; 
-  border: solid 2px #E7E1D1; 
+  border: solid 0.125rem #E7E1D1; 
   box-shadow: 0 0 0 1px #313131; 
   cursor: pointer;
   scale: 2 2;
@@ -1079,14 +1079,14 @@ h1.legenda{
 }
 
 
-#legenda ul li:nth-child(1) .legendSphere { border: solid 2px #81201A; }
-#legenda ul li:nth-child(2) .legendSphere { border: solid 2px #4D4871; }
-#legenda ul li:nth-child(3) .legendSphere { border: solid 2px #E3BC47; }
-#legenda ul li:nth-child(4) .legendSphere { border: solid 2px #99AB59; }
-#legenda ul li:nth-child(5) .legendSphere { border: solid 2px #8799BD; }
-#legenda ul li:nth-child(6) .legendSphere { border: solid 2px #CA5D84; }
-#legenda ul li:nth-child(7) .legendSphere { border: solid 2px #D97963; }
-#legenda ul li:nth-child(8) .legendSphere { border: solid 2px #7EC1AF; }
+#legenda ul li:nth-child(1) .legendSphere { border: solid 0.125rem #81201A; }
+#legenda ul li:nth-child(2) .legendSphere { border: solid 0.125rem #4D4871; }
+#legenda ul li:nth-child(3) .legendSphere { border: solid 0.125rem #E3BC47; }
+#legenda ul li:nth-child(4) .legendSphere { border: solid 0.125rem #99AB59; }
+#legenda ul li:nth-child(5) .legendSphere { border: solid 0.125rem #8799BD; }
+#legenda ul li:nth-child(6) .legendSphere { border: solid 0.125rem #CA5D84; }
+#legenda ul li:nth-child(7) .legendSphere { border: solid 0.125rem #D97963; }
+#legenda ul li:nth-child(8) .legendSphere { border: solid 0.125rem #7EC1AF; }
 
 #sizeScale {
   margin-top: 3vh;
@@ -1104,7 +1104,7 @@ h1.legenda{
   display: flex;
   gap: 0.8rem; /* reduced gap to bring intermediate spheres closer */
   align-items: flex-end; /* align spheres to bottom */
-  border-left: 1px solid #313131; /* border starts where spheres start */
+  border-left: 0.0625rem solid #313131; /* border starts where spheres start */
   padding-left: 1rem; /* same as #legenda ul to align borders */
   margin-left: 0;
 }
@@ -1129,13 +1129,13 @@ h1.legenda{
 }
 
 .scaleSphere.small {
-  width: 10px;
-  height: 10px;
+  width: 0.625rem;
+  height: 0.625rem;
 }
 
 .scaleSphere.large {
-  width: 36px;
-  height: 36px;
+  width: 2.25rem;
+  height: 2.25rem;
 }
 
 .scaleSphere.intermediate
@@ -1229,21 +1229,21 @@ fine-grained positioning not needed: labels follow their spheres
 
 /* PAGINA TEAM */
 .team {
-  padding: 500px 0;
+  padding: 31.25rem 0;
   position: relative;
-  width: 600px;
-  height: 600px;
-  margin: 100px auto;
+  width: 37.5rem;
+  height: 37.5rem;
+  margin: 6.25rem auto;
 }
 
 /* CERCHI */
 .member {
-  width: 110px;
-  height: 110px;
+  width: 6.875rem;
+  height: 6.875rem;
   border-radius: 50%;
   position: absolute;
-  top: 500px;
-  left: 200px;
+  top: 31.25rem;
+  left: 12.5rem;
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
   cursor: pointer;
@@ -1263,14 +1263,14 @@ fine-grained positioning not needed: labels follow their spheres
     overflow: hidden;
     
     /* BILANCIARE L'ALTEZZA DEL MENU */
-    padding-top: 150px; /* Spinge il centro visivo verso il basso */
+    padding-top: 9.375rem; /* Spinge il centro visivo verso il basso */
 }
 
         .dotted-ring {
  
     position: absolute;
-    width: 750px;
-    height: 750px;
+    width: 46.875rem;
+    height: 46.875rem;
     top: 48%;
     left: 54%;
     transform: translate(-50%, -50%);
@@ -1288,8 +1288,8 @@ fine-grained positioning not needed: labels follow their spheres
         /* CONTENITORE DELLE BOLLE */
         .bubble-container {
             position: relative;
-            width: 600px;
-            height: 750px;
+            width: 37.5rem;
+            height: 46.875rem;
             z-index: 1;
             
         }
@@ -1321,7 +1321,7 @@ fine-grained positioning not needed: labels follow their spheres
     font-size: 0.9rem;
     color: #fff; 
     margin: 0;
-    padding: 0 10px; 
+    padding: 0 0.625rem; 
     
     /* VISIBILE di default */
     opacity: 1; 
@@ -1336,7 +1336,7 @@ fine-grained positioning not needed: labels follow their spheres
     font-size: 0.65rem; /* Leggermente più grande per leggibilità */
     color: #fff;
     margin: 0;
-    padding: 0 10px;
+    padding: 0 0.625rem;
     line-height: 1.2;
     
     /* NASCOSTO di default */
@@ -1378,8 +1378,8 @@ fine-grained positioning not needed: labels follow their spheres
 
         /* 1. Bolla Gialla */
         .b-yellow {
-            width: 170px;
-            height: 170px;
+            width: 10.625rem;
+            height: 10.625rem;
             background-color: #E3BC47;
             top: 20%;
             left: 10%;
@@ -1387,8 +1387,8 @@ fine-grained positioning not needed: labels follow their spheres
 
         /* 2. Bolla Verde chiaro (in alto) */
         .b-green-light {
-            width: 170px;
-            height: 170px;
+            width: 10.625rem;
+            height: 10.625rem;
             background-color: #99AB59;
             top: 10%;
             left: 40%;
@@ -1396,8 +1396,8 @@ fine-grained positioning not needed: labels follow their spheres
 
         /* 3. Bolla Rosa (destra) */
         .b-pink {
-            width: 170px;
-            height: 170px;
+            width: 10.625rem;
+            height: 10.625rem;
             background-color: #CA5D84;
             top: 20%;
             left: 70%;
@@ -1405,8 +1405,8 @@ fine-grained positioning not needed: labels follow their spheres
 
         /* 4. Bolla Verde acqua (centro) */
         .b-teal {
-            width: 170px;
-            height: 170px;
+            width: 10.625rem;
+            height: 10.625rem;
             background-color: #8799BD;
             top: 37%;
             left: 40%;
@@ -1414,8 +1414,8 @@ fine-grained positioning not needed: labels follow their spheres
 
         /* 5. Bolla viola (basso destra) */
         .b-terra {
-            width: 170px;
-            height: 170px;
+            width: 10.625rem;
+            height: 10.625rem;
             background-color: #7b769f;
             top: 50%;
             left: 70%;
@@ -1423,8 +1423,8 @@ fine-grained positioning not needed: labels follow their spheres
 
         /* 6. Bolla AZZURRA (basso centro) */
         .b-purple {
-            width: 170px;
-            height: 170px;
+            width: 10.625rem;
+            height: 10.625rem;
             background-color: #7EC1AF;
             top: 65%;
             left: 40%;
@@ -1432,8 +1432,8 @@ fine-grained positioning not needed: labels follow their spheres
 
         /* 7. Bolla Rosa pesca (basso sinistra) */
         .b-peach {
-            width: 170px;
-            height: 170px;
+            width: 10.625rem;
+            height: 10.625rem;
             background-color: #D97963;
             top: 50%;
             left: 10%;
@@ -1471,8 +1471,8 @@ body[data-page="data-page"] {
 
 .circle-section {
   position: relative;
-  width: 450px;
-  height: 450px;
+  width: 28.125rem;
+  height: 28.125rem;
   border-radius: 50%;
   margin: 0.1rem auto;
   padding: 3rem;
@@ -1493,8 +1493,8 @@ body[data-page="data-page"] {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 8px; /* dimensione singolo pallino */
-  height: 8px;
+  width: 0.5rem; /* dimensione singolo pallino */
+  height: 0.5rem;
   border-radius: 50%;
   background-color: transparent; 
   transform: translate(-50%, -50%);
@@ -1595,7 +1595,7 @@ box-shadow:
 /* Effetto comparsa scorrendo */
 .fade-in {
   opacity: 0;
-  transform: translateY(60px);
+  transform: translateY(3.75rem);
   transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
@@ -1605,7 +1605,7 @@ box-shadow:
 }
 
 .navbar a.active {
-  border-bottom: 1px solid #1a1a1a;
+  border-bottom: 0.0625rem solid #1a1a1a;
 }
 
 #dati_sfondo{
@@ -1623,10 +1623,10 @@ box-shadow:
 
 
 footer {
-            margin-top: 70px;
+            margin-top: 4.375rem;
             margin-bottom: 0px;
             background-color: #313131;
-            border-top: 1px solid #E7E1D1;
+            border-top: 0.0625rem solid #E7E1D1;
             padding: 2rem 4vw;
             width: 100%;
             overflow-x: hidden;
@@ -1642,8 +1642,8 @@ footer {
         /* HEADER FOOTER */
         .footer-header {
             position: relative;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
         }
 
         .footer-header::after {
@@ -1652,7 +1652,7 @@ footer {
           left: -4vw;
           bottom: 0;
           width: calc(100% + 8vw);
-          height: 1px;
+          height: 0.0625rem;
           background-color: #313131;
 }
 
@@ -1661,7 +1661,7 @@ footer {
             font-size: 2.2rem;
             font-weight: 400;
             color: #E7E1D1;
-            margin-bottom: 12px;
+            margin-bottom: 0.75rem;
             letter-spacing: -0.02em;
             line-height: 1.2;
         }
@@ -1689,9 +1689,9 @@ footer {
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: #E7E1D1;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #E7E1D1;
-            padding-bottom: 12px;
+            margin-bottom: 1.25rem;
+            border-bottom: 0.0625rem solid #E7E1D1;
+            padding-bottom: 0.75rem;
         }
 
         .footer-section ul {
@@ -1721,7 +1721,7 @@ footer {
         .footer-logos {
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 1.5rem;
             align-items: center;
             justify-content: center;
             align-self: center;
@@ -1754,8 +1754,8 @@ footer {
             font-size: 0.75rem;
             color: #E7E1D1;
             text-align: left;
-            border-top: 1px solid #E7E1D1;
-            padding-top: 40px;
+            border-top: 0.0625rem solid #E7E1D1;
+            padding-top: 2.5rem;
             line-height: 1.8;
             margin-bottom: 0px;
             margin-right: 8vw;
@@ -1768,10 +1768,10 @@ footer {
 
 .stats-wrapper {
     position: absolute; 
-    bottom: 30px;
-    right: 100px;
+    bottom: 1.875rem;
+    right: 6.25rem;
     display: flex;
-    gap: 8px;
+    gap: 0.5rem;
     align-items: flex-end;
     z-index: 1000;
 }
@@ -1784,17 +1784,17 @@ footer {
 
 .stat-label {
     font-family: 'montserrat', sans-serif;
-    font-size: 10px;
+    font-size: 0.625rem;
     color: #4d4d4d;
-    margin-bottom: 2px;
-    letter-spacing: 0.5px;
+    margin-bottom: 0.125rem;
+    letter-spacing: 0.03125rem;
 }
 
 .stat-box-value {
-    border: 1px solid #313131;
-    padding: 6px 16px;
+    border: 0.0625rem solid #313131;
+    padding: 0.375rem 1rem;
     font-family: 'montserrat', sans-serif;
-    font-size: 18px; 
+    font-size: 1.125rem; 
     font-weight: bold;
     color: #313131;
     background-color: #E7E1D1; 
@@ -1803,5 +1803,5 @@ footer {
 }
 
 #counter-colonies {
-    min-width: 70px; 
+    min-width: 4.375rem; 
 }
