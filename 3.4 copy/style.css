@@ -755,7 +755,7 @@ ul li ul.dropdown-menu{
 /*l'animazione parte solo quando la slide ha la classe .show */
 .show .SlideBtn, 
 .show .UpperSlide {
-  animation: fadeIn3 0.8s ease-out 3.8s forwards; /* 3.8s è il ritardo che hai scelto */
+  animation: fadeIn3 0.8s ease-out 3.8s forwards; 
 }
 
 /* Gestione SVG e Label */
