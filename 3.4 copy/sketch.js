@@ -629,34 +629,28 @@ if (hoverAlpha > 1) {
 
 //data 
 
-p.push()
-let currentYear = Math.round( p.map(forceSlider.value(), 0, 100, 1433, 2010));
-p.textSize(14)
+// --- NUOVA LOGICA COUNTER E ANNO ---
+let currentYear = Math.round(p.map(forceSlider.value(), 0, 100, 1433, 2010));
 
-let padding = 10
-let dateWidth = p.textWidth(currentYear) + padding*2
-p.rectMode(p.CENTER)
-p.stroke("#313131")
-p.strokeWeight(0.5)
-p.noFill()
-p.rect(sliderX + p.width * 0.43, sliderY+10, dateWidth, 30);
+let activeCount = 0;
+for (let cl of localClusters) {
+    for (let s of cl.sphere) {
+        let sliderVal = forceSlider.value() / 100;
+        let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
+        let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.15, 0.95);
+        
+        if (sliderVal >= tStart && sliderVal < tEnd) {
+            activeCount++;
+        }
+    }
+}
 
-p.push()
-p.noStroke()
-p.textFont("montserrat")
-p.textAlign(p.CENTER, p.CENTER)
-p.textStyle(p.BOLD)
-p.fill("#313131")
-p.text(currentYear, (sliderX + p.width * 0.43), sliderY+10)
-/*p.text(forceSlider.value(), sliderX, sliderY + 40)*/
-p.push()
-p.textSize(12)
-p.textStyle(p.NORMAL)
-p.textAlign(p.CENTER, p.CENTER)
-p.text("YEARS", (sliderX + p.width * 0.43), sliderY-15)
-p.pop()
-p.pop()
-p.pop()
+// Usiamo window.document per essere sicuri di uscire dallo scope di p5
+let yearEl = window.document.getElementById('year-display');
+let countEl = window.document.getElementById('counter-colonies');
+
+if (yearEl) yearEl.innerText = currentYear;
+if (countEl) countEl.innerText = activeCount;
 
 for (let pg of paragraphs) {
   let inRange = currentYear >= pg.start && currentYear <= pg.end;
