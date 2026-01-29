@@ -415,8 +415,16 @@ function drawColoniesLayer(){
     let op = fadeOpacity[country];
 
     // Spessore dinamico
-    let normalStroke = isCompactView ? 5 : 1.2;
-    let selectedStroke = isCompactView ? 7 : 6;
+    let normalStroke = isCompactView ? 5 : 2.2;
+    let selectedStroke = isCompactView ? 7 : 4.5;
+
+    // Bande leggere solo in vista estesa
+    if(!isCompactView && i % 2 === 0) {
+      let bandY = yPos - currentRowHeight * 0.5;
+      coloniesLayer.noStroke();
+      coloniesLayer.fill(49, 49, 49, 8);
+      coloniesLayer.rect(chartX, bandY, chartWidth, currentRowHeight);
+    }
 
     // Barra selezionata
     if(isClicked || isSelected){
@@ -428,8 +436,8 @@ function drawColoniesLayer(){
       // Pallini solo in vista espansa
       if(!isCompactView) {
         coloniesLayer.fill(currentColor[0], currentColor[1], currentColor[2], op);
-        coloniesLayer.circle(xStart, yPos, 12);
-        coloniesLayer.circle(xEnd, yPos, 12);
+        coloniesLayer.circle(xStart, yPos, 10);
+        coloniesLayer.circle(xEnd, yPos, 10);
       }
 
       // Anni sempre visibili
@@ -450,31 +458,55 @@ function drawColoniesLayer(){
       // Pallini solo in vista espansa
       if(!isCompactView) {
         coloniesLayer.fill(255, op);
-        coloniesLayer.circle(xStart, yPos, 8);
-        coloniesLayer.circle(xEnd, yPos, 8);
+        coloniesLayer.circle(xStart, yPos, 6);
+        coloniesLayer.circle(xEnd, yPos, 6);
       }
     }
 
-    // Nome paese: solo se espanso O se selezionato in compact
+  }
+
+  if(chartWidth > 0 && scrollHeight > 0) {
+    push();
+    drawingContext.save();
+    drawingContext.beginPath();
+    drawingContext.rect(chartX, chartY, chartWidth, scrollHeight);
+    drawingContext.clip();
+    image(coloniesLayer, 0, chartY);
+    drawingContext.restore();
+    pop();
+  } else {
+    image(coloniesLayer, 0, chartY);
+  }
+
+  push();
+  textFont("Montserrat", 11);
+  textAlign(RIGHT, CENTER);
+
+  for(let p of timelinePositions){
+    if(p.yPos + 10 < 0 || p.yPos - 10 > scrollHeight) continue;
+
+    let isClicked = (p.country === clickedCountry);
+    let isSelected = (p.country === selectedCountry);
+
     if(!isCompactView || (isCompactView && (isClicked || isSelected))) {
-      coloniesLayer.noStroke(); 
-      coloniesLayer.textAlign(RIGHT, CENTER);
-      
-      if(country === clickedCountry || country === selectedCountry){
-        coloniesLayer.textSize(14);
-        coloniesLayer.fill(currentColor[0], currentColor[1], currentColor[2], op);
-        coloniesLayer.textStyle(BOLD);
+      let op = (fadeOpacity[p.country] === undefined) ? 255 : fadeOpacity[p.country];
+
+      noStroke();
+      if(isClicked || isSelected){
+        textSize(14);
+        fill(currentColor[0], currentColor[1], currentColor[2], op);
+        textStyle(BOLD);
       } else {
-        coloniesLayer.textSize(11);
-        coloniesLayer.fill(80, 80, 80, op);
-        coloniesLayer.textStyle(NORMAL);
+        textSize(11);
+        fill(80, 80, 80, op);
+        textStyle(NORMAL);
       }
-      
-      coloniesLayer.text(country.toUpperCase(), chartX - 15, yPos); 
+
+      text(p.country.toUpperCase(), chartX - 15, chartY + p.yPos);
     }
   }
 
-  image(coloniesLayer, 0, chartY);
+  pop();
   
   drawScrollbar();
 }
