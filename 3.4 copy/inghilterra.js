@@ -17,7 +17,7 @@ let minYear = 1450, maxYear = 2000;
 let yOffset = 0;
 let scrollHeight;
 let navbarHeight = 0; // Altezza dinamica della navbar
-let distanzaDallaNavbar = -0.5; // Distanza dal navbar in valori relativi (0 = nessuno spazio, 1 = altezza navbar, 0.5 = metà navbar, ecc.)
+let distanzaDallaNavbar = -0.6; // Distanza dal navbar in valori relativi (0 = nessuno spazio, 1 = altezza navbar, 0.5 = metà navbar, ecc.)
 let topOffset = 0; // Spazio totale dal top per posizionare gli elementi (navbarHeight + distanza)
 
 // Stati di selezione delle colonie
@@ -435,14 +435,6 @@ function drawColoniesLayer(){
     // Spessore dinamico
     let normalStroke = isCompactView ? 5 : 2.2;
     let selectedStroke = isCompactView ? 7 : 4.5;
-
-    // Bande leggere solo in vista estesa
-    if(!isCompactView && i % 2 === 0) {
-      let bandY = yPos - currentRowHeight * 0.5;
-      coloniesLayer.noStroke();
-      coloniesLayer.fill(49, 49, 49, 8);
-      coloniesLayer.rect(chartX, bandY, chartWidth, currentRowHeight);
-    }
 
     // Barra selezionata
     if(isClicked || isSelected){
