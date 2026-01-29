@@ -246,6 +246,7 @@ function createToggleSlider() {
 
   toggleSlider = createDiv('');
   toggleSlider.id('view-toggle');
+  toggleSlider.parent('canvas-container');
   toggleSlider.style('position', 'absolute');
   toggleSlider.style('height', '30px');
   toggleSlider.style('border-radius', '0px');
@@ -540,9 +541,9 @@ function drawScrollbar(){
   
   // Posizione e dimensioni della scrollbar
   scrollbarX = chartX + chartWidth + 15;
-  scrollbarY = chartY + (scrollHeight - scrollHeight * 0.8) / 2;
+  scrollbarY = chartY;
   scrollbarWidth = 8;
-  scrollbarHeight = scrollHeight * 0.8;
+  scrollbarHeight = scrollHeight;
   
   // Calcola l'altezza del thumb in proporzione
   scrollThumbHeight = (scrollbarHeight / totalHeight) * scrollbarHeight;
@@ -552,18 +553,18 @@ function drawScrollbar(){
   let scrollRatio = maxScroll > 0 ? (-yOffset) / maxScroll : 0;
   scrollThumbY = scrollbarY + (scrollbarHeight - scrollThumbHeight) * scrollRatio;
   
-  // Disegna background della scrollbar
+  // Disegna background della scrollbar (più grande)
   push();
-  stroke(200);
+  stroke(49, 49, 49); // #313131 - stesso colore del thumb
   strokeWeight(1);
-  fill(245);
-  rect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight, 2);
+  fill(255, 0); // Trasparente
+  rect(scrollbarX - 3, scrollbarY - 3, scrollbarWidth + 6, scrollbarHeight + 6);
   
-  // Disegna il thumb della scrollbar con stile simile al toggle
+  // Disegna il thumb della scrollbar con stile spigoloso e trasparente
   stroke(49, 49, 49); // #313131
   strokeWeight(1);
-  fill(49, 49, 49); // #313131
-  rect(scrollbarX + 1, scrollThumbY, scrollbarWidth - 2, scrollThumbHeight, 2);
+  fill(49, 49, 49); 
+  rect(scrollbarX + 1, scrollThumbY, scrollbarWidth - 2, scrollThumbHeight);
   
   pop();
 }
@@ -621,9 +622,14 @@ function drawSideInfo(){
     sourceLinkElement.position(sideX + blockOffsetX, descY + totalTextHeight + 5);
   }
 
-  // Posiziona toggle sotto il paragrafo con spazio
+  // Posiziona toggle allineato al margine inferiore del grafico
   if(toggleSlider) {
-    let toggleY = descY + lineLength + 20;
+    let toggleHeight = 30;
+    if (toggleSlider.elt) {
+      let rect = toggleSlider.elt.getBoundingClientRect();
+      toggleHeight = rect.height || toggleSlider.elt.offsetHeight || 30;
+    }
+    let toggleY = chartY + scrollHeight - toggleHeight;
     toggleSlider.position(sideX + blockOffsetX, toggleY);
   }
   
