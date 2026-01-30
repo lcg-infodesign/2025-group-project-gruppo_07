@@ -875,7 +875,7 @@ ul li ul.dropdown-menu{
   justify-content: center; 
   align-items: center;     
   gap: 3vh;
-  background-color: #E7E1D1;
+  background-color: transparent;
 }
 
 .demo-video {
@@ -907,17 +907,7 @@ ul li ul.dropdown-menu{
   outline: none;
 }
 
-#u3b {
-  position: absolute;
-  left: 46%;
-  top: 10%;
-}
-
-#s4b {
-  position: absolute;
-  left: 46%;
-  bottom: 10%;
-}
+/* Frecce slide 3b ereditate da .SlideBtn e .UpperSlide */
 
 @keyframes showing{
   to{opacity: 1;}

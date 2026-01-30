@@ -16,7 +16,7 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 
-document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .pointer3, .text3, .falseBtn,.falseTimeLine, .text4, .text5, .sl1, .sl2, .sl3, .sl4, .ending, .explanation4, .explanation5, .text6, .text7, .hover-demo, .demo-video, .sl5, .sl6, .sl7, .sl8, .up1').forEach(el => observer.observe(el));
+document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .pointer3, .text3, .falseBtn,.falseTimeLine, .text4, .text5, .sl1, .sl2, .sl3, .sl4, .sl6, .ending, .explanation4, .explanation5, .text6, .text7, .hover-demo, .demo-video, .sl5, .sl7, .sl8, .up1, .u3b').forEach(el => observer.observe(el));
 
 //SLIDESHOW
 
