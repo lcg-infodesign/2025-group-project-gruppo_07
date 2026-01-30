@@ -35,7 +35,7 @@
                   <li ><a id="drpdwn" href="inghilterra.html?colonizer=italy">Italy</a></li>
                 </ul>
             </li>
-        <li ><a href="dati-metodologia.html" class="list1">DATA AND METHODOLOGY</a></li>
+        <li ><a href="dati-metodologia.html" class="list1 active" id="nav-data">DATA AND METHODOLOGY</a></li>
         <li id="last" ><a href="the_team.html" class="list1">THE TEAM</a></li>
     </ul>
 </nav>
@@ -46,7 +46,7 @@
   
 
   <main class="data-methodology">
-    <h1>Data and Methodology</h1>
+    <h1 style="visibility: hidden; margin-bottom: 3vh;">Data and Methodology</h1>
 
     <section class="circle-section left fade-in">
       <p>
@@ -154,13 +154,15 @@
 
     document.querySelectorAll('.fade-in').forEach(section => observer.observe(section));
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const page = document.body.dataset.page;
-      document.querySelectorAll(".navbar a").forEach(a => a.classList.remove("active"));
-      if (page === "data-page") {
-        document.getElementById("nav-data").classList.add("active");
-      }
-    });
+    
+document.addEventListener("DOMContentLoaded", () => {
+  const page = document.body.dataset.page;
+
+  if (page === "data-page") {
+    const link = document.getElementById("nav-data");
+    if(link) link.classList.add("active");
+  }
+});
   </script>
 </body>
 </html>
