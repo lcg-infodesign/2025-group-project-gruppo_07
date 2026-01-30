@@ -1208,6 +1208,8 @@ h1.legenda{
 }
 
 /* Stile per la legenda */
+
+/* legenda colonizzatori */
 #legenda{
   position: absolute;
   bottom: 8%;
@@ -1250,7 +1252,6 @@ h1.legenda{
       
 }
 
-
 #legenda ul li:nth-child(1) .legendSphere { border: solid 0.125rem #81201A; }
 #legenda ul li:nth-child(2) .legendSphere { border: solid 0.125rem #4D4871; }
 #legenda ul li:nth-child(3) .legendSphere { border: solid 0.125rem #E3BC47; }
@@ -1260,6 +1261,7 @@ h1.legenda{
 #legenda ul li:nth-child(7) .legendSphere { border: solid 0.125rem #D97963; }
 #legenda ul li:nth-child(8) .legendSphere { border: solid 0.125rem #7EC1AF; }
 
+/* legenda durata */
 #sizeScale {
   margin-top: 3vh;
   padding: 0; /* remove horizontal padding so left edges match */
@@ -1270,7 +1272,6 @@ h1.legenda{
   margin: 0 0 0.5rem 0;
   margin-bottom: 2vh;
 }
-
 
 .scaleBoxes {
   display: flex;
@@ -1296,6 +1297,7 @@ h1.legenda{
 .scaleSphere {
   border-radius: 50%;
   background-color: #4d4d4d;
+  opacity: 0.6;
   flex-shrink: 0;
   
 }
@@ -1312,8 +1314,8 @@ h1.legenda{
 
 .scaleSphere.intermediate
 {
-  background-color: #4d4d4d;
-  opacity: 0.6 ;
+  background-color: #e5e2e2;
+  /*opacity: 0.6 ;*/
 }
 
 .scaleLabelArrow {
@@ -1346,7 +1348,7 @@ h1.legenda{
   transform: translateX(-50%);
 }
 
-
+/* legenda status */
 #status {
   margin-top: 3vh;
   padding: 0;
@@ -1546,7 +1548,7 @@ fine-grained positioning not needed: labels follow their spheres
     pointer-events: none;
 }
 
-        /* posizionamento e colori superfici */
+/* posizionamento e colori superfici */
 
         /* 1. Bolla Gialla */
         .b-yellow {
@@ -1803,150 +1805,146 @@ box-shadow:
 
 }
 
-
+/* FOOTER STYLES */
 footer {
-            margin-top: 4.375rem;
-            margin-bottom: 0px;
-            background-color: #313131;
-            border-top: 0.0625rem solid #E7E1D1;
-            padding: 2rem 4vw;
-            width: 100%;
-            overflow-x: hidden;
-
-        }
+  margin-top: 4.375rem;
+  margin-bottom: 0px;
+  background-color: #313131;
+  border-top: 0.0625rem solid #E7E1D1;
+  padding: 2rem 4vw;
+  width: 100%;
+ overflow-x: hidden;
+}
         
 
-        .footer-wrapper {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        /* HEADER FOOTER */
-        .footer-header {
-            position: relative;
-            margin-bottom: 1.25rem;
-            padding-bottom: 1.25rem;
-        }
-
-        .footer-header::after {
-          content: "";
-          position: absolute;
-          left: -4vw;
-          bottom: 0;
-          width: calc(100% + 8vw);
-          height: 0.0625rem;
-          background-color: #313131;
+.footer-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-        .course-title {
-            font-family: "benton-modern-display", serif;
-            font-size: 2.2rem;
-            font-weight: 400;
-            color: #E7E1D1;
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
+.footer-header {
+  position: relative;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+}
 
-        .course-info {
-            font-size: 0.9rem;
-            color: #E7E1D1;
-            letter-spacing: 0.05em;
-            font-weight: 500;
-        }
+.footer-header::after {
+  content: "";
+  position: absolute;
+  left: -4vw;
+  bottom: 0;
+  width: calc(100% + 8vw);
+  height: 0.0625rem;
+  background-color: #313131;
+}
 
-        /* CONTENUTO PRINCIPALE */
-       .footer-content {
-        display: grid;
-        grid-template-columns: 1.5fr 1.5fr 1.5fr;
-        gap: 4rem;
-        margin-bottom: 3rem;
-        align-items: start;
-        justify-items: flex-left;
-      }
+.course-title {
+  font-family: "benton-modern-display", serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #E7E1D1;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
 
-        .footer-section h3 {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #E7E1D1;
-            margin-bottom: 1.25rem;
-            border-bottom: 0.0625rem solid #E7E1D1;
-            padding-bottom: 0.75rem;
-        }
+.course-info {
+  font-size: 0.9rem;
+  color: #E7E1D1;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
 
-        .footer-section ul {
-            list-style: none;
-            padding: 0;
-        }
+.footer-content {
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr 1.5fr;
+  gap: 4rem;
+  margin-bottom: 3rem;
+  align-items: start;
+  justify-items: flex-left;
+}
 
-        .footer-section li {
-            font-size: 0.85rem;
-            line-height: 1.9;
-            color: #E7E1D1;
-        }
+.footer-section h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #E7E1D1;
+  margin-bottom: 1.25rem;
+  border-bottom: 0.0625rem solid #E7E1D1;
+  padding-bottom: 0.75rem;
+}
 
-        .footer-section p {
-            font-size: 0.85rem;
-            line-height: 1.9;
-            color: #E7E1D1;
-        }
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
 
-        /* SEZIONE VUOTA PER EQUILIBRIO */
-        .footer-section.empty {
-            display: flex;
-            align-items: flex-end;
-        }
+.footer-section li {
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: #E7E1D1;
+}
 
-        /* LOGOS */
-        .footer-logos {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            align-items: center;
-            justify-content: center;
-            align-self: center;
-            margin-top: 0px;
-            padding: 0;
-            border: none;
-            max-width: 100%;
-        }
+.footer-section p {
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: #E7E1D1;
+}
 
-        .logo-placeholder {
-            width: 8rem;
-            aspect-ratio: 2/1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1vh;
-            color: #E7E1D1;
-            flex-shrink: 0;
-            transition: 0.3s ease;
-        }
 
-        .logo-placeholder img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-        }
+.footer-section.empty {
+  display: flex;
+  align-items: flex-end;
+}
 
-        #poli img {
-          max-width: 110%;
-          max-height: 110%;
-        }
 
-        /* FOOTER BOTTOM */
-        .footer-bottom {
-            font-size: 0.75rem;
-            color: #E7E1D1;
-            text-align: left;
-            border-top: 0.0625rem solid #E7E1D1;
-            padding-top: 2.5rem;
-            line-height: 1.8;
-            margin-bottom: 0px;
-            margin-right: 8vw;
-        }
+.footer-logos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  margin-top: 0px;
+  padding: 0;
+  border: none;
+  max-width: 100%;
+}
+
+.logo-placeholder {
+  width: 8rem;
+  aspect-ratio: 2/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1vh;
+  color: #E7E1D1;
+  flex-shrink: 0;
+  transition: 0.3s ease;
+}
+
+.logo-placeholder img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+#poli img {
+  max-width: 110%;
+  max-height: 110%;
+}
+
+.footer-bottom {
+  font-size: 0.75rem;
+  color: #E7E1D1;
+  text-align: left;
+  border-top: 0.0625rem solid #E7E1D1;
+  padding-top: 2.5rem;
+  line-height: 1.8;
+  margin-bottom: 0px;
+  margin-right: 8vw;
+}
 
 /* REGOLE TIME VIEW */
 #time_view {
@@ -1988,12 +1986,14 @@ footer {
 #slider_wrapper{
 display: flex;
 align-items: center;
+flex-grow: 1;
+min-width: 500px;
 }
 
 /* posiziona year e tot colonies */
 .stats-wrapper {
   display: flex;
-  gap: 0.4rem;
+  gap: 10%;
   align-items: center;
   margin-left: 0.4rem;
   margin-bottom: 1rem;
@@ -2002,7 +2002,37 @@ align-items: center;
 .stat-group {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+}
+
+.stat-label {
+  font-family: 'montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #4d4d4d;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.stat-box-value {
+  border: none; 
+  background: none;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #313131;
+  line-height: 1;
+  min-width: 5ch;
+  max-width: 5ch;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.stat-separator {
+  width: 1px;
+  height: 40px;
+  background-color: #313131;
+  margin: 0 15px;
+  align-self: center;
 }
 
 
@@ -2015,14 +2045,6 @@ align-items: center;
   cursor: pointer;
   transition: 0.5s ease;
   pointer-events: none;
-}
-
-#playIcon{
-  cursor: pointer;
-  border: solid 0.0125rem #313131;
-  padding: 0.2vh 1vh 0.2vh 1vh;
-  transition: 0.2s ease;
-  z-index: 20;
 }
 
 #playSvg{
@@ -2062,23 +2084,11 @@ align-items: center;
 #speedBtn{
   width: 0;      
   height: 0;
-
   opacity: 0;        
   z-index: 0;
   cursor: pointer;
   transition: 0.5s ease;
   pointer-events: none;
-}
-
-#speedIcon{
-  cursor: pointer;
-  border: solid 0.0125rem #313131;
-  padding: 0.6vh 1.5vh 0.6vh 1.5vh;
-  transition: 0.2s ease;
-  z-index: 20;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #3131318c;
 }
 
 #speedIcon:hover{
@@ -2091,27 +2101,39 @@ align-items: center;
    color: #E7E1D1;
 }
 
-.stat-label {
-    font-family: 'montserrat', sans-serif;
-    font-size: 0.625rem;
-    color: #4d4d4d;
-    margin-bottom: 0.125rem;
-    letter-spacing: 0.03125rem;
-}
-
-.stat-box-value {
-    border: 0.0625rem solid #313131;
-    padding: 0.375rem 1rem;
-    font-family: 'montserrat', sans-serif;
-    font-size: 1.125rem; 
-    font-weight: bold;
-    color: #313131;
-    background-color: #E7E1D1; 
-    text-align: center;
-    min-width: 55px;
-}
-
 #counter-colonies {
     min-width: 4.375rem; 
+    margin-bottom: 0.8rem;
 }
+
+#playIcon, #speedIcon {
+    cursor: pointer;
+    border: 0.0625rem solid #313131 !important; /* Riaggiunge il rettangolo nero */
+    padding: 0.4rem 0.8rem !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    transition: 0.2s ease;
+}
+
+#speedIcon{
+  transition: 0.2s ease;
+  z-index: 20;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #3131318c;
+}
+
+#playIcon:hover, #speedIcon:hover {
+    background-color: #313131 !important;
+    color: #E7E1D1 !important;
+}
+
+#playIcon:hover svg {
+    fill: #E7E1D1 !important;
+}
+
+#playIcon svg {
+    display: block !important;}
 
