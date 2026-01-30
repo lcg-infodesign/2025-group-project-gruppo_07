@@ -722,22 +722,71 @@ ul li ul.dropdown-menu{
   font-weight: bold;
 }
 
-/* Container della scala nella Slide 4 */
-.scale-container {
+/* Container Slide 3b */
+.explanation5 {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;     
+  gap: 1vh; 
+}
+
+/* Il contenitore principale della slide */
+.explanation5 {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  overflow: hidden;
+}
+
+/* IL WRAPPER CHE STRINGE IL TESTO AL VIDEO */
+.content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 1s ease-out; 
-  margin-top: 30px;
+  justify-content: center;
+  gap: 0vh; /* Distanza tra testo e video */
+  max-height: 60vh; 
+  z-index: 5;
 }
 
-.explanation4.show .scale-container {
+/* Stile testi */
+.text7 {
+  margin: 0 !important;
+  color: #313131;
+  width: 45vw; 
+  font-size: 2.1vh;
+  text-align: center;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* Video: */
+.demo-video {
+  max-width: 5vw; 
+  max-height: 0vh; /* Valore chiave: più è basso, più i testi sono vicini al centro */
+  height: auto;
+  border-radius: 6px;
+  background-color: #313131;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Animazioni quando la slide è visibile */
+.explanation5.show .text7.instruction-text {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 1.8s; /* Appare dopo il primo testo */
+  transition-delay: 0.7s;
+}
+
+.explanation5.show .text7.second-part {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 1.3s;
 }
 
 /* Stile dei pallini */
@@ -762,7 +811,7 @@ ul li ul.dropdown-menu{
 .scale-labels {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   font-size: 0.9rem;
   color: #313131;
 }
@@ -820,8 +869,6 @@ ul li ul.dropdown-menu{
   opacity: 0;
   animation: showing 3s ease 3.8s forwards;
 }
-
-.text6
 
 .text6.show {
   opacity: 1;
@@ -916,7 +963,16 @@ ul li ul.dropdown-menu{
   gap: 5px;
   text-decoration: none;
   z-index: 50;
+}
 
+/* Allontana la freccia BACK verso l'alto */
+.UpperSlide {
+  top: 17% !important; 
+}
+
+/* Allontana la freccia NEXT/EXPLORE verso il basso */
+.SlideBtn {
+  bottom: 15% !important; 
 }
 
 /* Stato iniziale comune per tutte le etichette */
