@@ -1960,39 +1960,27 @@ footer {
 }
 
 #ui_layer {
-    position: fixed !important;
-    bottom: 20px !important; /* Distanza dal fondo */
-    left: 65% !important;
-    transform: translateX(-50%) !important; /* Centratura perfetta */
-    width: 85vw !important; /* Larghezza ampia per contenere tutto su una riga */
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: flex-end !important; /* Allinea i pulsanti e la linea alla base */
-    justify-content: center !important; 
-    gap: 25px !important; /* Spazio tra i vari blocchi */
-    z-index: 9999 !important;
+  position:absolute;
+  bottom: 0rem;
+  left: 65%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  pointer-events: auto;
+  z-index:1000;
 }
 
+/* posiziona play, slider e speed */
 .control-bar {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 15px !important;
-    margin: 0 !important;
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  margin-left: 0.4rem;
 }
 
-/* Allunga la barra della timeline */
-#slider_wrapper {
-    flex-grow: 1;
-    min-width: 500px !important; /* Aumenta questo valore se la vuoi ancora più lunga */
-}
-
-/* Rimuovi i margini che spingono i bottoni fuori asse */
 .left-buttons {
-    margin: 0 !important;
-    padding: 0 !important;
-    display: flex !important;
-    align-items: center !important;
+  margin-bottom: 1.2rem;
 }
 
 #slider_wrapper{
@@ -2002,6 +1990,7 @@ flex-grow: 1;
 min-width: 500px;
 }
 
+/* posiziona year e tot colonies */
 .stats-wrapper {
   display: flex;
   gap: 10%;
