@@ -184,6 +184,26 @@
 
     <!--bottone play-->
     <div id="time_view" class="ending">
+      <div id="canvas_layer"></div>
+      <div id="ui_layer">
+
+    <div class="control-bar">
+      <div class="left-buttons">
+        <input type="checkbox" id="playBtn"/>
+        <label for="playBtn" id="playIcon">
+          <svg id="playSvg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg>
+          <span id="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/></svg></span>
+        </label>
+      </div>
+      
+      <div class="left-buttons">
+        <input type="checkbox" id="speedBtn"/>
+        <label for="speedBtn" id="speedIcon">2x</label>
+      </div>
+      
+      <div id="slider_wrapper"></div>
+    
+    </div>
       
       <div class="stats-wrapper">
         <div class="stat-group">
@@ -197,16 +217,9 @@
         </div>
       </div>
 
-      <input type="checkbox" id="playBtn"/>
-      <label for="playBtn" id="playIcon">
-        <svg id="playSvg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg>
-        <span id="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/></svg></span>
-      </label>
-      
-      <input type="checkbox" id="speedBtn"/>
-      <label for="speedBtn" id="speedIcon">2x</label>
       
     </div>
+  </div>
 
     <!-- Legenda -->
     <div id="legenda">
