@@ -1314,8 +1314,8 @@ h1.legenda{
 
 .scaleSphere.intermediate
 {
-  background-color: #e5e2e2;
-  /*opacity: 0.6 ;*/
+  background-color: #4d4d4d;
+  opacity: 0.3;
 }
 
 .scaleLabelArrow {
@@ -2108,9 +2108,9 @@ min-width: 500px;
 
 #playIcon, #speedIcon {
     cursor: pointer;
-    border: 0.0625rem solid #313131 !important; /* Riaggiunge il rettangolo nero */
-    padding: 0.4rem 0.8rem !important;
-    display: flex !important;
+    border: 0.0625rem solid #313131; /* Riaggiunge il rettangolo nero */
+    padding: 0.4rem 0.8rem;
+    display: flex;
     align-items: center;
     justify-content: center;
     background-color: transparent;
@@ -2126,14 +2126,13 @@ min-width: 500px;
 }
 
 #playIcon:hover, #speedIcon:hover {
-    background-color: #313131 !important;
-    color: #E7E1D1 !important;
+    background-color: #313131;
+    color: #E7E1D1;
 }
 
 #playIcon:hover svg {
-    fill: #E7E1D1 !important;
+    fill: #E7E1D1;
 }
 
 #playIcon svg {
-    display: block !important;}
-
+    display: block;}
