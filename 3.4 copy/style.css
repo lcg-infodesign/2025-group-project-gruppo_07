@@ -1047,20 +1047,6 @@ ul li ul.dropdown-menu{
   
 }*/
 
-
-
-#time_view{
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  top: 0%;
-  opacity: 1;
-  z-index: 10;
-  transition: 0.5s ease;
-
-  
-}
-
 #time_view canvas{
   z-index: 1;
 }
@@ -1143,111 +1129,7 @@ ul li ul.dropdown-menu{
 #cb1:checked + #checkmark #generalBtn{
  opacity: 1;
 }*/
-#playBtn{
-  position: absolute;
-  bottom: 4%;
-  left: 35%;
-  
-  width: 0;      
-  height: 0;
 
-  opacity: 0;        
-  z-index: 0;
-  cursor: pointer;
-  transition: 0.5s ease;
-  pointer-events: none;
-
-  
-}
-
-#playIcon{
-  position: absolute;
-  bottom: 3.7%;
-  left: 35%;
-  cursor: pointer;
-  border: solid 0.0125rem #313131;
-  padding: 0.2vh 1vh 0.2vh 1vh;
-  transition: 0.2s ease;
-  z-index: 20;
-}
-
-#playSvg{
-  fill: #313131;
-}
-
-#pauseIcon{
-  position: absolute;
-  bottom: 5%;
-  right: 20%;
-  opacity: 0;
-  transition: 0.2s ease;
-  z-index: 30;
-}
-
-#pauseIcon > svg{
- fill: #E7E1D1;
-}
-
-#playIcon:hover{
-  background-color: #4d4d4d;
-}
-
-#playIcon:hover #playSvg{
-  fill: #E7E1D1;
-}
-
-#playBtn:checked + #playIcon{
-   background-color: #313131;
-   z-index: 20;
-}
-#playBtn:checked + #playIcon #playSvg{
-   opacity: 0;
-}
-
-#playBtn:checked + #playIcon #pauseIcon {
-  opacity: 1;
-}
-
-#speedBtn{
-  position: absolute;
-  bottom: 3%;
-  left: 38%;
-  
-  width: 0;      
-  height: 0;
-
-  opacity: 0;        
-  z-index: 0;
-  cursor: pointer;
-  transition: 0.5s ease;
-  pointer-events: none;
-
-  
-}
-
-#speedIcon{
-  position: absolute;
-  bottom: 3.7%;
-  left: 38%;
-  cursor: pointer;
-  border: solid 0.0125rem #313131;
-  padding: 0.6vh 1.5vh 0.6vh 1.5vh;
-  transition: 0.2s ease;
-  z-index: 20;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #3131318c;
-}
-
-#speedIcon:hover{
-  background-color: #4d4d4d;
-  color: #E7E1D1;
-}
-
-#speedBtn:checked + #speedIcon{
-   background-color: #313131;
-   color: #E7E1D1;
-}
 
 input[type="range"] {
 
@@ -1324,6 +1206,8 @@ h1.legenda{
   font-weight: 400;
   font-style: italic;
 }
+
+/* Stile per la legenda */
 #legenda{
   position: absolute;
   bottom: 8%;
@@ -2064,25 +1948,147 @@ footer {
             margin-right: 8vw;
         }
 
- 
+/* REGOLE TIME VIEW */
 #time_view {
     position: relative;
+    width: 100vw;
+    height: 100vh;
 }
 
+#canvas_layer {
+  position:absolute;
+  inset:0;
+  z-index:1;
+}
+
+#ui_layer {
+  position:absolute;
+  bottom: 0rem;
+  left: 65%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  pointer-events: auto;
+  z-index:1000;
+}
+
+/* posiziona play, slider e speed */
+.control-bar {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  margin-left: 0.4rem;
+}
+
+.left-buttons {
+  margin-bottom: 1.2rem;
+}
+
+#slider_wrapper{
+display: flex;
+align-items: center;
+}
+
+/* posiziona year e tot colonies */
 .stats-wrapper {
-    position: absolute; 
-    bottom: 1.875rem;
-    right: 6.25rem;
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-end;
-    z-index: 1000;
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  margin-left: 0.4rem;
+  margin-bottom: 1rem;
 }
 
 .stat-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+
+#playBtn{
+  width: 0;      
+  height: 0;
+
+  opacity: 0;        
+  z-index: 0;
+  cursor: pointer;
+  transition: 0.5s ease;
+  pointer-events: none;
+}
+
+#playIcon{
+  cursor: pointer;
+  border: solid 0.0125rem #313131;
+  padding: 0.2vh 1vh 0.2vh 1vh;
+  transition: 0.2s ease;
+  z-index: 20;
+}
+
+#playSvg{
+  fill: #313131;
+}
+
+#pauseIcon{
+  opacity: 0;
+  transition: 0.2s ease;
+  z-index: 30;
+}
+
+#pauseIcon > svg{
+ fill: #E7E1D1;
+}
+
+#playIcon:hover{
+  background-color: #4d4d4d;
+}
+
+#playIcon:hover #playSvg{
+  fill: #E7E1D1;
+}
+
+#playBtn:checked + #playIcon{
+   background-color: #313131;
+   z-index: 20;
+}
+#playBtn:checked + #playIcon #playSvg{
+   opacity: 0;
+}
+
+#playBtn:checked + #playIcon #pauseIcon {
+  opacity: 1;
+}
+
+#speedBtn{
+  width: 0;      
+  height: 0;
+
+  opacity: 0;        
+  z-index: 0;
+  cursor: pointer;
+  transition: 0.5s ease;
+  pointer-events: none;
+}
+
+#speedIcon{
+  cursor: pointer;
+  border: solid 0.0125rem #313131;
+  padding: 0.6vh 1.5vh 0.6vh 1.5vh;
+  transition: 0.2s ease;
+  z-index: 20;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #3131318c;
+}
+
+#speedIcon:hover{
+  background-color: #4d4d4d;
+  color: #E7E1D1;
+}
+
+#speedBtn:checked + #speedIcon{
+   background-color: #313131;
+   color: #E7E1D1;
 }
 
 .stat-label {
@@ -2108,3 +2114,4 @@ footer {
 #counter-colonies {
     min-width: 4.375rem; 
 }
+

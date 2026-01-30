@@ -223,14 +223,14 @@ let sketch1 = function(p){
   }
 
   p.setup = function(){
-    let container = p.select('#time_view');
+    let container = p.select('#canvas_layer');
     p.createContainerCanvas(container);
 
     forceSlider = p.createSlider(0, 100, 0, 0.01);
     let sliderWidth = p.constrain(p.floor(p.windowWidth * 0.4), 200, 800);
     forceSlider.style('width', sliderWidth + 'px');
     forceSlider.style("z-index", "99999")
-    forceSlider.position(((p.windowWidth - sliderWidth)/2) + 200, p.windowHeight - 70);
+    forceSlider.parent('slider_wrapper');
     
 
  p.updateSliderGradient= function() {
