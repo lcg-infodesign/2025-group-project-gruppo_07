@@ -1962,47 +1962,80 @@ footer {
 }
 
 #ui_layer {
-  position:absolute;
-  bottom: 0rem;
-  left: 65%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  pointer-events: auto;
-  z-index:1000;
+    position: fixed !important;
+    bottom: 20px !important; /* Distanza dal fondo */
+    left: 65% !important;
+    transform: translateX(-50%) !important; /* Centratura perfetta */
+    width: 85vw !important; /* Larghezza ampia per contenere tutto su una riga */
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-end !important; /* Allinea i pulsanti e la linea alla base */
+    justify-content: center !important; 
+    gap: 25px !important; /* Spazio tra i vari blocchi */
+    z-index: 9999 !important;
 }
 
-/* posiziona play, slider e speed */
 .control-bar {
-  display: flex;
-  gap: 0.9rem;
-  align-items: center;
-  margin-left: 0.4rem;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 15px !important;
+    margin: 0 !important;
 }
 
+/* Allunga la barra della timeline */
+#slider_wrapper {
+    flex-grow: 1;
+    min-width: 500px !important; /* Aumenta questo valore se la vuoi ancora più lunga */
+}
+
+/* Rimuovi i margini che spingono i bottoni fuori asse */
 .left-buttons {
-  margin-bottom: 1.2rem;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
-#slider_wrapper{
-display: flex;
-align-items: center;
-}
 
-/* posiziona year e tot colonies */
 .stats-wrapper {
-  display: flex;
-  gap: 0.4rem;
-  align-items: center;
-  margin-left: 0.4rem;
-  margin-bottom: 1rem;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
 }
 
 .stat-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    min-width: 80px !important;
+}
+
+/* Parametri scritte YEAR / TOT. COLONIES */
+.stat-label {
+    font-family: 'montserrat', sans-serif;
+    font-size: 0.85rem !important; 
+    font-weight: 400 !important;
+    color: #4d4d4d;
+    text-transform: uppercase;
+    margin-bottom: 4px !important;
+}
+
+.stat-box-value {
+    border: none !important; /* NIENTE rettangolo qui */
+    background: none !important;
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    color: #313131;
+    line-height: 1;
+}
+
+.stat-separator {
+    width: 1px !important;
+    height: 40px !important;
+    background-color: #313131 !important;
+    margin: 0 15px !important;
+    align-self: center;
 }
 
 
@@ -2017,12 +2050,29 @@ align-items: center;
   pointer-events: none;
 }
 
-#playIcon{
-  cursor: pointer;
-  border: solid 0.0125rem #313131;
-  padding: 0.2vh 1vh 0.2vh 1vh;
-  transition: 0.2s ease;
-  z-index: 20;
+#playIcon, #speedIcon {
+    cursor: pointer;
+    border: 0.0625rem solid #313131 !important; /* Riaggiunge il rettangolo nero */
+    padding: 0.4rem 0.8rem !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    transition: 0.2s ease;
+}
+
+#playIcon:hover, #speedIcon:hover {
+    background-color: #313131 !important;
+    color: #E7E1D1 !important;
+}
+
+#playIcon:hover svg {
+    fill: #E7E1D1 !important;
+}
+
+/* Se l'icona play è dentro uno span o label, forziamo il centro */
+#playIcon svg {
+    display: block !important;
 }
 
 #playSvg{
