@@ -237,7 +237,7 @@ ul li ul.dropdown-menu{
   cursor: pointer;        /* Fa apparire la manina */
   z-index: 50;            /* Assicura che sia cliccabile */
 
-  animation: fadeIn3 0.8s ease-out 4s forwards; /* animazione originale */
+  
 }
 
 .SlideBtn svg {
@@ -245,7 +245,6 @@ ul li ul.dropdown-menu{
   stroke-width: 0.5;
   width: 6vh;
   height: 6vh;
-  opacity: 0; /* Mantengo l'opacità a 0 per le animazioni successive */
   
   /* Reset del posizionamento per funzionare col Flexbox */
   position: relative; 
@@ -307,25 +306,166 @@ ul li ul.dropdown-menu{
   rotate: 180deg; /* Mantengo la rotazione originale */
 }
 
+.sl1{
+  opacity: 0;
+}
+
+.sl1.show{
+  animation: fadeIn3 0.8s ease-out 3s forwards; /* animazione originale */
+}
+
 .sl1.show svg{
   animation: 
     fadeIn3 0.8s ease-out 3s forwards,
     bounce 1s ease-in-out 3.8s infinite alternate;
 }
-
-/* Sincronizzazione Testo Slide 1 e 2 (Ritardo 3s come le frecce) */
-.sl1.show .btn-label,
-.sl2.show .btn-label {
-  animation: fadeIn 0.8s ease-out 3s forwards;
+.sl1.show .btn-label {
+  animation: fadeIn 0.8s ease-out 3.8s forwards;
 }
+
+.sl2{
+  opacity: 0;
+}
+
+.sl2.show{
+  animation: fadeIn3 0.8s ease-out 4.5s forwards; /* animazione originale */
+}
+.sl2.show svg{
+  animation:
+    fadeIn3 0.8s ease-out 4.5s forwards,
+    bounce 1s ease-in-out 5.2s forwards;
+}
+
+.sl2.show .btn-label {
+  animation: fadeIn 0.8s ease-out 5.2s forwards;
+}
+
+.up1{
+  opacity: 0;
+}
+
+.up1.show{
+  animation: fadeIn3 0.8s ease-out 4.7s forwards; /* animazione originale */
+}
+.up1.show svg{
+  animation:
+    fadeIn3 0.8s ease-out 4.7s forwards,
+    bounce 1s ease-in-out 5.5s forwards;
+}
+
+.up1.show .btn-label {
+  animation: fadeIn 0.8s ease-out 5.5s forwards;
+}
+
+.sl3{
+  opacity: 0;
+}
+
+.sl3.show{
+  animation: fadeIn3 0.8s ease-out 6s forwards; /* animazione originale */
+}
+.sl3.show svg{
+  animation:
+    fadeIn3 0.8s ease-out 6s forwards,
+    bounce 1s ease-in-out 6.7s forwards;
+}
+
+
 
 /* Sincronizzazione Testo Slide 3 e 4 (Ritardo 6s come le frecce) */
-.sl3.show .btn-label,
-.sl4.show .btn-label {
-  animation: fadeIn 0.8s ease-out 6s forwards;
+.sl3.show .btn-label{
+  animation: fadeIn 0.8s ease-out 6.7s forwards;
 }
 
+.sl4{
+  opacity: 0;
+}
 
+.sl4.show{
+  animation: fadeIn3 0.8s ease-out 6s forwards; /* animazione originale */
+}
+
+.sl4.show svg{
+  animation: 
+    fadeIn3 0.8s ease-out 6s forwards,
+    bounce 1s ease-in-out 6.8s forwards;
+}
+
+.sl4.show .btn-label{
+  animation: fadeIn 0.8s ease-out 6.7s forwards;
+}
+
+.sl5{
+  opacity: 0;
+}
+
+.sl5.show{
+  animation: fadeIn3 0.8s ease-out 6s forwards; /* animazione originale */
+}
+
+.sl5.show svg{
+  animation: 
+    fadeIn3 0.8s ease-out 6s forwards,
+    bounce 1s ease-in-out 6.8s forwards;
+}
+
+.sl5.show .btn-label{
+  animation: fadeIn 0.8s ease-out 6.7s forwards;
+}
+
+.sl6{
+  opacity: 0;
+}
+
+.sl6.show{
+  animation: fadeIn3 0.8s ease-out 6s forwards; /* animazione originale */
+}
+
+.sl6.show svg{
+  animation: 
+    fadeIn3 0.8s ease-out 6s forwards,
+    bounce 1s ease-in-out 6.8s forwards;
+}
+
+.sl6.show .btn-label{
+  animation: fadeIn 0.8s ease-out 6.7s forwards;
+}
+
+.sl7{
+  opacity: 0;
+}
+
+.sl7.show{
+  animation: fadeIn3 0.8s ease-out 6.2s forwards; /* animazione originale */
+}
+
+.sl7.show svg{
+  animation: 
+    fadeIn3 0.8s ease-out 6.2s forwards,
+    bounce 1s ease-in-out 7s forwards;
+}
+
+.sl7.show .btn-label{
+  animation: fadeIn 0.8s ease-out 7s forwards;
+}
+
+.sl8{
+  opacity: 0;
+}
+
+.sl8.show{
+  animation: fadeIn3 0.8s ease-out 6s forwards; /* animazione originale */
+}
+
+.sl8.show svg{
+  animation: 
+    fadeIn3 0.8s ease-out 6s forwards,
+    bounce 1s ease-in-out 6.8s infinite alternate;
+}
+
+.sl8.show .btn-label{
+  animation: fadeIn 0.8s ease-out 6.7s forwards;
+}
 
 @keyframes fadeIn{
   to{
@@ -338,7 +478,7 @@ ul li ul.dropdown-menu{
   }
 }
 @keyframes fadeIn3 {
-  from{ transform: translateY(2vh);}
+  from{ opacity: 0; transform: translateY(2vh);}
   to { opacity: 1; transform: translateY(0vh); }
 }
 
@@ -348,25 +488,13 @@ ul li ul.dropdown-menu{
 }
 
 
-.sl2.show svg{
-  animation: 
-    fadeIn3 0.8s ease-out 3s forwards,
-    bounce 1s ease-in-out 3.8s infinite alternate;
-}
 
 
-.sl3.show svg{
-  animation: 
-    fadeIn3 0.8s ease-out 6s forwards,
-    bounce 1s ease-in-out 6.8s infinite alternate;
-}
 
 
-.sl4.show svg{
-  animation: 
-    fadeIn3 0.8s ease-out 6s forwards,
-    bounce 1s ease-in-out 6.8s infinite alternate;
-}
+
+
+
 
 
 .skipBtn{
@@ -421,6 +549,7 @@ ul li ul.dropdown-menu{
   transition: 1s ease-out 1.5s;
   transition-delay: 1s;
   line-height: 170%;
+  pointer-events: none;
 }
 
 .text span#explanationItalic{
@@ -746,7 +875,7 @@ ul li ul.dropdown-menu{
   justify-content: center; 
   align-items: center;     
   gap: 3vh;
-  background-color: #E7E1D1;
+  background-color: transparent;
 }
 
 .demo-video {
@@ -778,17 +907,7 @@ ul li ul.dropdown-menu{
   outline: none;
 }
 
-#u3b {
-  position: absolute;
-  left: 46%;
-  top: 10%;
-}
-
-#s4b {
-  position: absolute;
-  left: 46%;
-  bottom: 10%;
-}
+/* Frecce slide 3b ereditate da .SlideBtn e .UpperSlide */
 
 @keyframes showing{
   to{opacity: 1;}
@@ -801,7 +920,6 @@ ul li ul.dropdown-menu{
   position: absolute !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  opacity: 0; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -824,25 +942,10 @@ ul li ul.dropdown-menu{
   opacity: 0;
 }
 
-/* Comparsa delle etichette (BACK, NEXT, EXPLORE) quando la slide è attiva */
-.show .btn-label {
-  animation: fadeIn 0.8s ease-out 3.8s forwards;
-}
 
-/* Comparsa STATICA per tutte le frecce SVG (rimangono ferme) */
-.show .SlideBtn svg, 
-.show .UpperSlide svg {
-  opacity: 0;
-  animation: fadeIn3 0.8s ease-out 3.8s forwards;
-}
 
-/* Effetto BOUNCE: applicato SOLO agli elementi con classe .bounce-effect */
-/* Sovrascrive l'animazione precedente aggiungendo il movimento */
-.show .bounce-effect svg {
-  animation: 
-    fadeIn3 0.8s ease-out 3.8s forwards, 
-    bounce 1s ease-in-out 4.6s infinite alternate !important;
-}
+
+
 
 
 .falseTimeLine{

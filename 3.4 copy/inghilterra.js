@@ -148,12 +148,17 @@ function setup() {
 
   // Lettura localStorage per modalità zoom
   let savedView = localStorage.getItem('viewMode');
-  if(selectedCountry) {
-    // Se c'è selezione da URL, parte in zoom-out
-    isCompactView = false;
-  } else if(savedView) {
+  
+  // Logica di priorità:
+  // 1. Se l'utente ha già fatto una scelta (savedView esiste), rispettala
+  // 2. Altrimenti, parti sempre in collapsed (default)
+  if(savedView) {
     isCompactView = (savedView === 'compact');
+  } else {
+    // Default: sempre collapsed
+    isCompactView = true;
   }
+  
   currentRowHeight = isCompactView ? 8 : 25;
   targetRowHeight = currentRowHeight;
   
@@ -234,6 +239,23 @@ function setup() {
   // Crea buffer grafico
   coloniesLayer = createGraphics(windowWidth, colonies.length * 30 + 200);
   scrollHeight = (windowHeight - topOffset) * 0.77;
+  
+  // Auto-scroll alla colonia selezionata da URL
+  if(selectedCountry) {
+    let index = colCountries.indexOf(selectedCountry);
+    if(index !== -1) {
+      // Calcola la posizione Y della colonia nel grafico
+      let colonyY = index * currentRowHeight;
+      // Centro dello schermo visibile
+      let screenCenter = scrollHeight / 2;
+      // Calcola lo yOffset necessario per centrare la colonia
+      yOffset = -(colonyY - screenCenter);
+      // Assicurati che yOffset sia nei limiti
+      let totalHeight = colonies.length * currentRowHeight;
+      let maxScroll = Math.max(totalHeight - scrollHeight, 0);
+      yOffset = constrain(yOffset, -maxScroll, 0);
+    }
+  }
 }
 
 // =========================================================
@@ -311,6 +333,9 @@ function createToggleSlider() {
     
     isCompactView = !isCompactView;
     targetRowHeight = isCompactView ? 8 : 25;
+    
+    // Salva la scelta dell'utente nel localStorage
+    localStorage.setItem('viewMode', isCompactView ? 'compact' : 'extended');
     isAnimating = true;
     animationProgress = 0;
     localStorage.setItem('viewMode', isCompactView ? 'compact' : 'expanded');
@@ -450,14 +475,7 @@ function drawColoniesLayer(){
         coloniesLayer.circle(xEnd, yPos, 10);
       }
 
-      // Anni sempre visibili
-      coloniesLayer.textSize(15);
-      coloniesLayer.textStyle(BOLD);
-      coloniesLayer.fill(currentColor);
-      coloniesLayer.textAlign(RIGHT, CENTER);
-      coloniesLayer.text(int(start), xStart - 10, yPos);
-      coloniesLayer.textAlign(LEFT, CENTER);
-      coloniesLayer.text(int(end), xEnd + 10, yPos);
+      // Le date verranno disegnate dopo sul canvas principale per evitare il clipping
 
     } else {
       // Barre non selezionate
@@ -518,6 +536,35 @@ function drawColoniesLayer(){
 
   pop();
   
+  // Disegna le date FUORI dal clip per evitare che vengano tagliate
+  push();
+  textFont("Montserrat");
+  
+  for(let p of timelinePositions){
+    if(p.yPos + 10 < 0 || p.yPos - 10 > scrollHeight) continue;
+
+    let isClicked = (p.country === clickedCountry);
+    let isSelected = (p.country === selectedCountry);
+    
+    if(isClicked || isSelected) {
+      let op = (fadeOpacity[p.country] === undefined) ? 255 : fadeOpacity[p.country];
+      
+      textSize(15);
+      textStyle(BOLD);
+      fill(currentColor[0], currentColor[1], currentColor[2], op);
+      
+      // Data di inizio (allineata a destra)
+      textAlign(RIGHT, CENTER);
+      text(int(p.start), p.xStart - 10, chartY + p.yPos);
+      
+      // Data di fine (allineata a sinistra)
+      textAlign(LEFT, CENTER);
+      text(int(p.end), p.xEnd + 10, chartY + p.yPos);
+    }
+  }
+
+  pop();
+  
   drawScrollbar();
 }
 
@@ -532,32 +579,24 @@ function drawScrollbar(){
   if(maxScroll <= 0) return;
   
   // Posizione e dimensioni della scrollbar
-  scrollbarX = chartX + chartWidth + 15;
+  scrollbarX = chartX + chartWidth + 40;
   scrollbarY = chartY;
-  scrollbarWidth = 8;
+  scrollbarWidth = 4;
   scrollbarHeight = scrollHeight;
   
   // Calcola l'altezza del thumb in proporzione
   scrollThumbHeight = (scrollbarHeight / totalHeight) * scrollbarHeight;
-  scrollThumbHeight = Math.max(scrollThumbHeight, 15); // Minimo 15px
+  scrollThumbHeight = Math.max(scrollThumbHeight, 20); // Minimo 20px
   
   // Calcola la posizione del thumb basato su yOffset
   let scrollRatio = maxScroll > 0 ? (-yOffset) / maxScroll : 0;
   scrollThumbY = scrollbarY + (scrollbarHeight - scrollThumbHeight) * scrollRatio;
   
-  // Disegna background della scrollbar (più grande)
+  // Disegna il thumb della scrollbar - stile minimalista
   push();
-  stroke(49, 49, 49); // #313131 - stesso colore del thumb
-  strokeWeight(1);
-  fill(255, 0); // Trasparente
-  rect(scrollbarX - 3, scrollbarY - 3, scrollbarWidth + 6, scrollbarHeight + 6);
-  
-  // Disegna il thumb della scrollbar con stile spigoloso e trasparente
-  stroke(49, 49, 49); // #313131
-  strokeWeight(1);
-  fill(49, 49, 49); 
-  rect(scrollbarX + 1, scrollThumbY, scrollbarWidth - 2, scrollThumbHeight);
-  
+  noStroke();
+  fill(49, 49, 49); // #313131
+  rect(scrollbarX, scrollThumbY, scrollbarWidth, scrollThumbHeight);
   pop();
 }
 
@@ -722,6 +761,76 @@ function drawColonyInfo() {
   pop();
 }
 
+
+// =========================================================
+// MOUSE MOVED
+// =========================================================
+function mouseMoved(){
+  let mx = mouseX;
+  let my = mouseY;
+  
+  // Check hover sulla scrollbar
+  if(scrollbarX && mx >= scrollbarX && mx <= scrollbarX + scrollbarWidth && 
+     my >= scrollbarY && my <= scrollbarY + scrollbarHeight) {
+    if(my >= scrollThumbY && my <= scrollThumbY + scrollThumbHeight) {
+      cursor(HAND);
+      return;
+    }
+  }
+
+  // Check hover sul bottone Wikipedia
+  if(clickedCountry || selectedCountry) {
+    let currentCountry = clickedCountry || selectedCountry;
+    let index = colCountries.indexOf(currentCountry);
+    
+    if(index !== -1) {
+      let infoX = 80, infoY = topOffset + 20;
+      let lineSpacing = 25, startY = infoY + 50;
+      let buttonY = startY + lineSpacing * 3.5;
+      
+      if(mx >= infoX && mx <= infoX + 250 && 
+         my >= buttonY && my <= buttonY + 30) {
+        cursor(HAND);
+        return;
+      }
+    }
+  }
+
+  // Check hover sulle colonie nella timeline
+  for(let p of timelinePositions){
+    let mouseRelativeY = my - chartY - yOffset;
+    let rowY = p.index * currentRowHeight + 12;
+
+    // Hover sul nome
+    let nameX1 = chartX - 90, nameX2 = chartX - 10;
+    let nameY1 = rowY - 10, nameY2 = rowY + 10;
+    
+    if(mx >= nameX1 && mx <= nameX2 && mouseRelativeY >= nameY1 && mouseRelativeY <= nameY2){
+      cursor(HAND);
+      return;
+    }
+
+    // Hover sulla barra
+    let hitArea = isCompactView ? 5 : 10;
+    if(mx >= p.xStart && mx <= p.xEnd && abs(mouseRelativeY - rowY) < hitArea){
+      cursor(HAND);
+      return;
+    }
+
+    // Hover sui pallini (solo in vista espansa)
+    if(!isCompactView) {
+      let dStart = dist(mx, mouseRelativeY, p.xStart, rowY);
+      let dEnd = dist(mx, mouseRelativeY, p.xEnd, rowY);
+      
+      if(dStart < 10 || dEnd < 10){
+        cursor(HAND);
+        return;
+      }
+    }
+  }
+
+  cursor(ARROW);
+}
 
 // =========================================================
 // MOUSE PRESSED
