@@ -5,8 +5,6 @@ html, body {
   color: #313131;
   font-family:"montserrat", sans-serif;
   overflow-x: hidden;
-  
-  
 }
 
 #canvas-container {
@@ -745,7 +743,7 @@ ul li ul.dropdown-menu{
 /* Stile dei pallini */
 .scale-dots {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 20px;
 }
 
@@ -754,11 +752,11 @@ ul li ul.dropdown-menu{
   display: inline-block;
 }
 
-.d1 { width: 10px; height: 10px; background-color: #999; }
-.d2 { width: 16px; height: 16px; background-color: #888; }
-.d3 { width: 24px; height: 24px; background-color: #777; }
-.d4 { width: 34px; height: 34px; background-color: #555; }
-.d5 { width: 48px; height: 48px; background-color: #313131; }
+.d1 { width: 0.625rem; height: 0.625rem; background-color: #4d4d4d;opacity: 0.6;}
+.d2 { width: 15px; height: 15px; background-color: #4d4d4d;opacity: 0.3; }
+.d3 { width: 22px; height: 22px; background-color: #4d4d4d;opacity: 0.3; }
+.d4 { width: 30px; height: 30px; background-color: #4d4d4d;opacity: 0.3; }
+.d5 { width: 2.25rem; height: 2.25rem; background-color: #4d4d4d;opacity: 0.6; }
 
 /* Labels e Freccia */
 .scale-labels {
