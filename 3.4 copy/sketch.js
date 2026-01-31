@@ -130,7 +130,7 @@ function setup(){
       colonne[i] = colums.map(i => float(i))
       console.log(colonne)
     }
-
+    
   //new p5(sketch, 'general_view')
   new p5(sketch1, 'time_view')
 }
