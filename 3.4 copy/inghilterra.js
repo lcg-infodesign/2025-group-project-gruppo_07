@@ -92,10 +92,24 @@ function splitParagraphAndSource(fullText) {
 }
 
 // =========================================================
-// EASING FUNCTION
+// HELPER FUNCTIONS
 // =========================================================
 function easeInOutCubic(t) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+// Funzione helper per impostare stile del testo
+function setTextStyle(font, size, style, align, fillColor) {
+  textFont(font);
+  textSize(size);
+  textStyle(style);
+  textAlign(align);
+  if(fillColor !== undefined) fill(fillColor);
+}
+
+// Funzione helper per testo Montserrat standard
+function setMontserrat(size, style, align, fillColor) {
+  setTextStyle("Montserrat", size, style, align, fillColor);
 }
 
 // =========================================================
@@ -589,72 +603,59 @@ function drawSideInfo(){
   push();
   let sideX = windowWidth * 0.04;
   
-  // Calcola la posizione Y del toggle
-  let toggleHeight = 30;
-  if (toggleSlider && toggleSlider.elt) {
-    let rect = toggleSlider.elt.getBoundingClientRect();
-    toggleHeight = rect.height || toggleSlider.elt.offsetHeight || 30;
-  }
-  let toggleY = chartY + scrollHeight - toggleHeight;
-  
+  // Setup parametri
   let columnWidth = 350;
   let estimatedLineHeight = 22;
+  let titleHeight = 45;
+  let titleToParaSpacing = 50;
   
-  // ===== CALCOLO DINAMICO DELL'ALTEZZA TOTALE DEL BLOCCO =====
-  // 1. Calcola l'altezza del paragrafo
-  textFont("Montserrat");
-  textSize(16);
+  // Calcola dimensioni del testo
+  setMontserrat(16, NORMAL);
   let paragraphText = currentParagraph;
-  let totalTextWidth = textWidth(paragraphText);
-  let requiredLines = Math.ceil(totalTextWidth / columnWidth);
+  let requiredLines = Math.ceil(textWidth(paragraphText) / columnWidth);
   let totalTextHeight = requiredLines * estimatedLineHeight;
-  let linkOffset = currentSourceLinkText ? 35 : 0;
   
-  // 2. Calcola l'altezza totale del blocco
-  let titleHeight = 45;           // Altezza del titolo
-  let titleToParaSpacing = 50;    // Spazio tra titolo e paragrafo
-  let totalBlockHeight = titleHeight + titleToParaSpacing + totalTextHeight + linkOffset;
+  // Calcola posizioni (dal basso verso l'alto)
+  // Il toggle rimane SEMPRE alla base del grafico
+  let toggleHeight = toggleSlider?.elt?.offsetHeight || 30;
+  let graphicsBottom = chartY + scrollHeight; // Base del grafico
+  let toggleYPos = graphicsBottom - toggleHeight; // Posizione fissa del toggle
   
-  // 3. Posiziona il blocco calcolando all'indietro dal toggle
-  let spacingAboveToggle = 10;    // Spazio tra blocco e toggle
-  let blockOffsetY = toggleY - spacingAboveToggle - totalBlockHeight;
-  let blockOffsetX = 0;
-  // ============================================================
-
-  // Titolo colonizzatore
-  let titleY = blockOffsetY;
-  fill(currentColor);
-  textFont("benton-modern-display");
-  textSize(45);
-  textStyle(NORMAL);
+  // Il blocco si posiziona SOPRA il toggle
+  let blockHeight = titleHeight + titleToParaSpacing + totalTextHeight;
+  let blockYPos = toggleYPos - blockHeight; // Blocco direttamente sopra il toggle
+  
+  // === Disegna Titolo ===
+  setTextStyle("benton-modern-display", 45, NORMAL, LEFT, currentColor);
   textAlign(LEFT, TOP);
-  text(colonizerTitle, sideX + blockOffsetX, titleY);
+  text(colonizerTitle, sideX, blockYPos);
 
-  // Paragrafo
-  let descY = titleY + titleToParaSpacing;
-  fill(60);
-  textFont("Montserrat");
-  textSize(16);
-  textStyle(NORMAL);
+  // === Disegna Paragrafo ===
+  let descY = blockYPos + titleToParaSpacing;
+  setMontserrat(16, NORMAL, LEFT, 60);
   textAlign(LEFT, TOP);
   
-  // Linea verticale - ALTA QUANTO IL PARAGRAFO (senza il link)
+  // Calcola l'altezza reale del paragrafo (ascent+descent garantisce la misura esatta)
+  let lineHeight = textAscent() + textDescent();
+  let actualTextHeight = requiredLines * lineHeight;
+  
+  // Linea verticale: stessa altezza del paragrafo, centrata sul blocco testo
   stroke(currentColor);
   strokeWeight(3);
-  line(sideX + blockOffsetX - 15, descY, sideX + blockOffsetX - 15, descY + totalTextHeight);
+  line(sideX - 15, descY, sideX - 15, descY + actualTextHeight);
   noStroke();
   
-  text(paragraphText, sideX + blockOffsetX, descY, columnWidth);
+  text(paragraphText, sideX, descY, columnWidth);
   
-  // Posiziona link
+  // === Posiziona link ===
   if (sourceLinkElement) {
     sourceLinkElement.show();
-    sourceLinkElement.position(sideX + blockOffsetX, descY + totalTextHeight + 5);
+    sourceLinkElement.position(sideX, descY + actualTextHeight + 5);
   }
 
-  // Posiziona toggle allineato al margine inferiore del grafico
+  // === Posiziona toggle (FISSO ALLA BASE) ===
   if(toggleSlider) {
-    toggleSlider.position(sideX + blockOffsetX, toggleY);
+    toggleSlider.position(sideX, toggleYPos);
   }
   
   pop();
@@ -677,17 +678,11 @@ function drawColonyInfo() {
       end = colEndYear[index],
       duration = colDuration[index];
 
-  // USA LE STESSE COORDINATE DI drawSideInfo
-  let infoX = windowWidth * 0.04;  // Stesso sideX
+  let infoX = windowWidth * 0.04;
   let infoY = topOffset + 20;
 
   push();
-  textFont("Montserrat");
-
-  // === Titolo del Paese ===
-  fill(currentColor);
-  textSize(28);
-  textStyle(BOLD);
+  setMontserrat(28, BOLD, LEFT, currentColor);
   textAlign(LEFT, TOP);
   text(currentCountry, infoX, infoY);
 
@@ -695,62 +690,50 @@ function drawColonyInfo() {
   let blockY = infoY + 65;
   let leftBlockX = infoX;
   let rightBlockX = infoX + 220;
+  
+  const darkGray = "#313131";
 
-  // --- "duration" label ---
-  fill("#313131");
-  textSize(14);
-  textStyle(NORMAL);
+  // Duration label
+  setMontserrat(14, NORMAL, LEFT, darkGray);
   text("duration", leftBlockX, blockY-15);
 
-  // --- Valore durata (spazio ridotto) ---
-  textSize(36);
-  textStyle(NORMAL);
-  fill(currentColor);
+  // Valore durata
+  setMontserrat(36, NORMAL, LEFT, currentColor);
   text(`${int(duration)} yr.`, leftBlockX, blockY + 3);
 
-  // --- Linea verticale di separazione ---
-  stroke("#313131");
+  // Linea verticale
+  stroke(darkGray);
   strokeWeight(1);
   line(rightBlockX - 75, blockY - 5, rightBlockX - 75, blockY + 50);
   noStroke();
 
-  // --- Beginning / End ---
-  fill("#313131");
-  textSize(14);
-  textStyle(NORMAL);
+  // Labels
+  setMontserrat(14, NORMAL, LEFT, darkGray);
   text(`start of colonization:`, rightBlockX - 35, blockY);
   text(`end of colonization:`, rightBlockX - 35, blockY + 25);
 
-  // --- Anni evidenziati ---
-  textStyle(BOLD);
-  fill("#313131");
+  // Anni
+  setMontserrat(14, BOLD, LEFT, darkGray);
   text(`${int(start)}`, rightBlockX + 130, blockY);
   text(`${int(end)}`, rightBlockX + 130, blockY + 25);
 
-  // === BOTTONE WIKIPEDIA (ALLINEATO) ===
-  let buttonY = blockY + 70;  // Posizione relativa al blocco temporale
+  // === BOTTONE WIKIPEDIA ===
+  let buttonY = blockY + 70;
   let buttonWidth = 250;
   let buttonHeight = 30;
 
+  let isHover = mouseX >= infoX && mouseX <= infoX + buttonWidth &&
+                mouseY >= buttonY && mouseY <= buttonY + buttonHeight;
+  
   noStroke();
-  if (
-    mouseX >= infoX &&
-    mouseX <= infoX + buttonWidth &&
-    mouseY >= buttonY &&
-    mouseY <= buttonY + buttonHeight
-  ) {
-    fill(currentColor[0] * 0.8, currentColor[1] * 0.8, currentColor[2] * 0.8);
-    cursor(HAND);
-  } else {
-    fill(currentColor);
-    cursor(ARROW);
-  }
+  fill(isHover ? currentColor[0] * 0.8 : currentColor[0], 
+       isHover ? currentColor[1] * 0.8 : currentColor[1], 
+       isHover ? currentColor[2] * 0.8 : currentColor[2]);
+  cursor(isHover ? HAND : ARROW);
 
   rect(infoX, buttonY, buttonWidth, buttonHeight);
-  fill(255);
-  textSize(12);
+  setMontserrat(12, NORMAL, CENTER, 255);
   textAlign(CENTER, CENTER);
-  textStyle(NORMAL);
   text("MORE INFORMATION ON WIKIPEDIA", infoX + buttonWidth/2, buttonY + buttonHeight/2);
 
   pop();
