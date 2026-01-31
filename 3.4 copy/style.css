@@ -1165,7 +1165,7 @@ input[type="range"] {
   border-radius: 50%;
   background-color: #313131; 
   border: solid 0.125rem #E7E1D1; 
-  box-shadow: 0 0 0 1px #313131; 
+  box-shadow: 0 0 0 0.6px #313131; 
   cursor: pointer;
   scale: 2 2;
   position: relative;
@@ -2061,6 +2061,8 @@ footer {
     transition: 0.2s ease;
 }
 
+
+
 #playIcon:hover, #speedIcon:hover {
     background-color: #313131 !important;
     color: #E7E1D1 !important;
@@ -2083,6 +2085,7 @@ footer {
   opacity: 0;
   transition: 0.2s ease;
   z-index: 30;
+ 
 }
 
 #pauseIcon > svg{
