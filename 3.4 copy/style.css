@@ -754,6 +754,7 @@ ul li ul.dropdown-menu{
   font-size: 2.2vh;
   text-align: center;
   line-height: 170%;
+  margin-bottom: 10vh;
   
   /* Animazione */
   opacity: 0;
@@ -864,6 +865,43 @@ ul li ul.dropdown-menu{
 .d3 { width: 22px; height: 22px; background-color: #4d4d4d;opacity: 0.3; }
 .d4 { width: 30px; height: 30px; background-color: #4d4d4d;opacity: 0.3; }
 .d5 { width: 2.25rem; height: 2.25rem; background-color: #4d4d4d;opacity: 0.6; }
+
+/* Contenitore principale: dispone i due gruppi affiancati */
+.status-illustration {
+  display: flex;
+  flex-direction: row;      /* sulla stessa riga */
+  justify-content: center;   /* Centra il gruppo orizzontalmente */
+  align-items: center;       /* Allinea pallini e testo verticalmente */
+  gap: 60px;                 /* Distanza tra i due gruppi della legenda */
+  margin-top: 4vh;           /* Spazio dal testo superiore */
+  margin-bottom: 2vh;        /* Spazio dal testo inferiore */
+  
+  /* Animazione coerente con il tuo stile */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease-out 1.8s;
+}
+
+/* Quando la slide 4 è attiva, mostra l'illustrazione */
+.explanation4.show .status-illustration {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;                /* Spazio tra pallino e parola */
+  font-size: 2.1vh;         /* Coerente con la dimensione del tuo testo */
+}
+
+/* Dimensione delle sfere */
+.statusSphere {
+  width: 2.5vh;
+  height: 2.5vh;
+  border-radius: 50%;
+  display: inline-block;
+}
 
 /* Labels e Freccia */
 .scale-labels {
@@ -1046,11 +1084,6 @@ ul li ul.dropdown-menu{
 }
 
 
-
-
-
-
-
 .falseTimeLine{
   position: absolute;
   width: 65vh;
@@ -1148,56 +1181,10 @@ ul li ul.dropdown-menu{
   overflow: hidden;
 }
 
-/*#general_view{
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  opacity: 1;
-  top: 0%;
-  z-index: 10;
-  transition: 0.5s ease;
-  
-}*/
-
 #time_view canvas{
   z-index: 1;
 }
 
-
-
-/*#cb1 {
-  position: absolute;
-  bottom: 3%;
-  left: 50%;
-  transform: translateX(-50%);
-  
-  width: 0;      
-  height: 0;
-
-  opacity: 0;        
-  z-index: 0;
-  cursor: pointer;
-  transition: 0.5s ease;
-  pointer-events: none;
-}
-
-
-#checkmark {
-  position: absolute;
-  bottom: 4%;
-  left: 60%;
-  transform: translateX(-60%);
-  padding: 0.1em 1em 0.1em 1em;
-  background: #313131;
-  color: white;
-  border-radius: 2px;
-  font-family: sans-serif;
-  z-index: 100;
- font-size: 14px;
-  transition: 0.5s ease;
- font-family: "montserrat", sans-serif;
- cursor: pointer;
-}
 
 #checkmark p{
   position: relative;
