@@ -82,13 +82,13 @@ function splitParagraphAndSource(fullText) {
   let sourceIndex = fullText.indexOf("Source:");
   
   if (sourceIndex !== -1) {
-    let paragraph = fullText.substring(0, sourceIndex).trim();
+    let paragraph = fullText.substring(0, sourceIndex).trim().replace(/\n/g, ' ');
     let sourceText = fullText.substring(sourceIndex).trim();
     sourceText = sourceText.replace(/\n/g, ' '); 
     let url = "https://www.google.com/search?q=" + encodeURIComponent(sourceText);
     return { paragraph, sourceText, url };
   }
-  return { paragraph: fullText, sourceText: "", url: "" };
+  return { paragraph: fullText.trim().replace(/\n/g, ' '), sourceText: "", url: "" };
 }
 
 // =========================================================
@@ -258,22 +258,20 @@ function setup() {
   }
 }
 
-// =========================================================
-// TOGGLE SLIDER CREATION
-// =========================================================
 function createToggleSlider() {
-  // Minimal, single-color toggle inspired by the timeline in sketch.js
-  // Use a sober dark grey as single color (timeline uses '#313131')
-  let primary = '#313131';
+  let borderColor = '#4A4A4A';  // Grigio del bordo
+  let bgColor = '#E7E1D1';      // Sfondo beige
+  let knobColor = '#3D3D3D';    // Quadratino grigio scuro
 
   toggleSlider = createDiv('');
   toggleSlider.id('view-toggle');
   toggleSlider.parent('canvas-container');
   toggleSlider.style('position', 'absolute');
-  toggleSlider.style('height', '30px');
-  toggleSlider.style('border-radius', '0px');
-  toggleSlider.style('background-color', 'transparent');
-  toggleSlider.style('border', '1px solid #313131');
+  toggleSlider.style('height', '24px');  // Molto più sottile
+  toggleSlider.style('width', '160px');
+  toggleSlider.style('border-radius', '2px');
+  toggleSlider.style('background-color', bgColor);
+  toggleSlider.style('border', '1.5px solid ' + borderColor);
   toggleSlider.style('box-shadow', 'none');
   toggleSlider.style('cursor', 'pointer');
   toggleSlider.style('transition', 'none');
@@ -282,55 +280,45 @@ function createToggleSlider() {
   toggleSlider.style('z-index', '1000');
   toggleSlider.style('display', 'flex');
   toggleSlider.style('align-items', 'center');
-  toggleSlider.style('justify-content', 'space-between');
-  toggleSlider.style('overflow', 'hidden');
-  toggleSlider.style('padding', '4px');
+  toggleSlider.style('justify-content', 'center');
+  toggleSlider.style('overflow', 'visible');
 
-  // Width: fixed width regardless of state
-  toggleSlider.style('width', '150px');
-
-  // Label text (centered with flexbox parent)
+  // Label text (centered)
   let label = createDiv(isCompactView ? 'COLLAPSED' : 'EXTENDED');
   label.id('toggle-label');
   label.parent(toggleSlider);
   label.style('position', 'relative');
   label.style('z-index', '1');
-  label.style('color', '#313131');
-  label.style('font-weight', '600');
-  label.style('letter-spacing', '0.6px');
-  label.style('font-size', '11px');
+  label.style('color', '#6B6B6B');  // Grigio per il testo
+  label.style('font-weight', '500');
+  label.style('letter-spacing', '0.8px');
+  label.style('font-size', '10px');
   label.style('pointer-events', 'none');
   label.style('white-space', 'nowrap');
-  label.style('line-height', '30px');
   label.style('text-align', 'center');
   label.style('flex', '1');
 
-  // Knob: square with same border-radius as container, slides inside pill
+  // Knob: quadratino grigio scuro
   let knob = createDiv('');
   knob.id('toggle-knob');
   knob.parent(toggleSlider);
   knob.style('position', 'absolute');
-  knob.style('width', '22px');
-  knob.style('height', '22px');
-  knob.style('border-radius', '0px');
-  knob.style('background-color', '#313131');
-  knob.style('border', 'solid 2px #E7E1D1');
-  knob.style('box-shadow', '0 0 0 1px #313131');
-  knob.style('top', '4px');
-  knob.style('transition', 'left 0.28s cubic-bezier(0.22, 1, 0.36, 1)');
+  knob.style('width', '18px');
+  knob.style('height', '18px');
+  knob.style('border-radius', '1px');
+  knob.style('background-color', knobColor);
+  knob.style('border', 'none');
+  knob.style('box-shadow', 'none');
+  knob.style('top', '50%');
+  knob.style('transform', 'translateY(-50%)');
+  knob.style('transition', 'left 0.3s cubic-bezier(0.22, 1, 0.36, 1)');
   knob.style('cursor', 'pointer');
 
-  // Knob initial position: left for collapsed, right for extended
-  knob.style('left', isCompactView ? '4px' : 'calc(100% - 28px)');
+  // Posizione iniziale del knob
+  knob.style('left', isCompactView ? '3px' : 'calc(100% - 21px)');
 
-  // Click handler: toggle state, animate knob and width, keep timeline behavior
+  // Click handler
   toggleSlider.mousePressed(() => {
-    // Trigger squeeze animation
-    toggleSlider.style('animation', 'none');
-    // Trigger reflow to restart animation
-    void toggleSlider.elt.offsetWidth;
-    toggleSlider.style('animation', 'toggleSqueeze 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)');
-    
     isCompactView = !isCompactView;
     targetRowHeight = isCompactView ? 8 : 25;
     
@@ -338,23 +326,17 @@ function createToggleSlider() {
     localStorage.setItem('viewMode', isCompactView ? 'compact' : 'extended');
     isAnimating = true;
     animationProgress = 0;
-    localStorage.setItem('viewMode', isCompactView ? 'compact' : 'expanded');
 
     if(isCompactView){
-      knob.style('left', '4px');
+      knob.style('left', '3px');
       select('#toggle-label').html('COLLAPSED');
-      select('#toggle-label').style('font-size', '10px');
     } else {
-      knob.style('left', 'calc(100% - 28px)');
+      knob.style('left', 'calc(100% - 21px)');
       select('#toggle-label').html('EXTENDED');
-      select('#toggle-label').style('font-size', '11px');
     }
   });
 }
 
-// =========================================================
-// DRAW
-// =========================================================
 function draw() {
   clear();
 
@@ -607,13 +589,37 @@ function drawSideInfo(){
   push();
   let sideX = windowWidth * 0.04;
   
-  // ===== OFFSET DEL BLOCCO: modifica questi valori per spostare tutto insieme =====
-  let blockOffsetX = 0;        // Offset orizzontale (in pixel)
-  let blockOffsetY = chartY + 310;   // Offset verticale (in pixel)
-  // =================================================================================
+  // Calcola la posizione Y del toggle
+  let toggleHeight = 30;
+  if (toggleSlider && toggleSlider.elt) {
+    let rect = toggleSlider.elt.getBoundingClientRect();
+    toggleHeight = rect.height || toggleSlider.elt.offsetHeight || 30;
+  }
+  let toggleY = chartY + scrollHeight - toggleHeight;
   
   let columnWidth = 350;
   let estimatedLineHeight = 22;
+  
+  // ===== CALCOLO DINAMICO DELL'ALTEZZA TOTALE DEL BLOCCO =====
+  // 1. Calcola l'altezza del paragrafo
+  textFont("Montserrat");
+  textSize(16);
+  let paragraphText = currentParagraph;
+  let totalTextWidth = textWidth(paragraphText);
+  let requiredLines = Math.ceil(totalTextWidth / columnWidth);
+  let totalTextHeight = requiredLines * estimatedLineHeight;
+  let linkOffset = currentSourceLinkText ? 35 : 0;
+  
+  // 2. Calcola l'altezza totale del blocco
+  let titleHeight = 45;           // Altezza del titolo
+  let titleToParaSpacing = 50;    // Spazio tra titolo e paragrafo
+  let totalBlockHeight = titleHeight + titleToParaSpacing + totalTextHeight + linkOffset;
+  
+  // 3. Posiziona il blocco calcolando all'indietro dal toggle
+  let spacingAboveToggle = 10;    // Spazio tra blocco e toggle
+  let blockOffsetY = toggleY - spacingAboveToggle - totalBlockHeight;
+  let blockOffsetX = 0;
+  // ============================================================
 
   // Titolo colonizzatore
   let titleY = blockOffsetY;
@@ -622,27 +628,20 @@ function drawSideInfo(){
   textSize(45);
   textStyle(NORMAL);
   textAlign(LEFT, TOP);
-  text(colonizerTitle, sideX + blockOffsetX, titleY -13);
+  text(colonizerTitle, sideX + blockOffsetX, titleY);
 
   // Paragrafo
-  let descY = titleY + 50;
+  let descY = titleY + titleToParaSpacing;
   fill(60);
   textFont("Montserrat");
   textSize(16);
   textStyle(NORMAL);
   textAlign(LEFT, TOP);
   
-  let paragraphText = currentParagraph;
-  let totalTextWidth = textWidth(paragraphText);
-  let requiredLines = Math.ceil(totalTextWidth / columnWidth);
-  let totalTextHeight = requiredLines * estimatedLineHeight;
-  let linkOffset = currentSourceLinkText ? 30 : 0;
-  let lineLength = totalTextHeight + linkOffset + 2;
-
-  // Linea verticale
+  // Linea verticale - ALTA QUANTO IL PARAGRAFO (senza il link)
   stroke(currentColor);
   strokeWeight(3);
-  line(sideX + blockOffsetX - 15, descY, sideX + blockOffsetX - 15, descY + lineLength - 10);
+  line(sideX + blockOffsetX - 15, descY, sideX + blockOffsetX - 15, descY + totalTextHeight);
   noStroke();
   
   text(paragraphText, sideX + blockOffsetX, descY, columnWidth);
@@ -655,12 +654,6 @@ function drawSideInfo(){
 
   // Posiziona toggle allineato al margine inferiore del grafico
   if(toggleSlider) {
-    let toggleHeight = 30;
-    if (toggleSlider.elt) {
-      let rect = toggleSlider.elt.getBoundingClientRect();
-      toggleHeight = rect.height || toggleSlider.elt.offsetHeight || 30;
-    }
-    let toggleY = chartY + scrollHeight - toggleHeight;
     toggleSlider.position(sideX + blockOffsetX, toggleY);
   }
   
@@ -684,7 +677,9 @@ function drawColonyInfo() {
       end = colEndYear[index],
       duration = colDuration[index];
 
-  let infoX = 80, infoY = topOffset + 20;
+  // USA LE STESSE COORDINATE DI drawSideInfo
+  let infoX = windowWidth * 0.04;  // Stesso sideX
+  let infoY = topOffset + 20;
 
   push();
   textFont("Montserrat");
@@ -732,17 +727,17 @@ function drawColonyInfo() {
   text(`${int(start)}`, rightBlockX + 130, blockY);
   text(`${int(end)}`, rightBlockX + 130, blockY + 25);
 
-  // === BOTTONE WIKIPEDIA (ORIGINALE, NON MODIFICATO) ===
-  let lineSpacing = 25;
-  let startY = infoY + 45;
-  let buttonY = startY + lineSpacing * 3.5;
+  // === BOTTONE WIKIPEDIA (ALLINEATO) ===
+  let buttonY = blockY + 70;  // Posizione relativa al blocco temporale
+  let buttonWidth = 250;
+  let buttonHeight = 30;
 
   noStroke();
   if (
     mouseX >= infoX &&
-    mouseX <= infoX + 250 &&
+    mouseX <= infoX + buttonWidth &&
     mouseY >= buttonY &&
-    mouseY <= buttonY + 30
+    mouseY <= buttonY + buttonHeight
   ) {
     fill(currentColor[0] * 0.8, currentColor[1] * 0.8, currentColor[2] * 0.8);
     cursor(HAND);
@@ -751,12 +746,12 @@ function drawColonyInfo() {
     cursor(ARROW);
   }
 
-  rect(infoX, buttonY, 250, 30);
+  rect(infoX, buttonY, buttonWidth, buttonHeight);
   fill(255);
   textSize(12);
   textAlign(CENTER, CENTER);
   textStyle(NORMAL);
-  text("MORE INFORMATION ON WIKIPEDIA", infoX + 125, buttonY + 15);
+  text("MORE INFORMATION ON WIKIPEDIA", infoX + buttonWidth/2, buttonY + buttonHeight/2);
 
   pop();
 }
