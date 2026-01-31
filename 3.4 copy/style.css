@@ -334,16 +334,16 @@ ul li ul.dropdown-menu{
 }
 
 .up1.show{
-  animation: fadeIn3 0.8s ease-out 4.7s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 4.8s forwards; /* animazione originale */
 }
 .up1.show svg{
   animation:
-    fadeIn3 0.8s ease-out 4.7s forwards,
-    bounce 1s ease-in-out 5.5s forwards;
+    fadeIn3 0.8s ease-out 4.8s forwards,
+    bounce 1s ease-in-out 5.6s forwards;
 }
 
 .up1.show .btn-label {
-  animation: fadeIn 0.8s ease-out 5.5s forwards;
+  animation: fadeIn 0.8s ease-out 5.6s forwards;
 }
 
 .sl3{
@@ -361,10 +361,32 @@ ul li ul.dropdown-menu{
 
 
 
-/* Sincronizzazione Testo Slide 3 e 4 (Ritardo 6s come le frecce) */
 .sl3.show .btn-label{
   animation: fadeIn 0.8s ease-out 6.7s forwards;
 }
+
+
+.up2{
+  opacity: 0;
+}
+
+.up2.show{
+  animation: fadeIn3 0.8s ease-out 6.3s forwards; /* animazione originale */
+}
+.up2.show svg{
+  animation:
+    fadeIn3 0.8s ease-out 6.3s forwards,
+    bounce 1s ease-in-out 7.1s forwards;
+}
+
+
+
+/* Sincronizzazione Testo Slide 3 e 4 (Ritardo 6s come le frecce) */
+.up2.show .btn-label{
+  animation: fadeIn 0.8s ease-out 7.1s forwards;
+}
+
+
 
 .sl4{
   opacity: 0;
@@ -383,6 +405,28 @@ ul li ul.dropdown-menu{
 .sl4.show .btn-label{
   animation: fadeIn 0.8s ease-out 6.7s forwards;
 }
+
+
+.up3{
+  opacity: 0;
+}
+
+.up3.show{
+  animation: fadeIn3 0.8s ease-out 6.3s forwards; /* animazione originale */
+}
+.up3.show svg{
+  animation:
+    fadeIn3 0.8s ease-out 6.3s forwards,
+    bounce 1s ease-in-out 7.1s forwards;
+}
+
+
+
+/* Sincronizzazione Testo Slide 3 e 4 (Ritardo 6s come le frecce) */
+.up3.show .btn-label{
+  animation: fadeIn 0.8s ease-out 7.1s forwards;
+}
+
 
 .sl5{
   opacity: 0;
@@ -419,6 +463,28 @@ ul li ul.dropdown-menu{
 .sl6.show .btn-label{
   animation: fadeIn 0.8s ease-out 6.7s forwards;
 }
+
+
+.up4{
+  opacity: 0;
+}
+
+.up4.show{
+  animation: fadeIn3 0.8s ease-out 6.3s forwards; /* animazione originale */
+}
+.up4.show svg{
+  animation:
+    fadeIn3 0.8s ease-out 6.3s forwards,
+    bounce 1s ease-in-out 7.1s forwards;
+}
+
+
+
+/* Sincronizzazione Testo Slide 3 e 4 (Ritardo 6s come le frecce) */
+.up4.show .btn-label{
+  animation: fadeIn 0.8s ease-out 7.1s forwards;
+}
+
 
 .sl7{
   opacity: 0;
@@ -479,19 +545,11 @@ ul li ul.dropdown-menu{
 
 
 
-
-
-
-
-
-
-
 .skipBtn{
   position: absolute;
   bottom: 10%;
   right: 12%;
   border: solid 0.03125rem #313131;
-  border-radius: 0.125rem;
   background-color: #E7E1D1;
   padding: 1vh;
   text-decoration: none;
@@ -856,7 +914,7 @@ ul li ul.dropdown-menu{
 .falseBtn.show {
   transform: translateY(6vh);
   opacity: 1;
-  animation: click 3s ease 3.8s forwards;
+  animation: click 0.5s ease 2.5s forwards;
 }
 
 .falseBtn.show .pauseIcon {
@@ -867,7 +925,7 @@ ul li ul.dropdown-menu{
 .falseBtn.show .pauseIcon svg {
   fill: #E7E1D1;
   opacity: 0;
-  animation: showing 3s ease 3.8s forwards;
+  animation: showing 0.5s ease 2.8s forwards;
 }
 
 .text6.show {
@@ -891,9 +949,9 @@ ul li ul.dropdown-menu{
 }
 
 @keyframes click{
-  0%{scale: 1; background-color: #E7E1D1;}
-  50%{scale: 0.6; background-color: #E7E1D1;}
-  100%{scale: 1; background-color: #313131;}
+  0%{scale: 1; background-color: #E7E1D1; transform: translateY(6vh);}
+  50%{scale: 0.6; background-color: #E7E1D1; transform: translateY(6vh);}
+  100%{scale: 1; background-color: #313131; transform: translateY(6vh);}
 }
 
 @keyframes showing{
@@ -2085,7 +2143,7 @@ min-width: 500px;
   width: 1px;
   height: 40px;
   background-color: #313131;
-  margin: 0 15px;
+   margin: 0 15px;
   align-self: center;
 }
 
@@ -2112,7 +2170,9 @@ min-width: 500px;
     transition: 0.2s ease;
 }
 
-
+#playIcon{
+  padding: 0.3rem 0.6rem !important;
+}
 
 #playIcon:hover, #speedIcon:hover {
     background-color: #313131 !important;
@@ -2136,7 +2196,7 @@ min-width: 500px;
   opacity: 0;
   transition: 0.2s ease;
   z-index: 30;
- 
+ position: absolute;
 }
 
 #pauseIcon > svg{
@@ -2218,3 +2278,31 @@ min-width: 500px;
 
 #playIcon svg {
     display: block;}
+
+
+.re-watch{
+  display: flex;
+  position: absolute;
+  top: 15%;
+  right: 5%;
+  border: solid #313131 0.6px;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.4rem;
+  background-color: #E7E1D1;
+  z-index: 999;
+  transition: 0.2s ease;
+}
+
+.re-watch svg{
+  fill: #313131;
+}
+
+.re-watch:hover{
+background-color: #313131;
+}
+
+
+.re-watch:hover svg{
+fill: #E7E1D1;
+}

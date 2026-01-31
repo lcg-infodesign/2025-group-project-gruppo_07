@@ -2,55 +2,42 @@
 
 //javascript
 
+//botton/ancore per scendere/salire
+const buttons = document.querySelectorAll('.SlideBtn, .skipBtn, .UpperSlide, .re-watch');
+//div che racchiude tutte le sezioni
+const closedContainer = document.querySelector('.no_scroll');
+//pagina del grafico
+const ending = document.querySelector('.ending');
+
+const animatedElements = document.querySelectorAll(
+  '.bg_wrapper, .text, .text2, .pointer, .pointer2, .pointer3, .text3, ' +
+  '.falseBtn, .falseTimeLine, .text4, .text5, .sl1, .sl2, .sl3, .sl4, ' +
+  '.sl6, .explanation4, .explanation5, .text6, .text7, .hover-demo, ' +
+  '.demo-video, .sl5, .sl7, .sl8, .up1, .up2, .up3, .up4, .u3b'
+);
+
+
+
 //Animazioni quando si entra in vista   
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('show');
-      
-      observer.unobserve(entry.target);
+    } else {
+      entry.target.classList.remove('show');
     }
   });
 }, {
   threshold: 0.2
 });
 
+animatedElements.forEach(el => observer.observe(el));
 
-document.querySelectorAll('.bg_wrapper,.text, .text2, .pointer, .pointer2, .pointer3, .text3, .falseBtn,.falseTimeLine, .text4, .text5, .sl1, .sl2, .sl3, .sl4, .sl6, .ending, .explanation4, .explanation5, .text6, .text7, .hover-demo, .demo-video, .sl5, .sl7, .sl8, .up1, .u3b').forEach(el => observer.observe(el));
+
+
 
 //SLIDESHOW
 
-
-//botton/ancore per scendere/salire
-const buttons = document.querySelectorAll('.SlideBtn, .skipBtn, .UpperSlide');
-//div che racchiude tutte le sezioni
-const closedContainer = document.querySelector('.no_scroll');
-//pagina del grafico
-const ending = document.querySelector('.ending');
-
-//inizio cose che si possono rimuovere
-const observer2 = new IntersectionObserver(
-  entries => { 
-    entries.forEach(entry => {
-      if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
-        //closedContainer.style.overflowY = 'auto';
-        
-
-        buttons.forEach(b => {
-          b.style.opacity = '0';
-          b.style.pointerEvents = 'none';
-        });
-
-        observer2.unobserve(entry.target);
-      }
-    });
-  },
-  {  
-    threshold: 0.6           
-  }
-);
-
-if (ending) observer2.observe(ending);//fine cose da rimuovere
 
 // interazione coi bottoni
 buttons.forEach(btn => {
@@ -62,6 +49,18 @@ buttons.forEach(btn => {
     if (!arrivo) return;
 
     arrivo.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+
+//evita che i bottoni vengano cliccati prima che essi compaiano
+const animatedButtons = document.querySelectorAll('.SlideBtn, .UpperSlide');
+
+animatedButtons.forEach(btn => {
+  btn.style.pointerEvents = 'none';
+
+  btn.addEventListener('animationstart', () => {
+    btn.style.pointerEvents = 'auto';
   });
 });
 
