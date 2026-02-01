@@ -1204,31 +1204,6 @@ ul li ul.dropdown-menu{
   left: 8%;
   transform: translateX(-8%);
 }
-/*#cb1:checked ~ #general_view {
-  opacity: 0;
-  top: 15%;
-  z-index: 0;
-}
-
-#cb1:checked ~ #time_view {
-  opacity: 1;
-  top: 0%;
-  z-index: 10;
-}
-
-
-#cb1:checked + #checkmark {
-  left: 11%;
-  transform: translateX(-11%);
-}
-
-#cb1:checked + #checkmark p{
- opacity: 0;
-}
-#cb1:checked + #checkmark #generalBtn{
- opacity: 1;
-}*/
-
 
 input[type="range"] {
 
@@ -1494,11 +1469,6 @@ h1.legenda{
   background-color: #4d4d4d;
 }
 
-/*.scaleLabel.small,
-.scaleLabel.medium,
-.scaleLabel.large {
-fine-grained positioning not needed: labels follow their spheres 
-}*/
 
 /* PAGINA TEAM */
 .team {
@@ -1723,9 +1693,6 @@ fine-grained positioning not needed: labels follow their spheres
             top: 20%;
             left: 70%;
         }
-
-
-
 
 
 /*  DATA AND METHODOLOGY PAGE    */

@@ -1,6 +1,4 @@
-// =========================================================
 // VARIABILI GLOBALI E CONFIGURAZIONE INIZIALE
-// =========================================================
 //layout del canvas per mettere il footer
 let c;
 
@@ -756,17 +754,19 @@ function mouseMoved(){
     }
   }
 
-  // Check hover sul bottone Wikipedia
+// Check hover sul bottone Wikipedia
   if(clickedCountry || selectedCountry) {
     let currentCountry = clickedCountry || selectedCountry;
     let index = colCountries.indexOf(currentCountry);
     
     if(index !== -1) {
-      let infoX = 80, infoY = topOffset + 20;
-      let lineSpacing = 25, startY = infoY + 50;
-      let buttonY = startY + lineSpacing * 3.5;
+      let infoX = windowWidth * 0.07;
+      let infoY = topOffset + 120;
+      let blockY = infoY + 65;
+      let buttonY = blockY + 70;
+      let buttonWidth = 250;
       
-      if(mx >= infoX && mx <= infoX + 250 && 
+      if(mx >= infoX && mx <= infoX + buttonWidth && 
          my >= buttonY && my <= buttonY + 30) {
         cursor(HAND);
         return;
@@ -846,18 +846,21 @@ function mousePressed(){
     let index = colCountries.indexOf(currentCountry);
     
     if(index !== -1) {
-      let infoX = 80, infoY = topOffset + 20;
-      let lineSpacing = 25, startY = infoY + 50;
-      let buttonY = startY + lineSpacing * 3.5;
+      // Coordinate coerenti con drawColonyInfo
+      let infoX = windowWidth * 0.07;
+      let infoY = topOffset + 120;
+      let blockY = infoY + 65;
+      let buttonY = blockY + 70;
+      let buttonWidth = 250;
+      let buttonHeight = 30;
       
-      // Click sul bottone Wikipedia
-      if(mx >= infoX && mx <= infoX + 250 && 
-         my >= buttonY && my <= buttonY + 30) {
+      if(mx >= infoX && mx <= infoX + buttonWidth && 
+         my >= buttonY && my <= buttonY + buttonHeight) {
         let wikiLink = colonies[index].get("wiki");
         if(wikiLink && wikiLink.trim() !== "") {
           window.open(wikiLink, '_blank');
         }
-        return; // Non fare altro
+        return; 
       }
     }
   }
