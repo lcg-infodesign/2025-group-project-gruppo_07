@@ -393,7 +393,7 @@ for (let cl of localClusters) {
     let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
     let tEnd   = p.map(s.endYear, globalMinEnd,   globalMaxEnd,   0.15, 0.95);
 
-    p.text(forceSlider.value(), sliderX, sliderY+50)
+    
     
      
 
