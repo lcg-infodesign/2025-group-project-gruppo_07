@@ -36,6 +36,9 @@ animatedElements.forEach(el => observer.observe(el));
 
 
 
+
+
+
 //SLIDESHOW
 
 
@@ -157,6 +160,9 @@ let sketch1 = function(p){
   let hoverAlpha = 0;
   let hoverAlpha2 = 0   
   let hoverOffset = 20; 
+
+ 
+  
 
   let paragraphs = [
   {
@@ -629,6 +635,12 @@ if (hoverAlpha > 1) {
   p.pop()
 
 }
+
+
+
+
+
+
 
 //data 
 
