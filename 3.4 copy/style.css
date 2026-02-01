@@ -989,9 +989,9 @@ ul li ul.dropdown-menu{
 }
 
 @keyframes click{
-  0%{scale: 1; background-color: #E7E1D1; transform: translateY(6vh);}
-  50%{scale: 0.6; background-color: #E7E1D1; transform: translateY(6vh);}
-  100%{scale: 1; background-color: #313131; transform: translateY(6vh);}
+  0%{scale: 1; background-color: #E7E1D1; transform: translateY(6vh); top: 30%;}
+  50%{scale: 0.6; background-color: #E7E1D1; transform: translateY(6vh); top: 30%;}
+  100%{scale: 1; background-color: #313131; transform: translateY(6vh); top: 30%;}
 }
 
 @keyframes showing{
