@@ -260,8 +260,13 @@ let sketch1 = function(p){
 
   playCheckBox = p.select('#playBtn')
   playCheckBox.changed(() => {
-  isPlaying = playCheckBox.checked()
-});
+    // Se siamo al massimo e si riclicca play, riparti da zero
+    if (playCheckBox.checked() && forceSlider.value() >= 100) {
+      forceSlider.value(0);
+      p.updateSliderGradient();
+    }
+    isPlaying = playCheckBox.checked();
+  });
 
 speedCheckBox = p.select('#speedBtn');
 speedCheckBox.changed(()=> {

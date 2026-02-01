@@ -25,6 +25,7 @@ let selectedCountry = null;
 // Gestione effetto "fade"
 let fadeOpacity = {};   
 let fadeSpeed = 0.12;
+let nameShift = {};
 
 // Posizioni e dimensioni della timeline
 let timelinePositions = [];
@@ -530,7 +531,33 @@ function drawColoniesLayer(){
         textStyle(NORMAL);
       }
 
-      text(p.country.toUpperCase(), chartX - 15, chartY + p.yPos);
+      const nameText = p.country.toUpperCase();
+      let targetShift = 0;
+
+      if (isClicked || isSelected) {
+        const nameRight = chartX - 15;
+        const nameWidth = textWidth(nameText);
+        const nameLeft = nameRight - nameWidth;
+
+        push();
+        textFont("Montserrat");
+        textSize(15);
+        textStyle(BOLD);
+        const dateText = String(int(p.start));
+        const dateWidth = textWidth(dateText);
+        pop();
+
+        const dateRight = p.xStart - 10;
+        const dateLeft = dateRight - dateWidth;
+        const overlap = nameRight - dateLeft;
+
+        if (overlap > 0) targetShift = overlap + 12;
+      }
+
+      const currentShift = nameShift[p.country] ?? 0;
+      nameShift[p.country] = lerp(currentShift, targetShift, 0.15);
+
+      text(nameText, chartX - 15 - nameShift[p.country], chartY + p.yPos);
     }
   }
 
@@ -883,6 +910,8 @@ function mousePressed(){
     if(mx >= nameX1 && mx <= nameX2 && mouseRelativeY >= nameY1 && mouseRelativeY <= nameY2){
       clickedCountry = p.country;
       selectedCountry = null;
+      nameShift = {};
+      nameShift[p.country] = 0;
       clickedSomething = true;
       break;
     }
@@ -892,6 +921,8 @@ function mousePressed(){
     if(mx >= p.xStart && mx <= p.xEnd && abs(mouseRelativeY - rowY) < hitArea){
       clickedCountry = p.country;
       selectedCountry = null;
+      nameShift = {};
+      nameShift[p.country] = 0;
       clickedSomething = true;
       break;
     }
@@ -904,6 +935,8 @@ function mousePressed(){
       if(dStart < 10 || dEnd < 10){
         clickedCountry = p.country;
         selectedCountry = null;
+        nameShift = {};
+        nameShift[p.country] = 0;
         clickedSomething = true;
         break;
       }
