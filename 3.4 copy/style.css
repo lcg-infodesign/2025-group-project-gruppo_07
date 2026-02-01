@@ -300,16 +300,16 @@ ul li ul.dropdown-menu{
 }
 
 .sl1.show{
-  animation: fadeIn3 0.8s ease-out 3s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 2s forwards; /* animazione originale */
 }
 
 .sl1.show svg{
   animation: 
-    fadeIn3 0.8s ease-out 3s forwards,
-    bounce 1s ease-in-out 3.8s infinite alternate;
+    fadeIn3 0.8s ease-out 2s forwards,
+    bounce 1s ease-in-out 2.8s infinite alternate;
 }
 .sl1.show .btn-label {
-  animation: fadeIn 0.8s ease-out 3.8s forwards;
+  animation: fadeIn 0.8s ease-out 2.8s forwards;
 }
 
 .sl2{
@@ -317,16 +317,16 @@ ul li ul.dropdown-menu{
 }
 
 .sl2.show{
-  animation: fadeIn3 0.8s ease-out 4.5s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 2.5s forwards; /* animazione originale */
 }
 .sl2.show svg{
   animation:
-    fadeIn3 0.8s ease-out 4.5s forwards,
-    bounce 1s ease-in-out 5.2s forwards;
+    fadeIn3 0.8s ease-out 2.5s forwards,
+    bounce 1s ease-in-out 3.2s forwards;
 }
 
 .sl2.show .btn-label {
-  animation: fadeIn 0.8s ease-out 5.2s forwards;
+  animation: fadeIn 0.8s ease-out 3.2s forwards;
 }
 
 .up1{
@@ -334,16 +334,16 @@ ul li ul.dropdown-menu{
 }
 
 .up1.show{
-  animation: fadeIn3 0.8s ease-out 4.8s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 2.8s forwards; /* animazione originale */
 }
 .up1.show svg{
   animation:
-    fadeIn3 0.8s ease-out 4.8s forwards,
-    bounce 1s ease-in-out 5.6s forwards;
+    fadeIn3 0.8s ease-out 2.8s forwards,
+    bounce 1s ease-in-out 3.6s forwards;
 }
 
 .up1.show .btn-label {
-  animation: fadeIn 0.8s ease-out 5.6s forwards;
+  animation: fadeIn 0.8s ease-out 3.6s forwards;
 }
 
 .sl3{
@@ -351,18 +351,18 @@ ul li ul.dropdown-menu{
 }
 
 .sl3.show{
-  animation: fadeIn3 0.8s ease-out 6s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 4s forwards; /* animazione originale */
 }
 .sl3.show svg{
   animation:
-    fadeIn3 0.8s ease-out 6s forwards,
-    bounce 1s ease-in-out 6.7s forwards;
+    fadeIn3 0.8s ease-out 4s forwards,
+    bounce 1s ease-in-out 4.7s forwards;
 }
 
 
 
 .sl3.show .btn-label{
-  animation: fadeIn 0.8s ease-out 6.7s forwards;
+  animation: fadeIn 0.8s ease-out 4.7s forwards;
 }
 
 
@@ -371,19 +371,19 @@ ul li ul.dropdown-menu{
 }
 
 .up2.show{
-  animation: fadeIn3 0.8s ease-out 6.3s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 4.3s forwards; /* animazione originale */
 }
 .up2.show svg{
   animation:
-    fadeIn3 0.8s ease-out 6.3s forwards,
-    bounce 1s ease-in-out 7.1s forwards;
+    fadeIn3 0.8s ease-out 4.3s forwards,
+    bounce 1s ease-in-out 5.1s forwards;
 }
 
 
 
 /* Sincronizzazione Testo Slide 3 e 4 (Ritardo 6s come le frecce) */
 .up2.show .btn-label{
-  animation: fadeIn 0.8s ease-out 7.1s forwards;
+  animation: fadeIn 0.8s ease-out 5.1s forwards;
 }
 
 
@@ -393,17 +393,17 @@ ul li ul.dropdown-menu{
 }
 
 .sl4.show{
-  animation: fadeIn3 0.8s ease-out 6s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 4s forwards; /* animazione originale */
 }
 
 .sl4.show svg{
   animation: 
-    fadeIn3 0.8s ease-out 6s forwards,
-    bounce 1s ease-in-out 6.8s forwards;
+    fadeIn3 0.8s ease-out 4s forwards,
+    bounce 1s ease-in-out 4.8s forwards;
 }
 
 .sl4.show .btn-label{
-  animation: fadeIn 0.8s ease-out 6.7s forwards;
+  animation: fadeIn 0.8s ease-out 4.7s forwards;
 }
 
 
@@ -412,19 +412,19 @@ ul li ul.dropdown-menu{
 }
 
 .up3.show{
-  animation: fadeIn3 0.8s ease-out 6.3s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 4.3s forwards; /* animazione originale */
 }
 .up3.show svg{
   animation:
-    fadeIn3 0.8s ease-out 6.3s forwards,
-    bounce 1s ease-in-out 7.1s forwards;
+    fadeIn3 0.8s ease-out 4.3s forwards,
+    bounce 1s ease-in-out 5.1s forwards;
 }
 
 
 
 /* Sincronizzazione Testo Slide 3 e 4 (Ritardo 6s come le frecce) */
 .up3.show .btn-label{
-  animation: fadeIn 0.8s ease-out 7.1s forwards;
+  animation: fadeIn 0.8s ease-out 5.1s forwards;
 }
 
 
@@ -433,17 +433,17 @@ ul li ul.dropdown-menu{
 }
 
 .sl5.show{
-  animation: fadeIn3 0.8s ease-out 6s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 4s forwards; /* animazione originale */
 }
 
 .sl5.show svg{
   animation: 
-    fadeIn3 0.8s ease-out 6s forwards,
-    bounce 1s ease-in-out 6.8s forwards;
+    fadeIn3 0.8s ease-out 4s forwards,
+    bounce 1s ease-in-out 4.8s forwards;
 }
 
 .sl5.show .btn-label{
-  animation: fadeIn 0.8s ease-out 6.7s forwards;
+  animation: fadeIn 0.8s ease-out 4.7s forwards;
 }
 
 .sl6{
@@ -451,17 +451,17 @@ ul li ul.dropdown-menu{
 }
 
 .sl6.show{
-  animation: fadeIn3 0.8s ease-out 6s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 4s forwards; /* animazione originale */
 }
 
 .sl6.show svg{
   animation: 
-    fadeIn3 0.8s ease-out 6s forwards,
-    bounce 1s ease-in-out 6.8s forwards;
+    fadeIn3 0.8s ease-out 4s forwards,
+    bounce 1s ease-in-out 4.8s forwards;
 }
 
 .sl6.show .btn-label{
-  animation: fadeIn 0.8s ease-out 6.7s forwards;
+  animation: fadeIn 0.8s ease-out 4.7s forwards;
 }
 
 
@@ -470,19 +470,19 @@ ul li ul.dropdown-menu{
 }
 
 .up4.show{
-  animation: fadeIn3 0.8s ease-out 6.3s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 4.3s forwards; /* animazione originale */
 }
 .up4.show svg{
   animation:
-    fadeIn3 0.8s ease-out 6.3s forwards,
-    bounce 1s ease-in-out 7.1s forwards;
+    fadeIn3 0.8s ease-out 4.3s forwards,
+    bounce 1s ease-in-out 5.1s forwards;
 }
 
 
 
 /* Sincronizzazione Testo Slide 3 e 4 (Ritardo 6s come le frecce) */
 .up4.show .btn-label{
-  animation: fadeIn 0.8s ease-out 7.1s forwards;
+  animation: fadeIn 0.8s ease-out 5.1s forwards;
 }
 
 
@@ -491,17 +491,17 @@ ul li ul.dropdown-menu{
 }
 
 .sl7.show{
-  animation: fadeIn3 0.8s ease-out 6.2s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 4.2s forwards; /* animazione originale */
 }
 
 .sl7.show svg{
   animation: 
-    fadeIn3 0.8s ease-out 6.2s forwards,
-    bounce 1s ease-in-out 7s forwards;
+    fadeIn3 0.8s ease-out 4.2s forwards,
+    bounce 1s ease-in-out 5s forwards;
 }
 
 .sl7.show .btn-label{
-  animation: fadeIn 0.8s ease-out 7s forwards;
+  animation: fadeIn 0.8s ease-out 5s forwards;
 }
 
 .sl8{
@@ -509,17 +509,17 @@ ul li ul.dropdown-menu{
 }
 
 .sl8.show{
-  animation: fadeIn3 0.8s ease-out 6s forwards; /* animazione originale */
+  animation: fadeIn3 0.8s ease-out 4s forwards; /* animazione originale */
 }
 
 .sl8.show svg{
   animation: 
-    fadeIn3 0.8s ease-out 6s forwards,
-    bounce 1s ease-in-out 6.8s infinite alternate;
+    fadeIn3 0.8s ease-out 4s forwards,
+    bounce 1s ease-in-out 4.8s infinite alternate;
 }
 
 .sl8.show .btn-label{
-  animation: fadeIn 0.8s ease-out 6.7s forwards;
+  animation: fadeIn 0.8s ease-out 4.7s forwards;
 }
 
 @keyframes fadeIn{
@@ -554,6 +554,8 @@ ul li ul.dropdown-menu{
   padding: 1vh;
   text-decoration: none;
   color: #313131;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in-out 2s forwards;
 }
 
 
