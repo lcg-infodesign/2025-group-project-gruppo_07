@@ -928,39 +928,56 @@ ul li ul.dropdown-menu{
   to{ left: 50%; transform: translateY(46vh);}
 }
 
-.falseBtn{
+#falseControls{
   position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, 8vh);
+  display: flex;
+  align-items: center;
+  gap: 4rem;   /* distanza tra bottone e timeline */
+  opacity: 0;
+  transition: 0.5s ease;
+  transition-delay: 1s;
+}
+
+#falseControls.show {
+  transform: translate(-50%, 6vh);
+  opacity: 1;
+}
+
+#falseControls.show .falseBtn,
+#falseControls.show .falseTimeLine {
+  opacity: 1;
+}
+
+.falseBtn{
+  position: relative;
   background-color: #E7E1D1;
   width: fit-content;
   height: fit-content;
   border: solid 0.5px #313131;
   padding: 0.5em 1em 0.5em 1em;
-  top: 30%;
-  left: 29%;
-  opacity: 0;
   scale: 1;
-  transform: translateY(8vh);
   transition: 0.5s ease;
   transition-delay: 1s;
-  
 }
 
 .falseBtn svg{
   fill: #313131;
 }
 
-.falseBtn.show {
-  transform: translateY(6vh);
+#falseControls.show .falseBtn {
   opacity: 1;
   animation: click 0.5s ease 2.5s forwards;
 }
 
-.falseBtn.show .pauseIcon {
+#falseControls.show .falseBtn .pauseIcon {
   position: absolute;
   left: 25%;
 }
 
-.falseBtn.show .pauseIcon svg {
+#falseControls.show .falseBtn .pauseIcon svg {
   fill: #E7E1D1;
   opacity: 0;
   animation: showing 0.5s ease 2.8s forwards;
@@ -987,13 +1004,57 @@ ul li ul.dropdown-menu{
 }
 
 @keyframes click{
-  0%{scale: 1; background-color: #E7E1D1; transform: translateY(6vh);}
-  50%{scale: 0.6; background-color: #E7E1D1; transform: translateY(6vh);}
-  100%{scale: 1; background-color: #313131; transform: translateY(6vh);}
+  0%{scale: 1; background-color: #E7E1D1;}
+  50%{scale: 0.6; background-color: #E7E1D1;}
+  100%{scale: 1; background-color: #313131;}
 }
 
 @keyframes showing{
   to{opacity: 1;}
+}
+
+.falseTimeLine{
+  position: relative;
+  width: 65vh;
+  height: 5vh;
+  border: solid 5px #E7E1D1;
+  box-shadow: 0 0 0 1px #313131;
+  z-index: 1;
+  /*opacity: 0;*/
+  transition: 0.5s ease;
+  transition-delay: 1s;
+}
+
+.falseTimeLine.show .thumb {
+  position: absolute;
+  width: 5vh;
+  height: 5vh;
+  background-color: #313131;
+  right: 95%;
+  border: solid 5px #E7E1D1;
+  box-shadow: 0 0 0 1px #313131;
+  border-radius: 50%;
+  scale: 1.4;
+  z-index: 3;
+  animation: thumbMove 1.5s ease 3s forwards;
+}
+
+.falseTimeLine.show .progress {
+  display: inline-block;
+  width: 2vh;
+  height: 5vh;
+  background-color: #313131;
+  z-index: 2;
+  animation: progression 1.5s ease 3.01s forwards;
+}
+
+
+@keyframes thumbMove{
+  to{ right: 25%;}
+}
+
+@keyframes progression{
+  to{ width: 45vh;}
 }
 
 /* STILE SLIDE 3B - VIDEO DEMO */
@@ -1081,59 +1142,6 @@ ul li ul.dropdown-menu{
   text-transform: uppercase;
   margin-bottom: -1vh;
   opacity: 0;
-}
-
-
-.falseTimeLine{
-  position: absolute;
-  width: 65vh;
-  height: 5vh;
-  top: 30%;
-  transform: translateY(8vh);
-  right: 27%;
-  border: solid 5px #E7E1D1;
-  box-shadow: 0 0 0 1px #313131;
-  z-index: 1;
-  opacity: 0;
-  transition: 0.5s ease;
-  transition-delay: 1s;
-}
-
-.falseTimeLine.show {
-  transform: translateY(6vh);
-  opacity: 1;
-}
-
-.falseTimeLine.show .thumb {
-  position: absolute;
-  width: 5vh;
-  height: 5vh;
-  background-color: #313131;
-  right: 95%;
-  border: solid 5px #E7E1D1;
-  box-shadow: 0 0 0 1px #313131;
-  border-radius: 50%;
-  scale: 1.4;
-  z-index: 3;
-  animation: thumbMove 1.5s ease 3s forwards;
-}
-
-.falseTimeLine.show .progress {
-  display: inline-block;
-  width: 2vh;
-  height: 5vh;
-  background-color: #313131;
-  z-index: 2;
-  animation: progression 1.5s ease 3.01s forwards;
-}
-
-
-@keyframes thumbMove{
-  to{ right: 25%;}
-}
-
-@keyframes progression{
-  to{ width: 45vh;}
 }
 
 .text5{

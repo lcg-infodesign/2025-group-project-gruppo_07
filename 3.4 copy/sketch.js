@@ -11,6 +11,7 @@ const ending = document.querySelector('.ending');
 
 const animatedElements = document.querySelectorAll(
   '.bg_wrapper, .text, .text2, .pointer, .pointer2, .pointer3, .text3, ' +
+  '#falseControls, ' + 
   '.falseBtn, .falseTimeLine, .text4, .text5, .sl1, .sl2, .sl3, .sl4, ' +
   '.sl6, .explanation4, .explanation5, .text6, .text7, .hover-demo, ' +
   '.demo-video, .sl5, .sl7, .sl8, .up1, .up2, .up3, .up4, .u3b'
