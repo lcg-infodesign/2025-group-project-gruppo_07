@@ -99,6 +99,7 @@ let clusterColorsByName = {
   "italy": "#7EC1AF"    
 };
 
+
 let customPositions = {}; 
 
 function preload() {
@@ -513,7 +514,7 @@ if (hoverAlpha > 1) {
   p.curveTightness(-0.2);
   p.beginShape();
   p.fill(231, 225, 209, hoverAlpha2)
-  p.stroke("#313131")
+  p.stroke(49, 49, 49, hoverAlpha2)
   p.strokeWeight(1)
   
   
@@ -688,7 +689,7 @@ p.strokeWeight(1)
 
 let baseX = p.width * 0.10;
 let baseY = p.height * 0.18;
-let boxW  = 350;
+let boxW  = 410;
 
 for (let pg of paragraphs) {
 
@@ -734,9 +735,19 @@ for (let pg of paragraphs) {
       pg.text, baseX, baseY + 28 + pg.yOffset, boxW, 190);
 
   p.push()
+  p.textFont("montserrat");
+  p.textSize(14);
+  p.textLeading(20);
+
+let lines = Math.ceil(
+  p.textWidth(pg.text) / boxW
+);
+
+let textHeight = lines * p.textLeading();
+
   p.noStroke()
   p.fill(49, 49, 49, pg.alpha);
-      p.rect(baseX - 10, baseY + 28 + pg.yOffset, 1, 150)
+      p.rect(baseX - 10, baseY + 28 + pg.yOffset, 1, textHeight - 5)
   p.pop()
     p.pop();
   }

@@ -2293,3 +2293,24 @@ background-color: #313131;
 .re-watch:hover svg{
 fill: #E7E1D1;
 }
+
+.re-watch::before{
+   content: 'Watch Introduction';
+   color: #E7E1D1;
+   background-color: #313131;
+   font-size: 0.6rem;
+   padding: 0.2rem 0.3rem;
+   position: absolute;
+   top: 120%;
+   right: -100%;
+   pointer-events: none;
+   width: 6rem;
+   opacity: 0;
+   transition: 0.2s ease;
+    
+
+}
+
+.re-watch:hover::before{
+opacity: 1;
+}
