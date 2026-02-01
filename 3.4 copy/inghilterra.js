@@ -212,9 +212,15 @@ function setup() {
   for(let i=0; i<selected.length; i++){
     let row = selected[i];
     colonies.push(row);
-    colDuration.push(parseFloat(row.get("Duration")));
-    colEndYear.push(parseFloat(row.get("colend_max")));
-    colStartYear.push(parseFloat(row.get("colstart_max")));
+    let endYear = parseFloat(row.get("colend_max"));
+    let startYear = parseFloat(row.get("colstart_max"));
+    colEndYear.push(endYear);
+    colStartYear.push(startYear);
+    let duration = endYear - startYear;
+    if (!Number.isFinite(duration) || duration < 0) {
+      duration = 0;
+    }
+    colDuration.push(duration);
     let country = row.get("country");
     colCountries.push(country);
     fadeOpacity[country] = 255;
