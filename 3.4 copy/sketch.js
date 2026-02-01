@@ -712,7 +712,7 @@ for (let pg of paragraphs) {
     p.noStroke();
     p.fill(49, 49, 49, pg.titleAlpha);
     p.textFont("benton-modern-display");
-    p.textSize(26);
+    p.textSize(28);
     p.textStyle(p.BOLD);
     p.textAlign(p.LEFT, p.TOP);
 

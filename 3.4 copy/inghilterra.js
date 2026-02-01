@@ -17,7 +17,7 @@ let minYear = 1450, maxYear = 2000;
 let yOffset = 0;
 let scrollHeight;
 let navbarHeight = 0; // Altezza dinamica della navbar
-let distanzaDallaNavbar = -0.6; // Distanza dal navbar in valori relativi (0 = nessuno spazio, 1 = altezza navbar, 0.5 = metà navbar, ecc.)
+let distanzaDallaNavbar = -1; // Distanza dal navbar in valori relativi (0 = nessuno spazio, 1 = altezza navbar, 0.5 = metà navbar, ecc.)
 let topOffset = 0; // Spazio totale dal top per posizionare gli elementi (navbarHeight + distanza)
 
 // Stati di selezione delle colonie
@@ -303,10 +303,10 @@ function createToggleSlider() {
   label.parent(toggleSlider);
   label.style('position', 'relative');
   label.style('z-index', '1');
-  label.style('color', '#6B6B6B');  // Grigio per il testo
-  label.style('font-weight', '500');
+  label.style('color', '#313131');  // Grigio per il testo
+  label.style('font-weight', 'BOLD');
   label.style('letter-spacing', '0.8px');
-  label.style('font-size', '10px');
+  label.style('font-size', '12px');
   label.style('pointer-events', 'none');
   label.style('white-space', 'nowrap');
   label.style('text-align', 'center');
@@ -575,7 +575,7 @@ function drawScrollbar(){
   if(maxScroll <= 0) return;
   
   // Posizione e dimensioni della scrollbar
-  scrollbarX = chartX + chartWidth + 40;
+  scrollbarX = chartX + chartWidth + 25;
   scrollbarY = chartY;
   scrollbarWidth = 4;
   scrollbarHeight = scrollHeight;
@@ -601,16 +601,16 @@ function drawScrollbar(){
 // =========================================================
 function drawSideInfo(){
   push();
-  let sideX = windowWidth * 0.04;
+  let sideX = windowWidth * 0.07;
   
   // Setup parametri
   let columnWidth = 350;
   let estimatedLineHeight = 22;
   let titleHeight = 45;
-  let titleToParaSpacing = 50;
+  let titleToParaSpacing = 60;
   
   // Calcola dimensioni del testo
-  setMontserrat(16, NORMAL);
+  setMontserrat(14, NORMAL);
   let paragraphText = currentParagraph;
   let requiredLines = Math.ceil(textWidth(paragraphText) / columnWidth);
   let totalTextHeight = requiredLines * estimatedLineHeight;
@@ -632,7 +632,7 @@ function drawSideInfo(){
 
   // === Disegna Paragrafo ===
   let descY = blockYPos + titleToParaSpacing;
-  setMontserrat(16, NORMAL, LEFT, 60);
+  setMontserrat(14, NORMAL, LEFT, 60);
   textAlign(LEFT, TOP);
   
   // Calcola l'altezza reale del paragrafo (ascent+descent garantisce la misura esatta)
@@ -641,7 +641,7 @@ function drawSideInfo(){
   
   // Linea verticale: stessa altezza del paragrafo, centrata sul blocco testo
   stroke(currentColor);
-  strokeWeight(3);
+  strokeWeight(1);
   line(sideX - 15, descY, sideX - 15, descY + actualTextHeight);
   noStroke();
   
@@ -664,9 +664,7 @@ function drawSideInfo(){
 // =========================================================
 // COLONY INFO
 // =========================================================
-// =========================================================
-// COLONY INFO (SPAZIATURA OTTIMIZZATA)
-// =========================================================
+
 function drawColonyInfo() {
   if (!clickedCountry && !selectedCountry) return;
 
@@ -678,8 +676,8 @@ function drawColonyInfo() {
       end = colEndYear[index],
       duration = colDuration[index];
 
-  let infoX = windowWidth * 0.04;
-  let infoY = topOffset + 20;
+  let infoX = windowWidth * 0.07;
+  let infoY = topOffset + 120;
 
   push();
   setMontserrat(28, BOLD, LEFT, currentColor);
@@ -704,18 +702,18 @@ function drawColonyInfo() {
   // Linea verticale
   stroke(darkGray);
   strokeWeight(1);
-  line(rightBlockX - 75, blockY - 5, rightBlockX - 75, blockY + 50);
+  line(rightBlockX - 85, blockY - 5, rightBlockX - 85, blockY + 50);
   noStroke();
 
   // Labels
   setMontserrat(14, NORMAL, LEFT, darkGray);
-  text(`start of colonization:`, rightBlockX - 35, blockY);
-  text(`end of colonization:`, rightBlockX - 35, blockY + 25);
+  text(`start of colonization:`, rightBlockX - 55, blockY);
+  text(`end of colonization:`, rightBlockX - 55, blockY + 25);
 
   // Anni
   setMontserrat(14, BOLD, LEFT, darkGray);
-  text(`${int(start)}`, rightBlockX + 130, blockY);
-  text(`${int(end)}`, rightBlockX + 130, blockY + 25);
+  text(`${int(start)}`, rightBlockX + 100, blockY);
+  text(`${int(end)}`, rightBlockX + 100, blockY + 25);
 
   // === BOTTONE WIKIPEDIA ===
   let buttonY = blockY + 70;
