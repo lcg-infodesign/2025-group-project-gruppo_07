@@ -393,7 +393,7 @@ for (let cl of localClusters) {
     let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
     let tEnd   = p.map(s.endYear, globalMinEnd,   globalMaxEnd,   0.15, 0.95);
 
-    
+   
     
      
 
@@ -639,8 +639,8 @@ let activeCount = 0;
 for (let cl of localClusters) {
     for (let s of cl.sphere) {
         let sliderVal = forceSlider.value() / 100;
-        let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
-        let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.15, 0.95);
+        let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.0218, 0.9709); 
+        let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.3464, 0.9701); 
         
         if (sliderVal >= tStart && sliderVal < tEnd) {
             activeCount++;
@@ -869,7 +869,7 @@ update() {
   let entryProgress = p.constrain(sliderVal / 100, 0, 1); 
   // Timeline globale corretta 
   let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.0218, 0.9709); 
-  let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.15, 0.95); 
+  let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.3464, 0.9701); 
   if (entryProgress < tStart) { 
     let angle = p.atan2(s.y - outerCluster.y, s.x - outerCluster.x); 
     s.x = outerCluster.x + p.cos(angle) * outerCluster.r; 
