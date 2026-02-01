@@ -37,6 +37,9 @@ animatedElements.forEach(el => observer.observe(el));
 
 
 
+
+
+
 //SLIDESHOW
 
 
@@ -159,6 +162,9 @@ let sketch1 = function(p){
   let hoverAlpha2 = 0   
   let hoverOffset = 20; 
 
+ 
+  
+
   let paragraphs = [
   {
     start: 1540,
@@ -261,8 +267,13 @@ let sketch1 = function(p){
 
   playCheckBox = p.select('#playBtn')
   playCheckBox.changed(() => {
-  isPlaying = playCheckBox.checked()
-});
+    // Se siamo al massimo e si riclicca play, riparti da zero
+    if (playCheckBox.checked() && forceSlider.value() >= 100) {
+      forceSlider.value(0);
+      p.updateSliderGradient();
+    }
+    isPlaying = playCheckBox.checked();
+  });
 
 speedCheckBox = p.select('#speedBtn');
 speedCheckBox.changed(()=> {
@@ -630,6 +641,12 @@ if (hoverAlpha > 1) {
   p.pop()
 
 }
+
+
+
+
+
+
 
 //data 
 
