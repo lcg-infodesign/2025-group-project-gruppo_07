@@ -416,7 +416,7 @@ let sketch1 = function (p) {
         let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.3464, 0.9701);
 
 
-        p.text(forceSlider.value(), sliderX, sliderY + 50)
+       
 
 
         if (hoverSlider) continue; //Evita che le sfere dietro lo slider abbiano uno stato di hover
