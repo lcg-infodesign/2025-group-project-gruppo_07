@@ -661,20 +661,22 @@ if (hoverAlpha > 1) {
 //data 
 
 // --- NUOVA LOGICA COUNTER E ANNO ---
-let currentYear = Math.round(p.map(forceSlider.value(), 0, 100, 1450, 2000));
+let currentYear = Math.round(
+  p.map(forceSlider.value(), 0, 100, 1450, 2000)
+);
 
 let activeCount = 0;
+
 for (let cl of localClusters) {
-    for (let s of cl.sphere) {
-        let sliderVal = forceSlider.value() / 100;
-        let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.0218, 0.9709); 
-        let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.3464, 0.9701); 
-        
-        if (sliderVal >= tStart && sliderVal < tEnd) {
-            activeCount++;
-        }
+  for (let s of cl.sphere) {
+
+    if (currentYear >= s.startYear && currentYear < s.endYear) {
+      activeCount++;
     }
+
+  }
 }
+
 
 // Usiamo window.document per essere sicuri di uscire dallo scope di p5
 let yearEl = window.document.getElementById('year-display');
