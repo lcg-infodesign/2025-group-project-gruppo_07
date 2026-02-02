@@ -731,7 +731,7 @@ let sketch1 = function (p) {
         p.noStroke();
         p.fill(49, 49, 49, pg.datesAlpha);
         p.textFont("montserrat");
-        p.textSize(p.width * 0.008);
+        p.textSize(p.width * 0.009);
         p.textStyle(p.BOLD);
         p.textAlign(p.LEFT, p.TOP);
 
@@ -759,7 +759,7 @@ let sketch1 = function (p) {
         p.noStroke();
         p.fill(49, 49, 49, pg.alpha);
         p.textFont("montserrat");
-        p.textSize(p.width * 0.008);
+        p.textSize(p.width * 0.009);
         p.textStyle(p.NORMAL);
         p.textAlign(p.LEFT, p.TOP);
 
