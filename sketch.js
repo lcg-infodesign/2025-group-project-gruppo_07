@@ -304,7 +304,7 @@ let sketch1 = function (p) {
     }
 
     outerCluster = { 
-      x: p.width * 0.6,    
+      x: p.width * 0.66,    
       y: p.height * 0.5,
       r: p.width * 0.24   
     };
