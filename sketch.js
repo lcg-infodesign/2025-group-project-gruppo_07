@@ -311,14 +311,14 @@ let sketch1 = function (p) {
 
     // posizioni cluster
     let positions = {
-      "britain":     { x: p.width * 0.58, y: p.height * 0.54 },
-      "france":      { x: p.width * 0.48, y: p.height * 0.68 },
-      "spain":       { x: p.width * 0.52, y: p.height * 0.23 },
-      "portugal":    { x: p.width * 0.66, y: p.height * 0.30 },
-      "germany":     { x: p.width * 0.75, y: p.height * 0.43 },
-      "belgium":     { x: p.width * 0.70, y: p.height * 0.60 },
-      "netherlands": { x: p.width * 0.63, y: p.height * 0.79 },
-      "italy":       { x: p.width * 0.48, y: p.height * 0.37 }
+      "britain":     { x: p.width * 0.64, y: p.height * 0.54 },
+      "france":      { x: p.width * 0.54, y: p.height * 0.68 },
+      "spain":       { x: p.width * 0.58, y: p.height * 0.23 },
+      "portugal":    { x: p.width * 0.72, y: p.height * 0.30 },
+      "germany":     { x: p.width * 0.81, y: p.height * 0.43 },
+      "belgium":     { x: p.width * 0.76, y: p.height * 0.60 },
+      "netherlands": { x: p.width * 0.69, y: p.height * 0.79 },
+      "italy":       { x: p.width * 0.54, y: p.height * 0.37 }
     };
 
     Array.from(colonizerGroups.keys()).forEach(colonizer => {
