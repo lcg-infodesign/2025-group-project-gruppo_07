@@ -169,9 +169,9 @@ let globalMaxDuration = -Infinity;
 
   let paragraphs = [
   {
-    start: 1540,
+    start: 1500,
     end: 1600,
-    dates: "1540-1600",
+    dates: "1500-1600",
     title: "Early Overseas Expansion",
     text: "In the sixteenth century, European powers began extending their presence across the oceans. Spain and Portugal established early maritime empires following the voyages of Columbus and Vasco da Gama, linking Europe with the Americas, Africa, and Asia. These routes created the first global trading systems and marked the beginning of sustained European activity beyond the continent.",
     alpha: 0,
@@ -413,10 +413,10 @@ for (let cl of localClusters) {
 
     let sliderVal = forceSlider.value() / 100;
     let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.0218, 0.9709); 
-        let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.3464, 0.9701);
+    let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.3464, 0.9701);
 
    
-    
+    p.text(forceSlider.value(), sliderX, sliderY+50)
      
 
     if(hoverSlider) continue; //Evita che le sfere dietro lo slider abbiano uno stato di hover
@@ -605,7 +605,7 @@ if (hoverAlpha > 1) {
   // evidenziazione linea del grafico
   p.push()
   p.beginClip()
-  p.rect(sliderX + sliderW * 0.1628, sliderY - 58, sliderW*0.1108, 50)
+  p.rect(sliderX + sliderW * 0.09, sliderY - 58, sliderW*0.1819, 50)
   p.rect(sliderX + sliderW * 0.5446, sliderY - 30, sliderW*0.1213, 50)
   p.rect(sliderX + sliderW * 0.7810, sliderY- 58, sliderW*0.0635, 50)
   p.rect(sliderX +sliderW*0.8991, sliderY-50, sliderW*0.1009 + 50, 60)
@@ -636,7 +636,7 @@ if (hoverAlpha > 1) {
   p.push()
   p.fill(49, 49, 49, hoverAlpha2)
   //primo picco
-  p.circle(sliderX + sliderW*0.1628, sliderY - 15 + hoverOffset, 12 )
+  p.circle(sliderX + sliderW*0.09, sliderY - 10 + hoverOffset, 12 )
   p.circle(sliderX + sliderW*0.2736, sliderY - 20 + hoverOffset, 12 )
   //secondo picco
   p.circle(sliderX + sliderW*0.5446, sliderY - 27 + hoverOffset, 12 )
