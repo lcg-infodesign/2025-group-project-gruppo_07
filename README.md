@@ -48,7 +48,7 @@ La visione di dettaglio è disponibile in due modalità:
 - **extended**, che mostra informazioni approfondite sulla durata totale della colonizzazione;
 - **collapsed**, che consente di visualizzare in modo sintetico l’insieme delle colonie di una potenza per facilitarne il confronto.
 
-Per quanto riguarda invece il profilo estetico e funzionale, è stato adottato un approccio **minimalista**, con una palette cromatica limitata, per garantire che l’attenzione dell’utente rimanga focalizzata esclusivamente sulla chiarezza dei dati. Per preparare l’utente alla lettura di queste informazioni dinamiche, il progetto utilizza lo **storytelling** come meccanismo introduttivo e didattico, un percorso guidato che fornisce il contesto concettuale e storico necessario prima di lasciare spazio all’interazione.
+Per quanto riguarda invece il profilo estetico e funzionale, è stato adottato un approccio **minimalista**, con una palette cromatica limitata, per garantire che l’attenzione dell’utente rimanga focalizzata esclusivamente sulla chiarezza dei dati. Per preparare l’utente alla lettura di queste informazioni dinamiche, il progetto utilizza lo **slideshow** come meccanismo introduttivo e didattico, un percorso guidato che fornisce il contesto concettuale e storico necessario prima di lasciare spazio all’interazione.
 
 Infine, l'interfaccia dinamica trasforma la consultazione in un'esperienza di esplorazione attiva dove l'utente non è un osservatore passivo, ma può controllare il flusso temporale, mettendo in pausa o utilizzando appositi comandi di accelerazione (come il pulsante **2x**) far avanzare velocemente il tempo e analizzare in autonomia specifici momenti della storia globale.
 
@@ -97,8 +97,8 @@ La fase in cui la divisione dei ruoli è stata più specifica è stata la second
 
 - **Simone:** Responsabile della realizzazione tecnica, ha curato dall’inizio alla fine la scrittura del codice e l’implementazione delle funzionalità interattive del sito.
 - **Nina:** Ha sviluppato tramite codice diverse funzionalità, assicurando che le soluzioni tecniche rispondessero agli obiettivi di conoscenza del progetto.
-- **Silvia:** Ha gestito l’organizzazione generale del lavoro, definendo lo stile visivo e lavorando attivamente sia sul prototipo sia sul codice.
+- **Silvia:** Ha gestito l’organizzazione generale del lavoro, definendo la navigazione e lavorando attivamente sia sul prototipo sia sul codice.
 - **Martina:** Si è occupata della prototipazione su Figma e della stesura dei testi, fornendo inoltre supporto tecnico nella fase di programmazione.
 - **Carla:** Si è occupata dello sviluppo del sistema visivo e prototipazione su Figma, stesura dei testi e supporto tecnico nella fase di programmazione.
-- **Filippo:** Ha ideato la struttura narrativa dello SlideShow, si è occupato della struttura della pagina di dettaglio, implementando animazioni e interazioni.
+- **Filippo:** Ha ideato la struttura narrativa dello SlideShow, si è occupato della struttura della pagina di dettaglio, implementando animazioni e interazioni nel progetto. 
 - **Matilde:** Ha garantito un supporto trasversale a tutto il gruppo, assistendo nelle diverse attività e curando la revisione generale del progetto.
