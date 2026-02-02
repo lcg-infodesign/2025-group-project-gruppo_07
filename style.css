@@ -148,9 +148,9 @@ ul li ul.dropdown-menu li a:hover {
   transition: 0.2s ease;
 }
 
-#smallText:hover {
+/*#smallText:hover {
   font-size: 0.8em;
-}
+}*/
 
 #drpdwn {
   border: none;
