@@ -303,18 +303,22 @@ let sketch1 = function (p) {
       if (end > globalMaxEnd) globalMaxEnd = end;
     }
 
-    outerCluster = { x: (p.width / 2) + 200, y: p.height / 2, r: 400 };
+    outerCluster = { 
+      x: p.width * 0.6,    
+      y: p.height * 0.5,
+      r: p.width * 0.24   
+    };
 
     // posizioni cluster
     let positions = {
-      "britain": { x: (p.width * 0.48) + 200, y: p.height * 0.54 },
-      "france": { x: (p.width * 0.38) + 200, y: p.height * 0.68 },
-      "spain": { x: (p.width * 0.42) + 200, y: p.height * 0.23 },
-      "portugal": { x: (p.width * 0.56) + 200, y: p.height * 0.30 },
-      "germany": { x: (p.width * 0.65) + 200, y: p.height * 0.43 },
-      "belgium": { x: (p.width * 0.60) + 200, y: p.height * 0.60 },
-      "netherlands": { x: (p.width * 0.53) + 200, y: p.height * 0.79 },
-      "italy": { x: (p.width * 0.38) + 200, y: p.height * 0.37 }
+      "britain":     { x: p.width * 0.58, y: p.height * 0.54 },
+      "france":      { x: p.width * 0.48, y: p.height * 0.68 },
+      "spain":       { x: p.width * 0.52, y: p.height * 0.23 },
+      "portugal":    { x: p.width * 0.66, y: p.height * 0.30 },
+      "germany":     { x: p.width * 0.75, y: p.height * 0.43 },
+      "belgium":     { x: p.width * 0.70, y: p.height * 0.60 },
+      "netherlands": { x: p.width * 0.63, y: p.height * 0.79 },
+      "italy":       { x: p.width * 0.48, y: p.height * 0.37 }
     };
 
     Array.from(colonizerGroups.keys()).forEach(colonizer => {
@@ -834,26 +838,6 @@ let sketch1 = function (p) {
         window.location.href = pageUrl;
         return;
       }
-
-      // Click sul nome colonizzatore
-      /*if (cl.nameAlpha > 2) {
-      let textX = cl.x;
-      let textY = cl.y - 25;
-      let textWidth = p.textWidth(cl.name.toUpperCase());
-      let textHeight = 12;
-      let padding = 10;
-
-      if (p.mouseX > textX - textWidth / 2 - padding &&
-          p.mouseX < textX + textWidth / 2 + padding &&
-          p.mouseY > textY - textHeight / 2 - padding &&
-          p.mouseY < textY + textHeight / 2 + padding) {
-        // SALVA la posizione dello slider
-        localStorage.setItem('timelinePosition', forceSlider.value());
-        let pageUrl = "inghilterra.html?colonizer=" + cl.name;
-        window.location.href = pageUrl;
-        return;
-      }
-    }*/
     }
   };
 
