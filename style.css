@@ -1968,6 +1968,15 @@ footer {
   color: #E7E1D1;
 }
 
+#creative-commons {
+  font-size: 0.60rem;
+}
+
+#creative-commons a {
+  color: #E7E1D1;
+  text-decoration: underline;
+}
+
 
 .footer-section.empty {
   display: flex;
