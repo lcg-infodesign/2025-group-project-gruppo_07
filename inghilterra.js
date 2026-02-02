@@ -36,7 +36,7 @@ let chartWidth = 0;
 let colonizer = null;
 let colonizerTitle = "";
 let colonizerDescriptions = {
-  "britain":"United Kingdom","france":"France","spain":"Spain","portugal":"Portugal",
+  "britain":"Britain","france":"France","spain":"Spain","portugal":"Portugal",
   "germany":"Germany","belgium":"Belgium","netherlands":"Netherlands","italy":"Italy"
 };
 
