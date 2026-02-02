@@ -2510,3 +2510,7 @@ footer {
 .re-watch:hover::before {
   opacity: 1;
 }
+
+#data-page-link a {
+  color: #313131;
+}
