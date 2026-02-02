@@ -719,9 +719,9 @@ let sketch1 = function (p) {
 
     //paragrafi
 
-    let baseX = p.width * 0.10;
-    let baseY = p.height * 0.18;
-    let boxW = 410;
+    let baseX = p.width * 0.09;
+    let baseY = p.height * 0.12;
+    let boxW = p.width * 0.30;
 
     for (let pg of paragraphs) {
 
@@ -731,7 +731,7 @@ let sketch1 = function (p) {
         p.noStroke();
         p.fill(49, 49, 49, pg.datesAlpha);
         p.textFont("montserrat");
-        p.textSize(14);
+        p.textSize(p.width * 0.01);
         p.textStyle(p.BOLD);
         p.textAlign(p.LEFT, p.TOP);
 
@@ -745,7 +745,7 @@ let sketch1 = function (p) {
         p.noStroke();
         p.fill(49, 49, 49, pg.titleAlpha);
         p.textFont("benton-modern-display");
-        p.textSize(28);
+        p.textSize(p.width * 0.02);
         p.textStyle(p.BOLD);
         p.textAlign(p.LEFT, p.TOP);
 
@@ -759,7 +759,7 @@ let sketch1 = function (p) {
         p.noStroke();
         p.fill(49, 49, 49, pg.alpha);
         p.textFont("montserrat");
-        p.textSize(14);
+        p.textSize(p.width * 0.01);
         p.textStyle(p.NORMAL);
         p.textAlign(p.LEFT, p.TOP);
 
@@ -768,8 +768,8 @@ let sketch1 = function (p) {
 
         p.push()
         p.textFont("montserrat");
-        p.textSize(14);
-        p.textLeading(20);
+        p.textSize(p.width * 0.01);
+        p.textLeading(p.width * 0.015);
 
         let lines = Math.ceil(
           p.textWidth(pg.text) / boxW
