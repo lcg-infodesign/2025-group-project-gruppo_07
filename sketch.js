@@ -766,16 +766,26 @@ let sketch1 = function (p) {
         p.text(
         pg.text, baseX, baseY + 30 + pg.yOffset, boxW);
 
-        p.push()
-        p.textFont("montserrat");
-        p.textSize(p.width * 0.01);
-        p.textLeading(p.width * 0.015);
+        function getTextHeight(txt, maxWidth) {
+        let words = txt.split(' ');
+        let line = '';
+        let lines = 1;
 
-        let lines = Math.ceil(
-          p.textWidth(pg.text) / boxW
-        );
+  for (let w of words) {
+    let testLine = line + w + ' ';
+    if (p.textWidth(testLine) > maxWidth) {
+      lines++;
+      line = w + ' ';
+    } else {
+      line = testLine;
+    }
+  }
 
-        let textHeight = lines * p.textLeading();
+  return lines * p.textLeading();
+}
+
+let textHeight = getTextHeight(pg.text, boxW);
+
 
         p.noStroke()
         p.fill(49, 49, 49, pg.alpha);
