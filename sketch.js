@@ -720,7 +720,7 @@ let sketch1 = function (p) {
     //paragrafi
 
     let baseX = p.width * 0.09;
-    let baseY = p.height * 0.17;
+    let baseY = p.height * 0.18;
     let boxW = p.width * 0.30;
 
     for (let pg of paragraphs) {
@@ -731,7 +731,7 @@ let sketch1 = function (p) {
         p.noStroke();
         p.fill(49, 49, 49, pg.datesAlpha);
         p.textFont("montserrat");
-        p.textSize(p.width * 0.01);
+        p.textSize(p.width * 0.008);
         p.textStyle(p.BOLD);
         p.textAlign(p.LEFT, p.TOP);
 
@@ -759,7 +759,7 @@ let sketch1 = function (p) {
         p.noStroke();
         p.fill(49, 49, 49, pg.alpha);
         p.textFont("montserrat");
-        p.textSize(p.width * 0.01);
+        p.textSize(p.width * 0.008);
         p.textStyle(p.NORMAL);
         p.textAlign(p.LEFT, p.TOP);
 
