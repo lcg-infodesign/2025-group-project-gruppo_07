@@ -720,7 +720,7 @@ let sketch1 = function (p) {
     //paragrafi
 
     let baseX = p.width * 0.09;
-    let baseY = p.height * 0.18;
+    let baseY = p.height * 0.17;
     let boxW = p.width * 0.30;
 
     for (let pg of paragraphs) {
