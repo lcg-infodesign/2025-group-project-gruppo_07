@@ -1411,7 +1411,7 @@ h1.legenda {
 /* legenda colonizzatori */
 #legenda {
   position: absolute;
-  bottom: 8%;
+  bottom: 3%;
   left: 9%;
   width: fit-content;
   height: fit-content;

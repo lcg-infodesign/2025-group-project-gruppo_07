@@ -720,7 +720,7 @@ let sketch1 = function (p) {
     //paragrafi
 
     let baseX = p.width * 0.09;
-    let baseY = p.height * 0.12;
+    let baseY = p.height * 0.15;
     let boxW = p.width * 0.30;
 
     for (let pg of paragraphs) {
@@ -764,7 +764,7 @@ let sketch1 = function (p) {
         p.textAlign(p.LEFT, p.TOP);
 
         p.text(
-          pg.text, baseX, baseY + 28 + pg.yOffset, boxW, 190);
+        pg.text, baseX, baseY + 30 + pg.yOffset, boxW);
 
         p.push()
         p.textFont("montserrat");
