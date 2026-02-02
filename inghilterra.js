@@ -57,9 +57,8 @@ let sourceLinkElement;
 let coloniesLayer;
 let chartY = 120;
 
-// =========================================================
 // NUOVE VARIABILI PER ZOOM
-// =========================================================
+
 let isCompactView = true;
 let currentRowHeight = 8;
 let targetRowHeight = 8;
@@ -67,16 +66,15 @@ let animationProgress = 1;
 let isAnimating = false;
 let toggleSlider;
 
-// =========================================================
+
 // VARIABILI PER SCROLLBAR
-// =========================================================
 let scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight;
 let scrollThumbHeight, scrollThumbY;
 let isDraggingScrollbar = false;
 
-// =========================================================
-// FUNZIONE HELPER: SPLIT PARAGRAPH AND SOURCE
-// =========================================================
+
+// FUNZIONE HELPER
+
 function splitParagraphAndSource(fullText) {
   let sourceIndex = fullText.indexOf("Source:");
 
@@ -90,9 +88,8 @@ function splitParagraphAndSource(fullText) {
   return { paragraph: fullText.trim().replace(/\n/g, ' '), sourceText: "", url: "" };
 }
 
-// =========================================================
+
 // HELPER FUNCTIONS
-// =========================================================
 function easeInOutCubic(t) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
@@ -111,33 +108,27 @@ function setMontserrat(size, style, align, fillColor) {
   setTextStyle("Montserrat", size, style, align, fillColor);
 }
 
-// =========================================================
 // PRELOAD
-// =========================================================
+
 function preload() {
   table = loadTable("assets/COLDAT_dyads - Foglio6.csv", "csv", "header");
   table3 = loadTable("assets/COLDAT_dyads - Foglio3.csv", "csv", "header");
   tableDescriptions = loadTable("assets/paragrafi-dettaglio.csv", "csv", "header");
 }
 
-// =========================================================
 // SETUP
-// =========================================================
 function setup() {
   // Calcola altezza della navbar
   let headerElement = document.getElementById('header');
   navbarHeight = headerElement ? headerElement.offsetHeight : 80;
 
-  // Calcola il top offset totale per tutti gli elementi
   topOffset = navbarHeight + (navbarHeight * distanzaDallaNavbar);
 
-  // Applica margin-top al canvas-container usando la distanza relativa
   let canvasContainer = document.getElementById('canvas-container');
   if (canvasContainer) {
     canvasContainer.style.marginTop = topOffset + 'px';
   }
 
-  // Crea canvas con altezza ridotta considerando la distanza
   let totalTopSpace = topOffset;
   c = createCanvas(windowWidth, windowHeight - totalTopSpace);
   c.parent("canvas-container");
@@ -263,13 +254,10 @@ function setup() {
   if (selectedCountry) {
     let index = colCountries.indexOf(selectedCountry);
     if (index !== -1) {
-      // Calcola la posizione Y della colonia nel grafico
+    
       let colonyY = index * currentRowHeight;
-      // Centro dello schermo visibile
       let screenCenter = scrollHeight / 2;
-      // Calcola lo yOffset necessario per centrare la colonia
       yOffset = -(colonyY - screenCenter);
-      // Assicurati che yOffset sia nei limiti
       let totalHeight = colonies.length * currentRowHeight;
       let maxScroll = Math.max(totalHeight - scrollHeight, 0);
       yOffset = constrain(yOffset, -maxScroll, 0);
@@ -286,7 +274,7 @@ function createToggleSlider() {
   toggleSlider.id('view-toggle');
   toggleSlider.parent('canvas-container');
   toggleSlider.style('position', 'absolute');
-  toggleSlider.style('height', '24px');  // Molto più sottile
+  toggleSlider.style('height', '24px');  
   toggleSlider.style('width', '160px');
   toggleSlider.style('border-radius', '2px');
   toggleSlider.style('background-color', bgColor);
@@ -377,7 +365,7 @@ function draw() {
       currentRowHeight = lerp(startHeight, endHeight, easeInOutCubic(animationProgress));
     }
 
-    // Ridimensiona il buffer durante l'animazione
+
     let newHeight = colonies.length * currentRowHeight + 200;
     coloniesLayer.resizeCanvas(windowWidth, newHeight);
 
@@ -392,9 +380,8 @@ function draw() {
   drawColonyInfo();
 }
 
-// =========================================================
 // TIMELINE
-// =========================================================
+
 function drawTimeline() {
   push();
   chartWidth = windowWidth - 750;
@@ -419,9 +406,8 @@ function drawTimeline() {
   pop();
 }
 
-// =========================================================
 // COLONIES LAYER
-// =========================================================
+
 function drawColoniesLayer() {
   coloniesLayer.clear();
   timelinePositions = [];
@@ -476,7 +462,6 @@ function drawColoniesLayer() {
         coloniesLayer.circle(xEnd, yPos, 10);
       }
 
-      // Le date verranno disegnate dopo sul canvas principale per evitare il clipping
 
     } else {
       // Barre non selezionate
@@ -595,9 +580,8 @@ function drawColoniesLayer() {
   drawScrollbar();
 }
 
-// =========================================================
+
 // SCROLLBAR
-// =========================================================
 function drawScrollbar() {
   let totalHeight = colonies.length * currentRowHeight;
   let maxScroll = Math.max(totalHeight - scrollHeight, 0);
@@ -605,21 +589,20 @@ function drawScrollbar() {
   // Se non c'è scroll necessario, non disegna la scrollbar
   if (maxScroll <= 0) return;
 
-  // Posizione e dimensioni della scrollbar
   scrollbarX = chartX + chartWidth + 25;
   scrollbarY = chartY;
   scrollbarWidth = 4;
   scrollbarHeight = scrollHeight;
 
-  // Calcola l'altezza del thumb in proporzione
+  // altezza del thumb in proporzione
   scrollThumbHeight = (scrollbarHeight / totalHeight) * scrollbarHeight;
   scrollThumbHeight = Math.max(scrollThumbHeight, 20); // Minimo 20px
 
-  // Calcola la posizione del thumb basato su yOffset
+  // posizione del thumb basato su yOffset
   let scrollRatio = maxScroll > 0 ? (-yOffset) / maxScroll : 0;
   scrollThumbY = scrollbarY + (scrollbarHeight - scrollThumbHeight) * scrollRatio;
 
-  // Disegna il thumb della scrollbar - stile minimalista
+  // thumb della scrollbar - stile minimalista
   push();
   noStroke();
   fill(49, 49, 49); // #313131
@@ -627,9 +610,8 @@ function drawScrollbar() {
   pop();
 }
 
-// =========================================================
 // SIDE INFO
-// =========================================================
+
 function drawSideInfo() {
   push();
   let sideX = windowWidth * 0.07;
@@ -659,12 +641,12 @@ function drawSideInfo() {
   let blockHeight = titleHeight + titleToParaSpacing + totalTextHeight;
   let blockYPos = toggleYPos - blockHeight + blockToToggleSpacing;
 
-  // === Disegna Titolo ===
+  // Disegna Titolo 
   setTextStyle("benton-modern-display", 45, NORMAL, LEFT, currentColor);
   textAlign(LEFT, TOP);
   text(colonizerTitle, sideX, blockYPos);
 
-  // === Disegna Paragrafo ===
+  //  Disegna Paragrafo 
   let descY = blockYPos + titleToParaSpacing;
   setMontserrat(14, NORMAL, LEFT, 60);
   textAlign(LEFT, TOP);
@@ -679,13 +661,13 @@ function drawSideInfo() {
 
   text(paragraphText, sideX, descY, columnWidth);
 
-  // === Posiziona link ===
+  // Posiziona link 
   if (sourceLinkElement) {
     sourceLinkElement.show();
     sourceLinkElement.position(sideX, descY + actualTextHeight + paragraphToLinkSpacing);
   }
 
-  // === Posiziona toggle (fisso) ===
+  // Posiziona toggle (fisso) 
   if (toggleSlider) {
     toggleSlider.position(sideX, toggleYPos);
   }
@@ -694,9 +676,7 @@ function drawSideInfo() {
 }
 
 
-// =========================================================
 // COLONY INFO
-// =========================================================
 
 function drawColonyInfo() {
   if (!clickedCountry && !selectedCountry) return;
@@ -717,7 +697,7 @@ function drawColonyInfo() {
   textAlign(LEFT, TOP);
   text(currentCountry, infoX, infoY);
 
-  // === BLOCCO INFORMAZIONI TEMPORALI ===
+  // BLOCCO INFORMAZIONI TEMPORALI
   let blockY = infoY + 65;
   let leftBlockX = infoX;
   let rightBlockX = infoX + 220;
@@ -748,7 +728,7 @@ function drawColonyInfo() {
   text(`${int(start)}`, rightBlockX + 100, blockY);
   text(`${int(end)}`, rightBlockX + 100, blockY + 25);
 
-  // === BOTTONE WIKIPEDIA ===
+  // BOTTONE WIKIPEDIA 
   let buttonY = blockY + 70;
   let buttonWidth = 250;
   let buttonHeight = 30;
@@ -771,9 +751,7 @@ function drawColonyInfo() {
 }
 
 
-// =========================================================
 // MOUSE MOVED
-// =========================================================
 function mouseMoved() {
   let mx = mouseX;
   let my = mouseY;
@@ -843,9 +821,8 @@ function mouseMoved() {
   cursor(ARROW);
 }
 
-// =========================================================
+
 // MOUSE PRESSED
-// =========================================================
 function mousePressed() {
   let mx = mouseX;
   let my = mouseY;
@@ -879,7 +856,7 @@ function mousePressed() {
     let index = colCountries.indexOf(currentCountry);
 
     if (index !== -1) {
-      // Coordinate coerenti con drawColonyInfo
+
       let infoX = windowWidth * 0.07;
       let infoY = topOffset + 120;
       let blockY = infoY + 65;
@@ -953,9 +930,9 @@ function mousePressed() {
   for (let c in fadeOpacity) fadeOpacity[c] = 255;
 }
 
-// =========================================================
+
 // MOUSE DRAGGED
-// =========================================================
+
 function mouseDragged() {
   if (isDraggingScrollbar) {
     document.body.style.cursor = 'grabbing';
@@ -964,29 +941,25 @@ function mouseDragged() {
 
     if (maxScroll <= 0) return false;
 
-    // Calcola il delta del movimento del mouse
     let deltaY = mouseY - pmouseY;
 
-    // Converte il movimento del mouse al movimento dello scroll
     let scrollRatio = maxScroll / (scrollbarHeight - scrollThumbHeight);
     yOffset -= deltaY * scrollRatio;
 
-    // Applica i vincoli
     yOffset = constrain(yOffset, -maxScroll, 0);
 
     return false;
   }
 }
 
-// =========================================================
+
 // MOUSE RELEASED
-// =========================================================
 function mouseReleased() {
   isDraggingScrollbar = false;
   document.body.style.cursor = 'default';
 }
 
-// =========================================================
+
 function mouseWheel(event) {
   // Disabilita scroll durante l'animazione di zoom
   if (isAnimating) {
@@ -1007,18 +980,13 @@ function mouseWheel(event) {
   return false;
 }
 
-// =========================================================
 // WINDOW RESIZED
-// =========================================================
 function windowResized() {
-  // Ricalcola altezza navbar in caso di resize
   let headerElement = document.getElementById('header');
   navbarHeight = headerElement ? headerElement.offsetHeight : 80;
 
-  // Calcola il top offset totale
   topOffset = navbarHeight + (navbarHeight * distanzaDallaNavbar);
 
-  // Aggiorna margin-top del canvas-container
   let canvasContainer = document.getElementById('canvas-container');
   if (canvasContainer) {
     canvasContainer.style.marginTop = topOffset + 'px';

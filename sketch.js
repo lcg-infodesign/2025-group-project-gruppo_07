@@ -329,7 +329,6 @@ let sketch1 = function (p) {
     if (savedSliderPosition) {
       forceSlider.value(parseFloat(savedSliderPosition));
       p.updateSliderGradient();
-      // Pulisci il localStorage dopo il caricamento
       localStorage.removeItem('timelinePosition');
     }
   }
@@ -660,7 +659,7 @@ let sketch1 = function (p) {
 
     //data 
 
-    // --- NUOVA LOGICA COUNTER E ANNO ---
+    // NUOVA LOGICA COUNTER E ANNO 
     let currentYear = Math.round(
       p.map(forceSlider.value(), 0, 100, 1450, 2000)
     );
@@ -678,7 +677,6 @@ let sketch1 = function (p) {
     }
 
 
-    // Usiamo window.document per essere sicuri di uscire dallo scope di p5
     let yearEl = window.document.getElementById('year-display');
     let countEl = window.document.getElementById('counter-colonies');
 
