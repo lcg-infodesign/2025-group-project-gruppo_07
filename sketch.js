@@ -212,7 +212,7 @@ let globalMaxDuration = -Infinity;
     end: 2000,
     dates: "1945-2000",
     title: "Postcolonial Era",
-    text: "After World War II, European dominance declined as decolonization reshaped global structures. Economic weakness, independence movements, and shifting international norms led to the dissolution of most colonial empires. Beginning with India in 1947, the process spread across Asia and Africa and continued into the late twentieth century. By 2000, nearly all colonies had gained sovereignty, yet new forms of economic and political dependence—often termed neo-colonialism—continued to influence global relations.",
+    text: "After World War II, European dominance declined as decolonization reshaped global structures. Economic weakness, independence movements, and shifting international norms led to the dissolution of most colonial empires. Beginning with India in 1947, the process spread across Asia and Africa and continued into the late twentieth century. By 2000, nearly all colonies had gained sovereignty, yet new forms of economic and political dependence, often termed neo-colonialism, continued to influence global relations.",
     alpha: 0,
     yOffset: 20,
     titleAlpha: 0,     
