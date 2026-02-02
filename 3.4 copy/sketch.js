@@ -148,6 +148,8 @@ let sketch1 = function(p){
   let globalMaxStart = -Infinity;
   let globalMinEnd   = Infinity;
   let globalMaxEnd   = -Infinity;
+  let globalMinDuration = Infinity;
+let globalMaxDuration = -Infinity;
   let playCheckBox;
   let speedCheckBox;
   let isPlaying = false;
@@ -238,6 +240,14 @@ let sketch1 = function(p){
     forceSlider.style('width', sliderWidth + 'px');
     forceSlider.style("z-index", "99999")
     forceSlider.parent('slider_wrapper');
+
+    for (let i = 0; i < table.getRowCount(); i++) {
+    let row = table.getRow(i);
+    let duration = parseFloat(row.get("Duration")) || 0;
+
+    if (duration < globalMinDuration) globalMinDuration = duration;
+    if (duration > globalMaxDuration) globalMaxDuration = duration;
+}
     
 
  p.updateSliderGradient= function() {
@@ -402,8 +412,8 @@ for (let cl of localClusters) {
     p.mouseY <= sliderY + sliderH
 
     let sliderVal = forceSlider.value() / 100;
-    let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.05, 0.85);
-    let tEnd   = p.map(s.endYear, globalMinEnd,   globalMaxEnd,   0.15, 0.95);
+    let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.0218, 0.9709); 
+        let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.3464, 0.9701);
 
    
     
@@ -866,7 +876,7 @@ p.mousePressed = function () {
         let angle = p.random(0,p.TWO_PI);
         let x = outerCluster.x + p.cos(angle)*outerCluster.r;
         let y = outerCluster.y + p.sin(angle)*outerCluster.r;
-        let br = p.map(rec.duration,0,maxDur,5,36); //grandezza delle sfere compresa tra 5 e 36
+        let br = p.map(rec.duration,globalMinDuration,globalMaxDuration,10,42); //grandezza delle sfere compresa tra 5 e 36
         
         this.sphere.push({
           x, y, r: 10, targetR: br,
@@ -884,23 +894,24 @@ p.mousePressed = function () {
 update() { 
   let sliderVal = forceSlider.value(); 
   for (let s of this.sphere) { 
-  let entryProgress = p.constrain(sliderVal / 100, 0, 1); 
+  let sliderYear = p.map(
+  forceSlider.value(), 0, 100, 1450, 2000);
   // Timeline globale corretta 
-  let tStart = p.map(s.startYear, globalMinStart, globalMaxStart, 0.0218, 0.9709); 
-  let tEnd = p.map(s.endYear, globalMinEnd, globalMaxEnd, 0.3464, 0.9701); 
-  if (entryProgress < tStart) { 
+  let tStart = s.startYear 
+  let tEnd = s.endYear 
+  if (sliderYear < tStart) { 
     let angle = p.atan2(s.y - outerCluster.y, s.x - outerCluster.x); 
     s.x = outerCluster.x + p.cos(angle) * outerCluster.r; 
     s.y = outerCluster.y + p.sin(angle) * outerCluster.r; 
     s.r = 10; 
     s.currentColor = p.color(180);
-   } else if (entryProgress >= tStart && entryProgress < tEnd) { 
+   } else if (sliderYear >= tStart && sliderYear < tEnd) { 
     s.currentColor = p.lerpColor(s.currentColor, s.colr, 0.1); 
     let dInternal = p.createVector(this.x - s.x, this.y - s.y); 
     dInternal.mult(0.005); 
     s.v.add(dInternal); 
     let distToCenter = p.dist(s.x, s.y, this.x, this.y); 
-    let localProgress = p.map(entryProgress, tStart, tEnd, 0, 1); 
+    let localProgress = p.map(sliderYear, tStart, tEnd, 0, 1); 
     localProgress = p.constrain(localProgress, 0, 1); 
     if (distToCenter < this.r * 0.9) { 
       s.r = p.lerp(10, s.targetR, localProgress); 
