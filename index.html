@@ -1,433 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>The Bubble of Colonialism</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" href="https://use.typekit.net/fjl2lye.css">
-    <link rel="stylesheet" href="https://use.typekit.net/iyd1qds.css">
-    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+  <title>The Bubble of Colonialism</title>
 
-    <script src="libraries/p5.min.js"></script>
-    <script src="libraries/p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://use.typekit.net/fjl2lye.css">
+  <link rel="stylesheet" href="https://use.typekit.net/iyd1qds.css">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.png">
 
-  </head>
+  <script src="libraries/p5.min.js"></script>
+  <script src="libraries/p5.sound.min.js"></script>
 
-  <body data-page="home"> <!-- ho dovuto fare così perchè se no dava probelmi con il fatto che a PAESI COLONIZZATORI
+</head>
+
+<body data-page="home"> <!-- ho dovuto fare così perchè se no dava probelmi con il fatto che a PAESI COLONIZZATORI
     non è legata nessuna pagina -->
- 
+
 
   <!--navbar-->
-    <div id="header">
+  <div id="header">
     <nav class="navbar">
-    <ul>
-       <li id="first" ><a href="index.html" class="list1" id="nav-home">HOME</a></li>
+      <ul>
+        <li id="first"><a href="index.html" class="list1" id="nav-home">HOME</a></li>
         <li class="dropdown">
-                <a href="#" class="list1" id="nav-colonizers"> COLONIZING COUNTRIES</a>
+          <a href="#" class="list1" id="nav-colonizers"> COLONIZING COUNTRIES</a>
 
-                <ul class="dropdown-menu">
-                    <li><a href="inghilterra.html?colonizer=britain">Britain</a></li>
-                  <li><a href="inghilterra.html?colonizer=france">France</a></li>
-                  <li><a href="inghilterra.html?colonizer=spain">Spain</a></li>
-                  <li><a href="inghilterra.html?colonizer=portugal">Portugal</a></li>
-                  <li><a href="inghilterra.html?colonizer=germany">Germany</a></li>
-                  <li><a href="inghilterra.html?colonizer=belgium">Belgium</a></li>
-                  <li><a href="inghilterra.html?colonizer=netherlands" id="smallText">Netherlands</a></li>
-                  <li ><a id="drpdwn" href="inghilterra.html?colonizer=italy">Italy</a></li>
-                </ul>
-            </li>
-        <li ><a href="dati-metodologia.html" class="list1">DATA AND METHODOLOGY</a></li>
-        <li id="last" ><a href="the_team.html" class="list1">THE TEAM</a></li>
-    </ul>
-</nav>
-    </div>
+          <ul class="dropdown-menu">
+            <li><a href="inghilterra.html?colonizer=britain">Britain</a></li>
+            <li><a href="inghilterra.html?colonizer=france">France</a></li>
+            <li><a href="inghilterra.html?colonizer=spain">Spain</a></li>
+            <li><a href="inghilterra.html?colonizer=portugal">Portugal</a></li>
+            <li><a href="inghilterra.html?colonizer=germany">Germany</a></li>
+            <li><a href="inghilterra.html?colonizer=belgium">Belgium</a></li>
+            <li><a href="inghilterra.html?colonizer=netherlands" id="smallText">Netherlands</a></li>
+            <li><a id="drpdwn" href="inghilterra.html?colonizer=italy">Italy</a></li>
+          </ul>
+        </li>
+        <li><a href="dati-metodologia.html" class="list1">DATA AND METHODOLOGY</a></li>
+        <li id="last"><a href="the_team.html" class="list1">THE TEAM</a></li>
+      </ul>
+    </nav>
+  </div>
 
-    
-    <div class="no_scroll"> <!--contenitore per lo slide show-->
+
+  <div class="no_scroll"> <!--contenitore per lo slide show-->
 
     <div id="title_page">
       <h1 id="title">The Bubble of Colonialism</h1>
       <p id="subtitle"> An exploration through the history of European colonial powers</p>
-      
-      
+
+
       <a href="#Slide1" class="SlideBtn sl1" class="SlideBtn sl1 bounce-effect" id="s1">
-        <span class="btn-label">tell me more</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
+        <span class="btn-label">tell me more</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+          viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+          <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+        </svg>
       </a>
       <a class="skipBtn" href="#time_view">SKIP INTRODUCTION</a></button>
     </div>
-    
+
     <div class="bg_wrapper">
-     
-    <div class="explanation" id="Slide1">
-      <a href="#title_page" class="UpperSlide up1" id="u1">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg><span class="btn-label">BACK</span>
-      </a>
-       
-      <p class="text"> Colonialism was a historical and political process in which <span id="explanationItalic">states expanded their control over foreign lands from the 15th to the 20th century</span>. 
-      <br>Driven by the search for resources, markets, and global influence, colonial powers imposed their rule by force and reshaped local systems. <br>These actions deeply affected the development and identities of colonized societies. <span id="explanationItalic">Their long-lasting consequences still produce inequalities and tensions today.</span>
-</p>
-    
- 
-      <a href="#Slide2" class="SlideBtn sl2" id="s2">
-        <span class="btn-label">NEXT</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
-      </a>
-     
-    </div>
-     
-    <div class="explanation3" id="Slide2">
-      <a href="#Slide1" class="UpperSlide up2" id="u2">
-        <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg><span class="btn-label">BACK</span>
-      </a>
-      <div id="falseControls">
-      <div class="falseBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="#FFFFFF"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg>
-        <span class="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="#FFFFFF"><path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/></svg></span>
-      </div>
-      <div class="falseTimeLine">
-        <span class="progress"></span>
-        <span class="thumb"></span>
-      </div>
-      </div>
-      <p class="text5"> The website illustrates the phenomenon of colonialism over the period between 1450 and 2000. 
-        Thanks to an <span id="conclusionItalic">interactive timeline</span>, users can thoroughly explore the historical evolution of colonialism and analyze the correlations between major colonial events and their temporal context.
-</p>
-       
-     
-      <a href="#Slide3" class="SlideBtn sl3" id="s3">
-        <span class="btn-label">NEXT</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
-      </a>
-   
-   
-    </div>
-   
 
-    <div class="explanation2" id="Slide3">
-      <a href="#Slide2" class="UpperSlide up3" id="u3">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg><span class="btn-label">BACK</span>
-      </a>
-      <p class="text2"> Each outlined bubble is static and represents a <span id="conclusionItalic">colonialist nation,</span></p>
-      <span class="pointer"></span>
-      <span class="pointer2"></span>
-      <span class="pointer3"></span>
-      <p class="text3"> while the filled bubbles represent the <span id="conclusionItalic">colonized countries</span>, <br>whose size is linked to the <span id="conclusionItalic">duration of their colonization</span>.
-</p>
-   
-<a href="#Slide3b" class="SlideBtn sl4" id="s4">
-        <span class="btn-label">NEXT</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
-      </a>
-   
-   
-    </div>
-
-    <div class="explanation5" id="Slide3b">
-      <a href="#Slide3" class="UpperSlide up4" id="u3b">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg><span class="btn-label">BACK</span>
-      </a>
-      
-<div class="content-wrapper">
-      <p class="text7 instruction-text">
-        Each bubble in the chart below is <strong>clickable</strong>.
-      </p>
-
-      <video id="demo-video" class="demo-video" autoplay muted playsinline>
-        <source src="assets/animazione-veramente-finale.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-        
-      <p class="text7 second-part">
-        By clicking on a bubble, you can access the <strong>detail page</strong> <br>for each country shown in the visualization.
-      </p>  
-  </div>
-
-      <a href="#Slide4" class="SlideBtn sl6" id="s4b">
-        <span class="btn-label">NEXT</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
-      </a>
-    </div>
-
-<div class="explanation4" id="Slide4">
-  <a href="#Slide3b" class="UpperSlide sl7" id="u4">
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
-    <span class="btn-label">BACK</span>
-  </a>
-
-  <p class="text6">
-    Furthermore, <span id="conclusionItalic">the intensity of the grey shading</span> <br> determines a country's status:
-  </p>
-
-<div class="status-illustration">
-    <div class="status-item">
-      <span class="statusSphere notColonized"></span>
-      <span>Not Colonized</span>
-    </div>
-    <div class="status-item">
-      <span class="statusSphere decolonized"></span>
-      <span>Decolonized</span>
-    </div>
-  </div>
-
-  <p class="text6 delay-text">
-  light grey indicates it's not colonized, <br>while dark grey signifies it has been colonized.
-  </p>
-  <a href="#time_view" class="SlideBtn sl8"  id="s5">
-    <span class="btn-label">EXPLORE</span>
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/></svg>
-  </a>
-
-</div>
-</div>
-   
-
-    
-<!--fino a qui si può spostare in un'altro html-->
-
-  <div id="container">
-  <a href="#Slide1" class="re-watch">
-<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#002554"><path d="M479.91-700q-28.91 0-49.41-20.59-20.5-20.59-20.5-49.5t20.59-49.41q20.59-20.5 49.5-20.5t49.41 20.59q20.5 20.59 20.5 49.5t-20.59 49.41q-20.59 20.5-49.5 20.5ZM430-120v-480h100v480H430Z"/></svg>
+      <div class="explanation" id="Slide1">
+        <a href="#title_page" class="UpperSlide up1" id="u1">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+            <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+          </svg><span class="btn-label">BACK</span>
         </a>
-    <!--bottone play-->
-    <div id="time_view" class="ending">
-      <div id="canvas_layer"></div>
-      <div id="ui_layer">
 
-        
+        <p class="text"> Colonialism was a historical and political process in which <span id="explanationItalic">states
+            expanded their control over foreign lands from the 15th to the 20th century</span>.
+          <br>Driven by the search for resources, markets, and global influence, colonial powers imposed their rule by
+          force and reshaped local systems. <br>These actions deeply affected the development and identities of
+          colonized societies. <span id="explanationItalic">Their long-lasting consequences still produce inequalities
+            and tensions today.</span>
+        </p>
 
-    <div class="control-bar">
-      <div class="left-buttons">
-        <input type="checkbox" id="playBtn"/>
-        <label for="playBtn" id="playIcon">
-          <svg id="playSvg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg>
-          <span id="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/></svg></span>
-        </label>
+
+        <a href="#Slide2" class="SlideBtn sl2" id="s2">
+          <span class="btn-label">NEXT</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+            viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+            <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+          </svg>
+        </a>
+
       </div>
-      
-      <div class="left-buttons">
-        <input type="checkbox" id="speedBtn"/>
-        <label for="speedBtn" id="speedIcon">2x</label>
+
+      <div class="explanation3" id="Slide2">
+        <a href="#Slide1" class="UpperSlide up2" id="u2">
+          <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="#FFFFFF">
+            <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+          </svg><span class="btn-label">BACK</span>
+        </a>
+        <div id="falseControls">
+          <div class="falseBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="#FFFFFF">
+              <path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z" />
+            </svg>
+            <span class="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960"
+                width="34px" fill="#FFFFFF">
+                <path
+                  d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z" />
+              </svg></span>
+          </div>
+          <div class="falseTimeLine">
+            <span class="progress"></span>
+            <span class="thumb"></span>
+          </div>
+        </div>
+        <p class="text5"> The website illustrates the phenomenon of colonialism over the period between 1450 and 2000.
+          Thanks to an <span id="conclusionItalic">interactive timeline</span>, users can thoroughly explore the
+          historical evolution of colonialism and analyze the correlations between major colonial events and their
+          temporal context.
+        </p>
+
+
+        <a href="#Slide3" class="SlideBtn sl3" id="s3">
+          <span class="btn-label">NEXT</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+            viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+            <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+          </svg>
+        </a>
+
+
       </div>
-      
-      <div id="slider_wrapper"></div>
-    
+
+
+      <div class="explanation2" id="Slide3">
+        <a href="#Slide2" class="UpperSlide up3" id="u3">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+            <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+          </svg><span class="btn-label">BACK</span>
+        </a>
+        <p class="text2"> Each outlined bubble is static and represents a <span id="conclusionItalic">colonialist
+            nation,</span></p>
+        <span class="pointer"></span>
+        <span class="pointer2"></span>
+        <span class="pointer3"></span>
+        <p class="text3"> while the filled bubbles represent the <span id="conclusionItalic">colonized countries</span>,
+          <br>whose size is linked to the <span id="conclusionItalic">duration of their colonization</span>.
+        </p>
+
+        <a href="#Slide3b" class="SlideBtn sl4" id="s4">
+          <span class="btn-label">NEXT</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+            viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+            <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+          </svg>
+        </a>
+
+
+      </div>
+
+      <div class="explanation5" id="Slide3b">
+        <a href="#Slide3" class="UpperSlide up4" id="u3b">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+            <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+          </svg><span class="btn-label">BACK</span>
+        </a>
+
+        <div class="content-wrapper">
+          <p class="text7 instruction-text">
+            Each bubble in the chart below is <strong>clickable</strong>.
+          </p>
+
+          <video id="demo-video" class="demo-video" autoplay muted playsinline>
+            <source src="assets/animazione-veramente-finale.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+
+          <p class="text7 second-part">
+            By clicking on a bubble, you can access the <strong>detail page</strong> <br>for each country shown in the
+            visualization.
+          </p>
+        </div>
+
+        <a href="#Slide4" class="SlideBtn sl6" id="s4b">
+          <span class="btn-label">NEXT</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+            viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+            <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="explanation4" id="Slide4">
+        <a href="#Slide3b" class="UpperSlide sl7" id="u4">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+            <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+          </svg>
+          <span class="btn-label">BACK</span>
+        </a>
+
+        <p class="text6">
+          Furthermore, <span id="conclusionItalic">the intensity of the grey shading</span> <br> determines a country's
+          status:
+        </p>
+
+        <div class="status-illustration">
+          <div class="status-item">
+            <span class="statusSphere notColonized"></span>
+            <span>Not Colonized</span>
+          </div>
+          <div class="status-item">
+            <span class="statusSphere decolonized"></span>
+            <span>Decolonized</span>
+          </div>
+        </div>
+
+        <p class="text6 delay-text">
+          light grey indicates it's not colonized, <br>while dark grey signifies it has been colonized.
+        </p>
+        <a href="#time_view" class="SlideBtn sl8" id="s5">
+          <span class="btn-label">EXPLORE</span>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+            <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+          </svg>
+        </a>
+
+      </div>
     </div>
-      
-      <div class="stats-wrapper">
-        <div class="stat-group">
-          <span class="stat-label">YEAR</span>
-          <div id="year-display" class="stat-box-value">1433</div>
+
+
+
+    <!--fino a qui si può spostare in un'altro html-->
+
+    <div id="container">
+      <a href="#Slide1" class="re-watch">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#002554">
+          <path
+            d="M479.91-700q-28.91 0-49.41-20.59-20.5-20.59-20.5-49.5t20.59-49.41q20.59-20.5 49.5-20.5t49.41 20.59q20.5 20.59 20.5 49.5t-20.59 49.41q-20.59 20.5-49.5 20.5ZM430-120v-480h100v480H430Z" />
+        </svg>
+      </a>
+      <!--bottone play-->
+      <div id="time_view" class="ending">
+        <div id="canvas_layer"></div>
+        <div id="ui_layer">
+
+
+
+          <div class="control-bar">
+            <div class="left-buttons">
+              <input type="checkbox" id="playBtn" />
+              <label for="playBtn" id="playIcon">
+                <svg id="playSvg" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                  fill="#FFFFFF">
+                  <path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z" />
+                </svg>
+                <span id="pauseIcon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                    width="24px" fill="#FFFFFF">
+                    <path
+                      d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z" />
+                  </svg></span>
+              </label>
+            </div>
+
+            <div class="left-buttons">
+              <input type="checkbox" id="speedBtn" />
+              <label for="speedBtn" id="speedIcon">2x</label>
+            </div>
+
+            <div id="slider_wrapper"></div>
+
+          </div>
+
+          <div class="stats-wrapper">
+            <div class="stat-group">
+              <span class="stat-label">YEAR</span>
+              <div id="year-display" class="stat-box-value">1433</div>
+            </div>
+
+            <div class="stat-separator"></div>
+
+            <div class="stat-group">
+              <span class="stat-label">TOT. COLONIES</span>
+              <div id="counter-colonies" class="stat-box-value">0</div>
+            </div>
+          </div>
         </div>
 
-        <div class="stat-separator"></div>
-        
-        <div class="stat-group">
-          <span class="stat-label">TOT. COLONIES</span>
-          <div id="counter-colonies" class="stat-box-value">0</div>
-        </div>
       </div>
-      </div>
-      
-    </div>
 
-    <!-- Legenda -->
-    <div id="legenda">
-    <h1 class="legenda">Colonial Empires</h1>
-    <ul>
-      <li>
-        <span class="legendSphere"></span>
-        Britain
-      </li>
-      <li>
-        <span class="legendSphere"></span>France
-        
-      </li>
-      <li> 
-        <span class="legendSphere"></span>Spain
-        
-      </li>
-      <li>
-         <span class="legendSphere"></span>Portugal
-        
-      </li>
-      <li>
-        <span class="legendSphere"></span>Germany
-        
-      </li>
-      <li>
-        <span class="legendSphere"></span>Belgium
-        
-      </li>
-      <li>
-        <span class="legendSphere"></span>Netherlands
-        
-      </li>
-      <li>
-        <span class="legendSphere"></span>Italy
-       
-      </li>
-    </ul>
-
-    <div id="sizeScale">
-      <h1 class="legenda">Duration of a colony</h1>
-      <div class="scaleBoxes">
-        <div class="scaleItem">
-          <span class="scaleSphere small"></span>
-          <p class="scaleLabel small">1 year</p>
-        </div>
-        <div class="scaleItem">
-          <span class="scaleSphere intermediate" style="width: 15px; height: 15px;"></span>
-          <p class="scaleLabel medium">&nbsp;</p>
-        </div>
-        <div class="scaleItem">
-          <span class="scaleSphere intermediate" style="width: 22px; height: 22px;"></span>
-          <p class="scaleLabel medium">&nbsp;</p>
-        </div>
-        <div class="scaleItem">
-          <span class="scaleSphere intermediate" style="width: 30px; height: 30px;"></span>
-          <p class="scaleLabel medium">&nbsp;</p>
-        </div>
-        <div class="scaleItem">
-          <span class="scaleSphere large"></span>
-          <p class="scaleLabel large">513 years</p>
-        </div>
-      </div>
-      <!-- Arrow between scale labels -->
-      <svg class="scaleLabelArrow" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line x1="2" y1="12" x2="118" y2="12" stroke="#4d4d4d" stroke-width="1pt" stroke-linecap="round" />
-        <polygon points="118,12 110,6 110,18" fill="#4d4d4d" />
-      </svg>
-    </div>
-
-    <div id="status">
-      <h1 class="legenda">Status</h1>
+      <!-- Legenda -->
+      <div id="legenda">
+        <h1 class="legenda">Colonial Empires</h1>
         <ul>
           <li>
-            <span class="statusSphere notColonized"></span>
-            Not Colonized
+            <span class="legendSphere"></span>
+            Britain
           </li>
           <li>
-            <span class="statusSphere decolonized"></span>
-            Decolonized
+            <span class="legendSphere"></span>France
+
+          </li>
+          <li>
+            <span class="legendSphere"></span>Spain
+
+          </li>
+          <li>
+            <span class="legendSphere"></span>Portugal
+
+          </li>
+          <li>
+            <span class="legendSphere"></span>Germany
+
+          </li>
+          <li>
+            <span class="legendSphere"></span>Belgium
+
+          </li>
+          <li>
+            <span class="legendSphere"></span>Netherlands
+
+          </li>
+          <li>
+            <span class="legendSphere"></span>Italy
+
           </li>
         </ul>
-    </div>
-    </div>
-  </div>
-  </div>
-</div>
 
- </div>
+        <div id="sizeScale">
+          <h1 class="legenda">Duration of a colony</h1>
+          <div class="scaleBoxes">
+            <div class="scaleItem">
+              <span class="scaleSphere small"></span>
+              <p class="scaleLabel small">1 year</p>
+            </div>
+            <div class="scaleItem">
+              <span class="scaleSphere intermediate" style="width: 15px; height: 15px;"></span>
+              <p class="scaleLabel medium">&nbsp;</p>
+            </div>
+            <div class="scaleItem">
+              <span class="scaleSphere intermediate" style="width: 22px; height: 22px;"></span>
+              <p class="scaleLabel medium">&nbsp;</p>
+            </div>
+            <div class="scaleItem">
+              <span class="scaleSphere intermediate" style="width: 30px; height: 30px;"></span>
+              <p class="scaleLabel medium">&nbsp;</p>
+            </div>
+            <div class="scaleItem">
+              <span class="scaleSphere large"></span>
+              <p class="scaleLabel large">513 years</p>
+            </div>
+          </div>
+          <!-- Arrow between scale labels -->
+          <svg class="scaleLabelArrow" viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <line x1="2" y1="12" x2="118" y2="12" stroke="#4d4d4d" stroke-width="1pt" stroke-linecap="round" />
+            <polygon points="118,12 110,6 110,18" fill="#4d4d4d" />
+          </svg>
+        </div>
+
+        <div id="status">
+          <h1 class="legenda">Status</h1>
+          <ul>
+            <li>
+              <span class="statusSphere notColonized"></span>
+              Not Colonized
+            </li>
+            <li>
+              <span class="statusSphere decolonized"></span>
+              Decolonized
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  </div>
 
   <script src="sketch.js"></script>
 
 
 
   <script>
-  /* per gestire lo slideshow anche con le frecce della tastiera */
-   
-  document.addEventListener("DOMContentLoaded", () => {
-    document.addEventListener('keydown', (e) => {
-      
-      // I nomi esatti degli ID delle sezioni (prese dall HTML)
-      const slideIds = ['title_page', 'Slide1', 'Slide2', 'Slide3', 'Slide3b', 'Slide4' ];
-      let activeSlide = null;
+    /* per gestire lo slideshow anche con le frecce della tastiera */
 
-      // Cerca quale slide è al centro dello schermo
-      for (let id of slideIds) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          // Se la slide è visibile per più di metà altezza
-          if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-            activeSlide = el;
-            break; 
-          }
-        }
-      }
+    document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener('keydown', (e) => {
 
-      // Se non siamo nello slideshow, non fare nulla
-      if (!activeSlide) return;
+        // I nomi esatti degli ID delle sezioni (prese dall HTML)
+        const slideIds = ['title_page', 'Slide1', 'Slide2', 'Slide3', 'Slide3b', 'Slide4'];
+        let activeSlide = null;
 
-      // Gestione FRECCIA GIÙ o DESTRA (Avanti)
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-        const nextBtn = activeSlide.querySelector('.SlideBtn');
-        if (nextBtn) {
-          e.preventDefault(); // Blocca lo scroll normale
-          nextBtn.click();    // Clicca il bottone
-        }
-      } 
-      // Gestione FRECCIA SU o SINISTRA (Indietro)
-      else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-        const prevBtn = activeSlide.querySelector('.UpperSlide');
-        if (prevBtn) {
-          e.preventDefault(); // Blocca lo scroll normale
-          prevBtn.click();    // Clicca il bottone
-        }
-      }
-      });
-  });
-</script>
-
-<script>
-  /* Autoplay video quando la slide 3b diventa visibile */
-  document.addEventListener("DOMContentLoaded", () => {
-    const slide3b = document.getElementById('Slide3b');
-    const demoVideo = document.getElementById('demo-video');
-    
-    if (slide3b && demoVideo) {
-      // Imposta gli attributi necessari per l'autoplay
-      demoVideo.muted = true;
-      demoVideo.loop = false;
-      
-      const videoObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // Quando la slide diventa visibile, riproduci il video
-            demoVideo.currentTime = 0; // Ricomincia dal primo frame
-            const playPromise = demoVideo.play();
-            
-            if (playPromise !== undefined) {
-              playPromise
-                .then(() => {
-                  console.log('Video autoplay started successfully');
-                })
-                .catch(error => {
-                  console.log('Autoplay prevented:', error);
-                  // Fallback: mostra un bottone play
-                  demoVideo.controls = true;
-                });
+        // Cerca quale slide è al centro dello schermo
+        for (let id of slideIds) {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            // Se la slide è visibile per più di metà altezza
+            if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+              activeSlide = el;
+              break;
             }
-          } else {
-            // Quando la slide non è visibile, metti in pausa il video
-            demoVideo.pause();
           }
+        }
+
+        // Se non siamo nello slideshow, non fare nulla
+        if (!activeSlide) return;
+
+        // Gestione FRECCIA GIÙ o DESTRA (Avanti)
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          const nextBtn = activeSlide.querySelector('.SlideBtn');
+          if (nextBtn) {
+            e.preventDefault(); // Blocca lo scroll normale
+            nextBtn.click();    // Clicca il bottone
+          }
+        }
+        // Gestione FRECCIA SU o SINISTRA (Indietro)
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          const prevBtn = activeSlide.querySelector('.UpperSlide');
+          if (prevBtn) {
+            e.preventDefault(); // Blocca lo scroll normale
+            prevBtn.click();    // Clicca il bottone
+          }
+        }
+      });
+    });
+  </script>
+
+  <script>
+    /* Autoplay video quando la slide 3b diventa visibile */
+    document.addEventListener("DOMContentLoaded", () => {
+      const slide3b = document.getElementById('Slide3b');
+      const demoVideo = document.getElementById('demo-video');
+
+      if (slide3b && demoVideo) {
+        // Imposta gli attributi necessari per l'autoplay
+        demoVideo.muted = true;
+        demoVideo.loop = false;
+
+        const videoObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Quando la slide diventa visibile, riproduci il video
+              demoVideo.currentTime = 0; // Ricomincia dal primo frame
+              const playPromise = demoVideo.play();
+
+              if (playPromise !== undefined) {
+                playPromise
+                  .then(() => {
+                    console.log('Video autoplay started successfully');
+                  })
+                  .catch(error => {
+                    console.log('Autoplay prevented:', error);
+                    // Fallback: mostra un bottone play
+                    demoVideo.controls = true;
+                  });
+              }
+            } else {
+              // Quando la slide non è visibile, metti in pausa il video
+              demoVideo.pause();
+            }
+          });
+        }, {
+          threshold: 0.5
         });
-      }, {
-        threshold: 0.5
-      });
-      
-      videoObserver.observe(slide3b);
-    }
-  });
-</script>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
+        videoObserver.observe(slide3b);
+      }
+    });
+  </script>
 
-        const page = document.body.dataset.page;
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
 
-        // Rimuove eventuali active
-        document.querySelectorAll(".navbar a").forEach(a => a.classList.remove("active"));        if (page === "home") {
-          document.getElementById("nav-home").classList.add("active");
-        }
+      const page = document.body.dataset.page;
 
-        if (page === "colonizers") {
-          document.getElementById("nav-colonizers").classList.add("active");
-        }
+      // Rimuove eventuali active
+      document.querySelectorAll(".navbar a").forEach(a => a.classList.remove("active")); if (page === "home") {
+        document.getElementById("nav-home").classList.add("active");
+      }
 
-      });
-</script>
+      if (page === "colonizers") {
+        document.getElementById("nav-colonizers").classList.add("active");
+      }
+
+    });
+  </script>
 
 
-  </body>
+</body>
+
 </html>

@@ -6,7 +6,7 @@
 Simone Busato – Martina De Boni – Nina De Michele – Filippo Carlo Esposito – Silvia Nicosia – Carla Maria Parisi – Matilde Pinarello  
 
 **Creative Commons:**  
-The Bubble of Colonialism © 2026 by Simone Busato, Martina De Boni, Nina De Michele, Filippo Carlo Esposito, Silvia Nicosia, Carla Maria Parisi, Matilde Pinarello is licensed under **CC BY 4.0**
+The Bubble of Colonialism © 2026 by Simone Busato, Martina De Boni, Nina De Michele, Filippo Carlo Esposito, Silvia Nicosia, Carla Maria Parisi, Matilde Pinarello is licensed under **[CC BY 4.0] (https://creativecommons.org/licenses/by/4.0/)**
 
 ---
 
@@ -58,7 +58,7 @@ Per garantire accessibilità e coerenza con il dataset di riferimento, il proget
 
 # 5. Dataset e fonti
 
-Il **Colonial Dates Dataset (COLDAT)** è un dataset pubblicato nel 2019 da Harvard che aggrega informazioni sulla portata e la durata degli imperi coloniali europei da fonti di rilevanza internazionale quali Correlates of War (CoW), Lange et al., Olsson, Wimmer & Min. Il dataset riflette le conoscenze accumulate nella disciplina e mira a sollevare i ricercatori dalla necessità di operare scelte difficili da giustificare tra diversi dataset storici.
+Il **[Colonial Dates Dataset] (https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/T9SDEW)** (COLDAT) è un dataset pubblicato nel 2019 da Harvard che aggrega informazioni sulla portata e la durata degli imperi coloniali europei da fonti di rilevanza internazionale quali Correlates of War (CoW), Lange et al., Olsson, Wimmer & Min. Il dataset riflette le conoscenze accumulate nella disciplina e mira a sollevare i ricercatori dalla necessità di operare scelte difficili da giustificare tra diversi dataset storici.
 
 Il dataset offre due versioni organizzate diversamente ma contenenti le medesime informazioni. Abbiamo scelto di lavorare sulla versione verticale, strutturata nel modo seguente:
 
@@ -68,6 +68,8 @@ Il dataset offre due versioni organizzate diversamente ma contenenti le medesime
 - **Colonne quattro e cinque (colstart_max e colend_max):** date di inizio e fine colonizzazione basate sul "last date mentioned"
 - **Colonne sei e sette (colstart_mean e colend_mean):** date di inizio e fine colonizzazione calcolate sulla media delle fonti citate
 - **Ottava colonna:** durata della colonizzazione
+
+Inoltre abbiamo aggiunto una colonna in cui sono stai inseriti i link alle pagine wikipedia dei paesi colonizzati, utilizzati poi nella pagina di dettaglio.
 
 Nel progetto abbiamo privilegiato le date calcolate sul **"last date mentioned"** perché, come specifica il dataset, le date medie non sempre rispecchiano il momento specifico della colonizzazione/decolonizzazione in quanto risultano da aggregazione. Maggiori informazioni sulla costruzione del dataset e sui metodi di aggregazioni sono nel pdf **“introducing COLDAT”** nella cartella **“COLDAT”**.
 
@@ -97,6 +99,6 @@ La fase in cui la divisione dei ruoli è stata più specifica è stata la second
 - **Nina:** Ha sviluppato tramite codice diverse funzionalità, assicurando che le soluzioni tecniche rispondessero agli obiettivi di conoscenza del progetto.
 - **Silvia:** Ha gestito l’organizzazione generale del lavoro, definendo lo stile visivo e lavorando attivamente sia sul prototipo sia sul codice.
 - **Martina:** Si è occupata della prototipazione su Figma e della stesura dei testi, fornendo inoltre supporto tecnico nella fase di programmazione.
-- **Carla:** Si è occupata della prototipazione completa su Figma e della stesura dei testi, fornendo inoltre supporto tecnico nella fase di programmazione.
+- **Carla:** Si è occupata dello sviluppo del sistema visivo e prototipazione su Figma, stesura dei testi e supporto tecnico nella fase di programmazione.
 - **Filippo:** Ha ideato la struttura narrativa dello SlideShow, si è occupato della struttura della pagina di dettaglio, implementando animazioni e interazioni.
 - **Matilde:** Ha garantito un supporto trasversale a tutto il gruppo, assistendo nelle diverse attività e curando la revisione generale del progetto.
