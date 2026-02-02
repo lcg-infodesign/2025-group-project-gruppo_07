@@ -6,7 +6,7 @@
 Simone Busato – Martina De Boni – Nina De Michele – Filippo Carlo Esposito – Silvia Nicosia – Carla Maria Parisi – Matilde Pinarello  
 
 **Creative Commons:**  
-The Bubble of Colonialism © 2026 by Simone Busato, Martina De Boni, Nina De Michele, Filippo Carlo Esposito, Silvia Nicosia, Carla Maria Parisi, Matilde Pinarello is licensed under **[CC BY 4.0] (https://creativecommons.org/licenses/by/4.0/)**
+The Bubble of Colonialism © 2026 by Simone Busato, Martina De Boni, Nina De Michele, Filippo Carlo Esposito, Silvia Nicosia, Carla Maria Parisi, Matilde Pinarello is licensed under **[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)**
 
 ---
 
@@ -58,7 +58,7 @@ Per garantire accessibilità e coerenza con il dataset di riferimento, il proget
 
 # 5. Dataset e fonti
 
-Il **[Colonial Dates Dataset] (https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/T9SDEW)** (COLDAT) è un dataset pubblicato nel 2019 da Harvard che aggrega informazioni sulla portata e la durata degli imperi coloniali europei da fonti di rilevanza internazionale quali Correlates of War (CoW), Lange et al., Olsson, Wimmer & Min. Il dataset riflette le conoscenze accumulate nella disciplina e mira a sollevare i ricercatori dalla necessità di operare scelte difficili da giustificare tra diversi dataset storici.
+Il **[Colonial Dates Dataset](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/T9SDEW)** (COLDAT) è un dataset pubblicato nel 2019 da Harvard che aggrega informazioni sulla portata e la durata degli imperi coloniali europei da fonti di rilevanza internazionale quali Correlates of War (CoW), Lange et al., Olsson, Wimmer & Min. Il dataset riflette le conoscenze accumulate nella disciplina e mira a sollevare i ricercatori dalla necessità di operare scelte difficili da giustificare tra diversi dataset storici.
 
 Il dataset offre due versioni organizzate diversamente ma contenenti le medesime informazioni. Abbiamo scelto di lavorare sulla versione verticale, strutturata nel modo seguente:
 
